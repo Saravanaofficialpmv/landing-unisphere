@@ -447,8 +447,8 @@ export const PrivacyPolicy: React.FC = () => {
                 </div>
                 <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 text-sm">
                   <strong className="text-content-primary min-w-[140px]">Website:</strong>
-                  <a href="https://heydot.in" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">
-                    heydot.in
+                  <a href="https://heydigital.work" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">
+                    heydigital.work
                   </a>
                 </div>
               </div>

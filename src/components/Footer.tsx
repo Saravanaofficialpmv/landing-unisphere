@@ -67,9 +67,9 @@ export const Footer: React.FC<FooterProps> = ({ onSignInClick, onGetStartedClick
                 <Phone className="w-3.5 h-3.5 text-primary shrink-0" />
                 <span>+91 9080407021</span>
               </a>
-              <a href="https://heydot.in" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors flex items-center gap-2">
+              <a href="https://heydigital.work" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors flex items-center gap-2">
                 <Globe className="w-3.5 h-3.5 text-primary shrink-0" />
-                <span>heydot.in</span>
+                <span>heydigital.work</span>
               </a>
             </div>
 
