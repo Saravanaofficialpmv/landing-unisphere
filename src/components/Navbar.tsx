@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ArrowRight, ChevronRight } from 'lucide-react';
 
@@ -10,6 +11,8 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ onSignInClick, onGetStartedClick }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -36,9 +39,20 @@ export const Navbar: React.FC<NavbarProps> = ({ onSignInClick, onGetStartedClick
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     setMobileMenuOpen(false);
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
+    
+    if (location.pathname !== '/') {
+      navigate('/' + href);
+      setTimeout(() => {
+        const target = document.querySelector(href);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      const target = document.querySelector(href);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
@@ -54,9 +68,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onSignInClick, onGetStartedClick
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             {/* Left: Logo */}
-            <a 
-              href="#overview"
-              onClick={(e) => handleLinkClick(e, '#overview')}
+            <Link 
+              to="/"
+              onClick={(e) => {
+                if (location.pathname === '/') {
+                  e.preventDefault();
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+              }}
               className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg"
             >
               <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white shadow-md shadow-primary/20 group-hover:scale-105 transition-transform duration-200">
@@ -76,7 +95,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onSignInClick, onGetStartedClick
                   </span>
                 </div>
               </div>
-            </a>
+            </Link>
 
             {/* Center: Desktop Navigation Links */}
             <nav className="hidden md:flex items-center gap-1 lg:gap-2 px-3 py-1.5 rounded-full bg-surface-soft/80 border border-border/60 shadow-xs">
@@ -85,7 +104,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onSignInClick, onGetStartedClick
                   key={link.name}
                   href={link.href}
                   onClick={(e) => handleLinkClick(e, link.href)}
-                  className="px-3.5 py-1.5 text-sm font-medium text-content-secondary hover:text-primary transition-colors duration-150 rounded-full hover:bg-white"
+                  className="px-3.5 py-1.5 text-sm font-medium text-content-secondary hover:text-primary transition-colors duration-150 rounded-full hover:bg-white cursor-pointer"
                 >
                   {link.name}
                 </a>
@@ -116,7 +135,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onSignInClick, onGetStartedClick
               <button
                 type="button"
                 onClick={onGetStartedClick}
-                className="px-3 py-1.5 text-xs font-bold text-white bg-primary rounded-lg"
+                className="px-3 py-1.5 text-xs font-bold text-white bg-primary rounded-lg shadow-xs"
               >
                 Get Started
               </button>
@@ -149,7 +168,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onSignInClick, onGetStartedClick
                   key={link.name}
                   href={link.href}
                   onClick={(e) => handleLinkClick(e, link.href)}
-                  className="flex items-center justify-between py-2.5 px-3 text-base font-semibold text-content-primary hover:text-primary hover:bg-primary-subtle/50 rounded-xl transition-all"
+                  className="flex items-center justify-between py-2.5 px-3 text-base font-semibold text-content-primary hover:text-primary hover:bg-primary-subtle/50 rounded-xl transition-all cursor-pointer"
                 >
                   <span>{link.name}</span>
                   <ChevronRight className="w-4 h-4 text-content-tertiary" />
@@ -185,3 +204,5 @@ export const Navbar: React.FC<NavbarProps> = ({ onSignInClick, onGetStartedClick
     </>
   );
 };
+
+export default Navbar;

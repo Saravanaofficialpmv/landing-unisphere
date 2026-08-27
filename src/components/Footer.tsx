@@ -1,5 +1,6 @@
 import React from 'react';
-import { ArrowUp } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { ArrowUp, Shield, FileText, Mail, Phone, Globe } from 'lucide-react';
 
 interface FooterProps {
   onSignInClick: () => void;
@@ -7,30 +8,43 @@ interface FooterProps {
 }
 
 export const Footer: React.FC<FooterProps> = ({ onSignInClick, onGetStartedClick }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleSectionClick = (e: React.MouseEvent<HTMLAnchorElement>, hash: string) => {
     e.preventDefault();
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
+    if (location.pathname !== '/') {
+      navigate('/' + hash);
+      setTimeout(() => {
+        const target = document.querySelector(hash);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      const target = document.querySelector(hash);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
   return (
     <footer className="bg-surface-soft border-t border-border pt-16 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 pb-12 border-b border-border/80">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-border/80">
           {/* Left Column: Brand, Logo, Tagline */}
-          <div className="md:col-span-6 flex flex-col items-start">
-            <a 
-              href="#overview" 
-              onClick={(e) => handleLinkClick(e, '#overview')}
+          <div className="md:col-span-4 flex flex-col items-start">
+            <Link 
+              to="/" 
+              onClick={location.pathname === '/' ? scrollToTop : undefined}
               className="flex items-center gap-3 group"
             >
-              <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white shadow-md shadow-primary/20">
+              <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white shadow-md shadow-primary/20 group-hover:scale-105 transition-transform">
                 <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="12" cy="12" r="8" stroke="currentColor" strokeWidth="2.2" strokeDasharray="5 3" />
                   <circle cx="12" cy="12" r="3.5" fill="currentColor" />
@@ -45,31 +59,46 @@ export const Footer: React.FC<FooterProps> = ({ onSignInClick, onGetStartedClick
                   SRM
                 </span>
               </div>
-            </a>
+            </Link>
 
             <p className="mt-4 text-sm text-content-secondary max-w-sm leading-relaxed">
               A unified academic and campus management platform connecting students, faculty, parents, HODs, and administrators.
             </p>
 
+            <div className="mt-5 flex flex-col gap-2 text-xs text-content-secondary">
+              <a href="mailto:heydigitals.care@gmail.com" className="hover:text-primary transition-colors flex items-center gap-2">
+                <Mail className="w-3.5 h-3.5 text-primary shrink-0" />
+                <span>heydigitals.care@gmail.com</span>
+              </a>
+              <a href="tel:+919080407021" className="hover:text-primary transition-colors flex items-center gap-2">
+                <Phone className="w-3.5 h-3.5 text-primary shrink-0" />
+                <span>+91 9080407021</span>
+              </a>
+              <a href="https://heydot.in" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors flex items-center gap-2">
+                <Globe className="w-3.5 h-3.5 text-primary shrink-0" />
+                <span>heydot.in</span>
+              </a>
+            </div>
+
             <div className="mt-6 flex items-center gap-3">
               <button
                 type="button"
                 onClick={onGetStartedClick}
-                className="px-4 py-2 text-xs font-bold text-white bg-primary hover:bg-primary-dark rounded-xl transition-all shadow-xs"
+                className="px-4 py-2 text-xs font-bold text-white bg-primary hover:bg-primary-dark rounded-xl transition-all shadow-xs active:scale-95"
               >
                 Request Campus Demo
               </button>
               <button
                 type="button"
                 onClick={onSignInClick}
-                className="px-4 py-2 text-xs font-bold text-content-primary bg-white hover:bg-surface-soft border border-border rounded-xl transition-all"
+                className="px-4 py-2 text-xs font-bold text-content-primary bg-white hover:bg-surface-soft border border-border rounded-xl transition-all active:scale-95"
               >
                 Sign In
               </button>
             </div>
           </div>
 
-          {/* Center Column: Platform Links */}
+          {/* Center-Left Column: Platform Links */}
           <div className="md:col-span-3">
             <h4 className="text-xs font-extrabold uppercase tracking-wider text-content-primary mb-4">
               Platform
@@ -84,8 +113,8 @@ export const Footer: React.FC<FooterProps> = ({ onSignInClick, onGetStartedClick
                 <li key={link.name}>
                   <a
                     href={link.href}
-                    onClick={(e) => handleLinkClick(e, link.href)}
-                    className="text-sm text-content-secondary hover:text-primary transition-colors"
+                    onClick={(e) => handleSectionClick(e, link.href)}
+                    className="text-sm text-content-secondary hover:text-primary transition-colors inline-block"
                   >
                     {link.name}
                   </a>
@@ -94,8 +123,8 @@ export const Footer: React.FC<FooterProps> = ({ onSignInClick, onGetStartedClick
             </ul>
           </div>
 
-          {/* Right Column: Resources Links */}
-          <div className="md:col-span-3">
+          {/* Center-Right Column: Resources Links */}
+          <div className="md:col-span-2">
             <h4 className="text-xs font-extrabold uppercase tracking-wider text-content-primary mb-4">
               Resources
             </h4>
@@ -103,10 +132,19 @@ export const Footer: React.FC<FooterProps> = ({ onSignInClick, onGetStartedClick
               <li>
                 <a
                   href="#about"
-                  onClick={(e) => handleLinkClick(e, '#about')}
-                  className="text-sm text-content-secondary hover:text-primary transition-colors"
+                  onClick={(e) => handleSectionClick(e, '#about')}
+                  className="text-sm text-content-secondary hover:text-primary transition-colors inline-block"
                 >
                   About
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#ecosystem"
+                  onClick={(e) => handleSectionClick(e, '#ecosystem')}
+                  className="text-sm text-content-secondary hover:text-primary transition-colors inline-block"
+                >
+                  Ecosystem
                 </a>
               </li>
               <li>
@@ -118,16 +156,46 @@ export const Footer: React.FC<FooterProps> = ({ onSignInClick, onGetStartedClick
                   Sign In
                 </button>
               </li>
+            </ul>
+          </div>
+
+          {/* Right Column: Dedicated Legal Links */}
+          <div className="md:col-span-3">
+            <h4 className="text-xs font-extrabold uppercase tracking-wider text-content-primary mb-4 flex items-center gap-1.5">
+              <Shield className="w-3.5 h-3.5 text-primary" />
+              <span>Legal</span>
+            </h4>
+            <ul className="space-y-2.5">
               <li>
-                <a
-                  href="#ecosystem"
-                  onClick={(e) => handleLinkClick(e, '#ecosystem')}
-                  className="text-sm text-content-secondary hover:text-primary transition-colors"
+                <Link
+                  to="/privacy-policy"
+                  className={`text-sm transition-colors flex items-center gap-1.5 ${
+                    location.pathname === '/privacy-policy'
+                      ? 'text-primary font-bold'
+                      : 'text-content-secondary hover:text-primary'
+                  }`}
                 >
-                  Ecosystem Architecture
-                </a>
+                  <FileText className="w-3.5 h-3.5 text-primary/70" />
+                  <span>Privacy Policy</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/terms-of-service"
+                  className={`text-sm transition-colors flex items-center gap-1.5 ${
+                    location.pathname === '/terms-of-service'
+                      ? 'text-primary font-bold'
+                      : 'text-content-secondary hover:text-primary'
+                  }`}
+                >
+                  <FileText className="w-3.5 h-3.5 text-primary/70" />
+                  <span>Terms of Service</span>
+                </Link>
               </li>
             </ul>
+            <p className="mt-4 text-xs text-content-tertiary leading-relaxed">
+              Transparent governance and privacy standards for all institutional users.
+            </p>
           </div>
         </div>
 
@@ -152,3 +220,5 @@ export const Footer: React.FC<FooterProps> = ({ onSignInClick, onGetStartedClick
     </footer>
   );
 };
+
+export default Footer;
