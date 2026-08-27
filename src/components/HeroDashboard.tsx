@@ -152,9 +152,7 @@ export const HeroDashboard: React.FC = () => {
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               <span>Campus Live</span>
             </div>
-            <div className="w-6 h-6 rounded-full bg-primary/10 text-primary flex items-center justify-center text-xs font-bold">
-              U
-            </div>
+            <img src="/logo.png" alt="Unisphere Logo" className="w-6 h-6 rounded-md object-contain shadow-2xs" />
           </div>
         </div>
 

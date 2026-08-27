@@ -74,13 +74,11 @@ export const PrivacyPolicy: React.FC = () => {
               to="/" 
               className="flex items-center gap-2.5 group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg"
             >
-              <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-white shadow-sm shadow-primary/20 group-hover:scale-105 transition-transform">
-                <svg className="w-4.5 h-4.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="12" cy="12" r="8" stroke="currentColor" strokeWidth="2.2" strokeDasharray="5 3" />
-                  <circle cx="12" cy="12" r="3.5" fill="currentColor" />
-                  <path d="M5 5L7 7M19 5L17 7M5 19L7 17M19 19L17 17" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-                </svg>
-              </div>
+              <img 
+                src="/logo.png" 
+                alt="Unisphere Logo" 
+                className="w-9 h-9 object-contain rounded-xl shadow-xs group-hover:scale-105 transition-transform duration-200" 
+              />
               <div className="flex items-center gap-1.5">
                 <span className="font-extrabold text-lg tracking-tight text-content-primary">
                   Unisphere
