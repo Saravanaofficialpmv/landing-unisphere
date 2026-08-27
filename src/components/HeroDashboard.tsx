@@ -143,7 +143,7 @@ export const HeroDashboard: React.FC = () => {
               <div className="w-2.5 h-2.5 rounded-full bg-emerald-400/80" />
             </div>
             <span className="text-[11px] font-medium text-content-tertiary ml-2 hidden sm:inline-block">
-              unisphere.srm.edu/portal/dashboard
+              app.unisphere.io/portal/dashboard
             </span>
           </div>
 
@@ -165,7 +165,7 @@ export const HeroDashboard: React.FC = () => {
                 <span className="text-xs font-bold px-2 py-0.5 rounded-md bg-primary-subtle text-primary">
                   STUDENT PORTAL
                 </span>
-                <span className="text-xs text-content-tertiary">SRM Campus Cloud</span>
+                <span className="text-xs text-content-tertiary">Campus Cloud</span>
               </div>
               <h4 className="text-base sm:text-lg font-extrabold text-content-primary mt-1">
                 Welcome back, Alex Morgan

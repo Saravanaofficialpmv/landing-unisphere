@@ -84,14 +84,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onSignInClick, onGetStartedClick
                 className="w-10 h-10 object-contain rounded-xl shadow-xs group-hover:scale-105 transition-transform duration-200" 
               />
               <div className="flex flex-col">
-                <div className="flex items-center gap-1.5">
-                  <span className="font-extrabold text-xl tracking-tight text-content-primary">
-                    Unisphere
-                  </span>
-                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-primary-subtle text-primary border border-primary/20">
-                    SRM
-                  </span>
-                </div>
+                <span className="font-extrabold text-xl tracking-tight text-content-primary">
+                  Unisphere
+                </span>
               </div>
             </Link>
 

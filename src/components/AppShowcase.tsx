@@ -78,7 +78,7 @@ export const AppShowcase: React.FC = () => {
                 </div>
                 <div className="hidden sm:flex items-center gap-1.5 ml-4 px-3 py-1 rounded-lg bg-white border border-border/80 text-xs text-content-secondary">
                   <Lock className="w-3 h-3 text-emerald-600" />
-                  <span>https://app.unisphere.srm.edu/portal/{activePortal}</span>
+                  <span>https://app.unisphere.io/portal/{activePortal}</span>
                 </div>
               </div>
 
@@ -260,7 +260,7 @@ export const AppShowcase: React.FC = () => {
                       <div>
                         <div className="text-xs font-bold text-emerald-700 uppercase">Parent Oversight · Student: Alex Morgan</div>
                         <h4 className="text-xl font-extrabold text-content-primary mt-1">Ward Academic Overview</h4>
-                        <p className="text-xs text-content-secondary mt-0.5">SRM Institute of Science & Technology</p>
+                        <p className="text-xs text-content-secondary mt-0.5">University Campus</p>
                       </div>
                       <div className="flex items-center gap-2">
                         <span className="text-xs font-bold px-3 py-1.5 bg-emerald-100 text-emerald-800 rounded-xl border border-emerald-300">
@@ -288,7 +288,7 @@ export const AppShowcase: React.FC = () => {
                           <CheckCircle2 className="w-4 h-4" />
                           <span>All Semester Dues Cleared</span>
                         </div>
-                        <p className="text-[11px] text-content-secondary mt-1">Receipt #SRM-2026-8891</p>
+                        <p className="text-[11px] text-content-secondary mt-1">Receipt #UNI-2026-8891</p>
                       </div>
                     </div>
                   </motion.div>
@@ -307,7 +307,7 @@ export const AppShowcase: React.FC = () => {
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl bg-gradient-to-r from-red-50 via-white to-white border border-red-200">
                       <div>
                         <div className="text-xs font-bold text-red-700 uppercase">Institutional Admin Console</div>
-                        <h4 className="text-xl font-extrabold text-content-primary mt-1">SRM Central Management Server</h4>
+                        <h4 className="text-xl font-extrabold text-content-primary mt-1">Central Management Server</h4>
                         <p className="text-xs text-content-secondary mt-0.5">Role-Based Access Control & System Health</p>
                       </div>
                       <span className="text-xs font-bold px-3 py-1 rounded-xl bg-red-100 text-red-700 border border-red-200 self-start sm:self-auto">

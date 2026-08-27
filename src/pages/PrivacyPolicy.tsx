@@ -12,7 +12,6 @@ import { Footer } from '../components/Footer';
 import { AuthModal } from '../components/AuthModal';
 import { DemoRequestModal } from '../components/DemoRequestModal';
 
-
 export const PrivacyPolicy: React.FC = () => {
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [demoModalOpen, setDemoModalOpen] = useState(false);
@@ -79,14 +78,9 @@ export const PrivacyPolicy: React.FC = () => {
                 alt="Unisphere Logo" 
                 className="w-9 h-9 object-contain rounded-xl shadow-xs group-hover:scale-105 transition-transform duration-200" 
               />
-              <div className="flex items-center gap-1.5">
-                <span className="font-extrabold text-lg tracking-tight text-content-primary">
-                  Unisphere
-                </span>
-                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-primary-subtle text-primary border border-primary/20">
-                  SRM
-                </span>
-              </div>
+              <span className="font-extrabold text-lg tracking-tight text-content-primary">
+                Unisphere
+              </span>
             </Link>
 
             <span className="text-border-dark">/</span>
@@ -126,27 +120,21 @@ export const PrivacyPolicy: React.FC = () => {
             Privacy Policy
           </h1>
           <p className="mt-3 text-base sm:text-lg text-content-secondary leading-relaxed">
-            How Unisphere collects, protects, manages, and utilizes institutional and user data across academic portals.
+            How Unisphere collects, protects, manages, and utilizes academic and user data across platform portals.
           </p>
 
           <div className="mt-6 flex flex-wrap items-center gap-4 text-xs font-medium text-content-tertiary">
             <div className="flex items-center gap-1.5">
               <Clock className="w-4 h-4 text-content-secondary" />
               <span>Effective Date: </span>
-              <span className="px-2 py-0.5 bg-amber-50 text-amber-700 border border-amber-200 rounded font-mono font-semibold">
-                [Effective Date]
+              <span className="font-semibold text-content-secondary">
+                August 2026
               </span>
             </div>
             <div className="flex items-center gap-1.5">
               <Info className="w-4 h-4 text-content-secondary" />
               <span>Version: </span>
               <span className="font-semibold text-content-secondary">1.0</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <span>Institution: </span>
-              <span className="px-2 py-0.5 bg-amber-50 text-amber-700 border border-amber-200 rounded font-mono font-semibold">
-                [Institution Name]
-              </span>
             </div>
           </div>
         </div>
@@ -155,8 +143,8 @@ export const PrivacyPolicy: React.FC = () => {
         <div className="mb-10 p-5 rounded-2xl bg-surface-soft border border-border/80 flex items-start gap-3.5 text-sm text-content-secondary leading-relaxed">
           <Info className="w-5 h-5 text-primary shrink-0 mt-0.5" />
           <div>
-            <span className="font-bold text-content-primary">Notice regarding institutional implementation: </span>
-            Unisphere is deployed as an academic management solution for <span className="font-mono text-xs px-1.5 py-0.5 bg-amber-50 text-amber-700 border border-amber-200 rounded">[Institution Name]</span>. This policy outlines general data handling practices. Specific institutional retention bylaws and access governance are administered by the subscribing educational organization.
+            <span className="font-bold text-content-primary">Notice regarding platform deployment: </span>
+            Unisphere is an academic management and collaboration platform. This policy outlines general data handling practices. Specific institutional retention guidelines and access governance are administered by the subscribing organization.
           </div>
         </div>
 
@@ -195,10 +183,10 @@ export const PrivacyPolicy: React.FC = () => {
             </h2>
             <div className="space-y-3 text-content-secondary">
               <p>
-                Welcome to <strong className="text-content-primary">Unisphere</strong> ("the Platform", "we", "our", or "us"). Unisphere is a unified academic and campus super-application developed for use by students, faculty, heads of departments (HODs), parents, and academic administrators of <span className="font-mono text-xs px-1.5 py-0.5 bg-amber-50 text-amber-700 border border-amber-200 rounded">[Institution Name]</span>.
+                Welcome to <strong className="text-content-primary">Unisphere</strong> ("the Platform", "we", "our", or "us"). Unisphere is a unified academic and campus super-application developed for use by students, faculty, heads of departments (HODs), parents, and academic administrators.
               </p>
               <p>
-                We are committed to maintaining the confidentiality, integrity, and privacy of all personal, academic, and administrative data processed through the Platform. This Privacy Policy details the types of information collected, how that data is processed and stored, who can access it, and the rights available to users and affiliated institutions.
+                We are committed to maintaining the confidentiality, integrity, and privacy of all personal, academic, and administrative data processed through the Platform. This Privacy Policy details the types of information collected, how that data is processed and stored, who can access it, and the rights available to users and organizations.
               </p>
               <p>
                 By accessing or using Unisphere, you acknowledge that you have read, understood, and agreed to the practices described in this Privacy Policy.
@@ -224,7 +212,7 @@ export const PrivacyPolicy: React.FC = () => {
                   <strong className="text-content-primary">Academic Records:</strong> Course enrollments, attendance records, internal test scores, semester grades, GPA/CGPA calculations, timetable schedules, laboratory allocations, and assignment submissions.
                 </li>
                 <li>
-                  <strong className="text-content-primary">Campus & Administrative Information:</strong> Hostel room assignments, gate pass logs, leave applications, cafeteria or fee ledger records, and official campus circular responses.
+                  <strong className="text-content-primary">Campus & Administrative Information:</strong> Hostel room assignments, gate pass logs, leave applications, cafeteria or fee ledger records, and official circular responses.
                 </li>
                 <li>
                   <strong className="text-content-primary">Communications & Feedback:</strong> Messages exchanged within verified portal channels, support tickets, advisor notes, parent-faculty meeting records, and feedback forms.
@@ -244,7 +232,7 @@ export const PrivacyPolicy: React.FC = () => {
             </h2>
             <div className="space-y-3 text-content-secondary">
               <p>
-                Information processed through Unisphere is strictly utilized for educational and institutional operations, including:
+                Information processed through Unisphere is strictly utilized for educational and platform operations, including:
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                 <div className="p-4 rounded-2xl bg-surface-soft border border-border">
@@ -257,7 +245,7 @@ export const PrivacyPolicy: React.FC = () => {
                 </div>
                 <div className="p-4 rounded-2xl bg-surface-soft border border-border">
                   <h4 className="font-bold text-content-primary text-sm mb-1">Campus Safety & Governance</h4>
-                  <p className="text-xs text-content-secondary">Managing digital gate passes, hostel curfews, emergency institutional alerts, and verified identity verification.</p>
+                  <p className="text-xs text-content-secondary">Managing digital gate passes, hostel curfews, emergency alerts, and verified identity verification.</p>
                 </div>
                 <div className="p-4 rounded-2xl bg-surface-soft border border-border">
                   <h4 className="font-bold text-content-primary text-sm mb-1">Platform Security & Reliability</h4>
@@ -278,7 +266,7 @@ export const PrivacyPolicy: React.FC = () => {
             </h2>
             <div className="space-y-3 text-content-secondary">
               <p>
-                Access to Unisphere requires role-based authentication credentials provisioned either directly by <span className="font-mono text-xs px-1.5 py-0.5 bg-amber-50 text-amber-700 border border-amber-200 rounded">[Institution Name]</span> or authenticated via federated institutional Single Sign-On (SSO).
+                Access to Unisphere requires role-based authentication credentials provisioned either directly by your educational institution or authenticated via federated Single Sign-On (SSO).
               </p>
               <ul className="list-disc pl-5 space-y-2 mt-2">
                 <li>
@@ -302,10 +290,10 @@ export const PrivacyPolicy: React.FC = () => {
             </h2>
             <div className="space-y-3 text-content-secondary">
               <p>
-                Academic and institutional records uploaded to or generated within Unisphere remain the property and responsibility of <span className="font-mono text-xs px-1.5 py-0.5 bg-amber-50 text-amber-700 border border-amber-200 rounded">[Institution Name]</span>.
+                Academic and institutional records uploaded to or generated within Unisphere remain the property and responsibility of the respective educational institution.
               </p>
               <p>
-                Unisphere acts as a data processor on behalf of the educational institution. The institution remains the primary data controller for all student academic transcripts, attendance rosters, faculty evaluations, and department analytics.
+                Unisphere acts as a data processor on behalf of the educational organization. The institution remains the primary data controller for all student academic transcripts, attendance rosters, faculty evaluations, and department analytics.
               </p>
             </div>
           </section>
@@ -318,7 +306,7 @@ export const PrivacyPolicy: React.FC = () => {
             </h2>
             <div className="space-y-3 text-content-secondary">
               <p>
-                Data processed by Unisphere is hosted on secure cloud infrastructure located in <span className="font-mono text-xs px-1.5 py-0.5 bg-amber-50 text-amber-700 border border-amber-200 rounded">[Hosting Region / Jurisdiction, e.g., India / Regional Data Centers]</span> adhering to applicable local data residency regulations.
+                Data processed by Unisphere is hosted on secure cloud infrastructure adhering to applicable regional data privacy and residency standards.
               </p>
               <p>
                 Database instances employ encrypted storage volumes, automated point-in-time backups, and high-availability replication to ensure platform resilience and prevent data loss.
@@ -342,7 +330,7 @@ export const PrivacyPolicy: React.FC = () => {
                 <li><strong className="text-content-primary">Identity & SSO Providers:</strong> Institutional LDAP/OAuth2 or SAML authentication bridges where configured.</li>
               </ul>
               <p className="mt-2">
-                Third-party partners are contracted under strict confidentiality terms and are prohibited from utilizing institutional data for non-platform purposes.
+                Third-party partners are contracted under strict confidentiality terms and are prohibited from utilizing data for non-platform purposes.
               </p>
             </div>
           </section>
@@ -374,12 +362,12 @@ export const PrivacyPolicy: React.FC = () => {
             </h2>
             <div className="space-y-3 text-content-secondary">
               <p>
-                Personal and academic records are retained for the duration of the user's active affiliation with <span className="font-mono text-xs px-1.5 py-0.5 bg-amber-50 text-amber-700 border border-amber-200 rounded">[Institution Name]</span>, and thereafter in accordance with the institution's mandatory academic record archiving policies and applicable statutory requirements:
+                Personal and academic records are retained for the duration of the user's active affiliation with their educational institution, and thereafter in accordance with standard academic archiving guidelines and applicable statutory requirements:
               </p>
               <ul className="list-disc pl-5 space-y-1 mt-2">
                 <li><strong className="text-content-primary">Active Academic Records:</strong> Retained throughout a student's graduation cycle and active administrative lifecycle.</li>
-                <li><strong className="text-content-primary">Audit & Security Logs:</strong> Retained for <span className="font-mono text-xs px-1.5 py-0.5 bg-amber-50 text-amber-700 border border-amber-200 rounded">[Retention Period, e.g., 12–24 months]</span> for compliance and forensic analysis before automated purging.</li>
-                <li><strong className="text-content-primary">Account Deactivation:</strong> Upon formal institutional departure or contract conclusion, non-archived user account credentials are decommissioned.</li>
+                <li><strong className="text-content-primary">Audit & Security Logs:</strong> Retained for compliance and forensic analysis before automated purging.</li>
+                <li><strong className="text-content-primary">Account Deactivation:</strong> Upon formal departure or contract conclusion, non-archived user account credentials are decommissioned.</li>
               </ul>
             </div>
           </section>
@@ -396,8 +384,8 @@ export const PrivacyPolicy: React.FC = () => {
               </p>
               <ul className="list-disc pl-5 space-y-2 mt-2">
                 <li><strong className="text-content-primary">Right of Access:</strong> Review your profile, academic attendance records, internal grades, and communication logs directly through your portal dashboard.</li>
-                <li><strong className="text-content-primary">Right to Rectification:</strong> Request correction of inaccurate personal or contact details through your departmental coordinator or campus administrator.</li>
-                <li><strong className="text-content-primary">Right to Inquire:</strong> Submit formal privacy or data handling queries to the designated institutional data administrator.</li>
+                <li><strong className="text-content-primary">Right to Rectification:</strong> Request correction of inaccurate personal or contact details through your departmental coordinator or administrator.</li>
+                <li><strong className="text-content-primary">Right to Inquire:</strong> Submit formal privacy or data handling queries to the designated data administrator.</li>
               </ul>
             </div>
           </section>
@@ -410,10 +398,10 @@ export const PrivacyPolicy: React.FC = () => {
             </h2>
             <div className="space-y-3 text-content-secondary">
               <p>
-                Unisphere is designed for higher education institutions, collegiate universities, and affiliated secondary/higher secondary campuses.
+                Unisphere is designed for higher education institutions, collegiate universities, and affiliated educational campuses.
               </p>
               <p>
-                Where students under the age of majority access the platform, parental or institutional legal guardian consent is administered directly by <span className="font-mono text-xs px-1.5 py-0.5 bg-amber-50 text-amber-700 border border-amber-200 rounded">[Institution Name]</span> during enrollment. We do not knowingly solicit personal information directly from children outside the authorized institutional context.
+                Where students under the age of majority access the platform, parental or institutional legal guardian consent is administered directly by the educational institution during enrollment. We do not knowingly solicit personal information directly from children outside the authorized educational context.
               </p>
             </div>
           </section>
@@ -426,10 +414,10 @@ export const PrivacyPolicy: React.FC = () => {
             </h2>
             <div className="space-y-3 text-content-secondary">
               <p>
-                We may periodically update this Privacy Policy to reflect modifications to platform capabilities, legal requirements, or institutional operational agreements.
+                We may periodically update this Privacy Policy to reflect modifications to platform capabilities, legal requirements, or operational agreements.
               </p>
               <p>
-                When modifications are published, the "Effective Date" at the top of this document will be revised accordingly. Material updates will be communicated through the Unisphere announcement feed or institutional email notification.
+                When modifications are published, the "Effective Date" at the top of this document will be revised accordingly. Material updates will be communicated through the Unisphere announcement feed or email notification.
               </p>
             </div>
           </section>
@@ -462,14 +450,6 @@ export const PrivacyPolicy: React.FC = () => {
                   <a href="https://heydot.in" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">
                     heydot.in
                   </a>
-                </div>
-                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 text-sm">
-                  <strong className="text-content-primary min-w-[140px]">Institution:</strong>
-                  <span className="font-mono text-xs px-2 py-0.5 bg-amber-50 text-amber-700 border border-amber-200 rounded w-fit">[Institution Name]</span>
-                </div>
-                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 text-sm">
-                  <strong className="text-content-primary min-w-[140px]">Campus Address:</strong>
-                  <span className="font-mono text-xs px-2 py-0.5 bg-amber-50 text-amber-700 border border-amber-200 rounded w-fit">[Institution Legal Address]</span>
                 </div>
               </div>
             </div>

@@ -37,11 +37,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   }, [initialRole, isOpen]);
 
   const roles = [
-    { id: 'student', name: 'Student', icon: GraduationCap, color: '#2563EB', defaultEmail: 'alex.morgan@srmist.edu.in' },
-    { id: 'faculty', name: 'Faculty', icon: BookOpenCheck, color: '#7C3AED', defaultEmail: 'prof.rajiv@srmist.edu.in' },
-    { id: 'hod', name: 'HOD', icon: Building2, color: '#D97706', defaultEmail: 'hod.cse@srmist.edu.in' },
+    { id: 'student', name: 'Student', icon: GraduationCap, color: '#2563EB', defaultEmail: 'alex.morgan@unisphere.edu' },
+    { id: 'faculty', name: 'Faculty', icon: BookOpenCheck, color: '#7C3AED', defaultEmail: 'prof.rajiv@unisphere.edu' },
+    { id: 'hod', name: 'HOD', icon: Building2, color: '#D97706', defaultEmail: 'hod.cse@unisphere.edu' },
     { id: 'parent', name: 'Parent', icon: Users, color: '#059669', defaultEmail: 'parent.morgan@gmail.com' },
-    { id: 'admin', name: 'Admin', icon: ShieldCheck, color: '#DC2626', defaultEmail: 'admin@srmist.edu.in' },
+    { id: 'admin', name: 'Admin', icon: ShieldCheck, color: '#DC2626', defaultEmail: 'admin@unisphere.edu' },
   ] as const;
 
   const currentRoleConfig = roles.find(r => r.id === selectedRole) || roles[0];

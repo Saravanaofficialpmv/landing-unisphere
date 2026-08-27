@@ -49,14 +49,9 @@ export const Footer: React.FC<FooterProps> = ({ onSignInClick, onGetStartedClick
                 alt="Unisphere Logo" 
                 className="w-10 h-10 object-contain rounded-xl shadow-xs group-hover:scale-105 transition-transform duration-200" 
               />
-              <div className="flex items-center gap-1.5">
-                <span className="font-extrabold text-xl tracking-tight text-content-primary">
-                  Unisphere
-                </span>
-                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-primary-subtle text-primary border border-primary/20">
-                  SRM
-                </span>
-              </div>
+              <span className="font-extrabold text-xl tracking-tight text-content-primary">
+                Unisphere
+              </span>
             </Link>
 
             <p className="mt-4 text-sm text-content-secondary max-w-sm leading-relaxed">
@@ -201,18 +196,15 @@ export const Footer: React.FC<FooterProps> = ({ onSignInClick, onGetStartedClick
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-content-tertiary">
           <p>© 2026 Unisphere. All rights reserved.</p>
 
-          <div className="flex items-center gap-6">
-            <span>SRM Institute of Science and Technology</span>
-            <button
-              type="button"
-              onClick={scrollToTop}
-              className="p-2 rounded-xl bg-white border border-border hover:border-primary/40 text-content-secondary hover:text-primary shadow-2xs transition-all flex items-center gap-1.5"
-              aria-label="Scroll back to top"
-            >
-              <span>Back to top</span>
-              <ArrowUp className="w-3.5 h-3.5" />
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={scrollToTop}
+            className="p-2 rounded-xl bg-white border border-border hover:border-primary/40 text-content-secondary hover:text-primary shadow-2xs transition-all flex items-center gap-1.5"
+            aria-label="Scroll back to top"
+          >
+            <span>Back to top</span>
+            <ArrowUp className="w-3.5 h-3.5" />
+          </button>
         </div>
       </div>
     </footer>

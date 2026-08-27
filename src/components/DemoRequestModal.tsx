@@ -13,7 +13,7 @@ export const DemoRequestModal: React.FC<DemoRequestModalProps> = ({ isOpen, onCl
     fullName: '',
     email: '',
     role: 'Administrator',
-    institution: 'SRM Institute of Science and Technology',
+    institution: '',
     message: ''
   });
 
@@ -118,7 +118,7 @@ export const DemoRequestModal: React.FC<DemoRequestModalProps> = ({ isOpen, onCl
                         required
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        placeholder="anand.s@srmist.edu.in"
+                        placeholder="alex.m@campus.edu"
                         className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-border focus:border-primary focus:ring-2 focus:ring-primary/20 text-xs sm:text-sm text-content-primary outline-none transition-all"
                       />
                     </div>
@@ -154,7 +154,7 @@ export const DemoRequestModal: React.FC<DemoRequestModalProps> = ({ isOpen, onCl
                         required
                         value={formData.institution}
                         onChange={(e) => setFormData({ ...formData, institution: e.target.value })}
-                        placeholder="SRM Institute of Science and Technology"
+                        placeholder="e.g. Stanford University or Apex Institute"
                         className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-border focus:border-primary focus:ring-2 focus:ring-primary/20 text-xs sm:text-sm text-content-primary outline-none transition-all"
                       />
                     </div>

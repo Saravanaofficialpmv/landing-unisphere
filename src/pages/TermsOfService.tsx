@@ -79,14 +79,9 @@ export const TermsOfService: React.FC = () => {
                 alt="Unisphere Logo" 
                 className="w-9 h-9 object-contain rounded-xl shadow-xs group-hover:scale-105 transition-transform duration-200" 
               />
-              <div className="flex items-center gap-1.5">
-                <span className="font-extrabold text-lg tracking-tight text-content-primary">
-                  Unisphere
-                </span>
-                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-primary-subtle text-primary border border-primary/20">
-                  SRM
-                </span>
-              </div>
+              <span className="font-extrabold text-lg tracking-tight text-content-primary">
+                Unisphere
+              </span>
             </Link>
 
             <span className="text-border-dark">/</span>
@@ -133,20 +128,14 @@ export const TermsOfService: React.FC = () => {
             <div className="flex items-center gap-1.5">
               <Clock className="w-4 h-4 text-content-secondary" />
               <span>Effective Date: </span>
-              <span className="px-2 py-0.5 bg-amber-50 text-amber-700 border border-amber-200 rounded font-mono font-semibold">
-                [Effective Date]
+              <span className="font-semibold text-content-secondary">
+                August 2026
               </span>
             </div>
             <div className="flex items-center gap-1.5">
               <Info className="w-4 h-4 text-content-secondary" />
               <span>Version: </span>
               <span className="font-semibold text-content-secondary">1.0</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <span>Institution: </span>
-              <span className="px-2 py-0.5 bg-amber-50 text-amber-700 border border-amber-200 rounded font-mono font-semibold">
-                [Institution Name]
-              </span>
             </div>
           </div>
         </div>
@@ -156,7 +145,7 @@ export const TermsOfService: React.FC = () => {
           <Info className="w-5 h-5 text-primary shrink-0 mt-0.5" />
           <div>
             <span className="font-bold text-content-primary">Institutional usage agreement: </span>
-            Access to Unisphere is authorized by <span className="font-mono text-xs px-1.5 py-0.5 bg-amber-50 text-amber-700 border border-amber-200 rounded">[Institution Name]</span> for authorized academic, collegiate, and campus administrative purposes. Use of the platform signifies compliance with both these terms and your institution’s code of conduct.
+            Access to Unisphere is authorized for academic, collegiate, and campus administrative purposes. Use of the platform signifies compliance with these terms and standard institutional guidelines.
           </div>
         </div>
 
@@ -195,7 +184,7 @@ export const TermsOfService: React.FC = () => {
             </h2>
             <div className="space-y-3 text-content-secondary">
               <p>
-                These Terms of Service ("Terms") constitute a legally binding agreement between you ("User", "you", or "your") and <strong className="text-content-primary">Unisphere</strong> ("the Platform", "we", "us", or "our"), governing your access to and use of the Unisphere web application, mobile interfaces, and academic services deployed at <span className="font-mono text-xs px-1.5 py-0.5 bg-amber-50 text-amber-700 border border-amber-200 rounded">[Institution Name]</span>.
+                These Terms of Service ("Terms") constitute a legally binding agreement between you ("User", "you", or "your") and <strong className="text-content-primary">Unisphere</strong> ("the Platform", "we", "us", or "our"), governing your access to and use of the Unisphere web application, mobile interfaces, and academic services.
               </p>
               <p>
                 By creating an account, logging in, or interacting with any portion of the Platform, you acknowledge that you have read, understood, and agreed to be bound by these Terms. If you do not agree to these Terms, you must not access or use Unisphere.
@@ -215,10 +204,10 @@ export const TermsOfService: React.FC = () => {
               </p>
               <ul className="list-disc pl-5 space-y-1 mt-2">
                 <li><strong className="text-content-primary">Student Portal:</strong> Attendance monitoring, timetable schedule, assignment submissions, internal grades, digital fee receipts, and digital gate pass requests.</li>
-                <li><strong className="text-content-primary">Faculty Portal:</strong> Attendance logging, continuous assessment grading, course syllabus tracking, mentoring logs, and institutional circulars.</li>
+                <li><strong className="text-content-primary">Faculty Portal:</strong> Attendance logging, continuous assessment grading, course syllabus tracking, mentoring logs, and circulars.</li>
                 <li><strong className="text-content-primary">HOD Portal:</strong> Department-wide performance metrics, faculty workload distribution, subject allocation, and curriculum analytics.</li>
                 <li><strong className="text-content-primary">Parent Portal:</strong> Real-time student academic progress, verified attendance reports, institutional fee schedules, and direct mentor communication.</li>
-                <li><strong className="text-content-primary">Admin Portal:</strong> Campus-wide role configuration, audit logging, system security governance, and institution-wide broadcast communications.</li>
+                <li><strong className="text-content-primary">Admin Portal:</strong> Campus-wide role configuration, audit logging, system security governance, and broadcast communications.</li>
               </ul>
             </div>
           </section>
@@ -231,10 +220,10 @@ export const TermsOfService: React.FC = () => {
             </h2>
             <div className="space-y-3 text-content-secondary">
               <p>
-                Access to Unisphere is restricted to verified students, faculty members, parents/guardians, and authorized administrative staff affiliated with <span className="font-mono text-xs px-1.5 py-0.5 bg-amber-50 text-amber-700 border border-amber-200 rounded">[Institution Name]</span>.
+                Access to Unisphere is restricted to verified students, faculty members, parents/guardians, and authorized administrative staff.
               </p>
               <ul className="list-disc pl-5 space-y-2 mt-2">
-                <li><strong className="text-content-primary">Account Provisioning:</strong> Accounts are provisioned via institutional roster data or authenticated through institutional Single Sign-On (SSO).</li>
+                <li><strong className="text-content-primary">Account Provisioning:</strong> Accounts are provisioned via institutional roster data or authenticated through Single Sign-On (SSO).</li>
                 <li><strong className="text-content-primary">Accurate Information:</strong> You agree to maintain accurate, current, and complete profile information at all times.</li>
                 <li><strong className="text-content-primary">Account Confidentiality:</strong> You are responsible for safeguarding your login credentials and for all activities occurring under your account. Sharing account credentials is strictly prohibited.</li>
               </ul>
@@ -255,9 +244,9 @@ export const TermsOfService: React.FC = () => {
                 <li>Attempt to bypass, alter, or compromise role-based permission boundaries or security mechanisms.</li>
                 <li>Upload, transmit, or distribute malicious code, automated scripts, worms, or denial-of-service payloads.</li>
                 <li>Impersonate another student, faculty member, administrator, or institutional official.</li>
-                <li>Scrape, extract, or harvest database records or personal information without explicit institutional authorization.</li>
+                <li>Scrape, extract, or harvest database records or personal information without explicit authorization.</li>
                 <li>Post defamatory, harassing, unlawful, or sexually explicit content within messaging channels, discussion boards, or assignment submissions.</li>
-                <li>Falsify attendance records, grades, digital gate passes, or institutional audit trails.</li>
+                <li>Falsify attendance records, grades, digital gate passes, or audit trails.</li>
               </ul>
             </div>
           </section>
@@ -283,7 +272,7 @@ export const TermsOfService: React.FC = () => {
                 </div>
                 <div className="p-4 rounded-2xl bg-surface-soft border border-border">
                   <h4 className="font-bold text-content-primary text-sm mb-1">Parents & Guardians</h4>
-                  <p className="text-xs text-content-secondary">Monitor academic circulars, track ward progress constructively, and use official messaging for communication.</p>
+                  <p className="text-xs text-content-secondary">Monitor academic updates, track ward progress constructively, and use official messaging for communication.</p>
                 </div>
                 <div className="p-4 rounded-2xl bg-surface-soft border border-border">
                   <h4 className="font-bold text-content-primary text-sm mb-1">HODs & Administrators</h4>
@@ -301,7 +290,7 @@ export const TermsOfService: React.FC = () => {
             </h2>
             <div className="space-y-3 text-content-secondary">
               <p>
-                All academic records, curricular syllabi, examination schedules, fee structures, and attendance policies displayed on the Platform are governed by <span className="font-mono text-xs px-1.5 py-0.5 bg-amber-50 text-amber-700 border border-amber-200 rounded">[Institution Name]</span>.
+                All academic records, curricular syllabi, examination schedules, fee structures, and attendance policies displayed on the Platform are governed by the respective educational institution.
               </p>
               <p>
                 While Unisphere facilitates automated aggregation, calculation, and reporting, final academic decisions regarding grade awards, attendance eligibility, and graduation clearance remain under the authority of the institution's Academic Council or designated authority.
@@ -320,10 +309,10 @@ export const TermsOfService: React.FC = () => {
                 <strong className="text-content-primary">Platform IP:</strong> The Unisphere application software, interface design, brand identity, logos, algorithms, and source code are the proprietary intellectual property of Unisphere and its licensors.
               </p>
               <p>
-                <strong className="text-content-primary">Institutional Content:</strong> Course materials, lecture notes, institutional syllabi, and official logos uploaded by the institution remain the property of <span className="font-mono text-xs px-1.5 py-0.5 bg-amber-50 text-amber-700 border border-amber-200 rounded">[Institution Name]</span> or the respective faculty author.
+                <strong className="text-content-primary">Institutional Content:</strong> Course materials, lecture notes, institutional syllabi, and official assets uploaded by the institution remain the property of the respective educational organization or faculty author.
               </p>
               <p>
-                <strong className="text-content-primary">Student Submissions:</strong> Intellectual property in student projects, thesis submissions, and coursework is governed by the institutional intellectual property guidelines of <span className="font-mono text-xs px-1.5 py-0.5 bg-amber-50 text-amber-700 border border-amber-200 rounded">[Institution Name]</span>.
+                <strong className="text-content-primary">Student Submissions:</strong> Intellectual property in student projects, thesis submissions, and coursework is governed by standard institutional academic guidelines.
               </p>
             </div>
           </section>
@@ -384,7 +373,7 @@ export const TermsOfService: React.FC = () => {
             </h2>
             <div className="space-y-3 text-content-secondary">
               <p>
-                To the maximum extent permitted by applicable law, in no event shall Unisphere, its developers, or its partnering institutional operators be liable for any indirect, incidental, special, consequential, or punitive damages, including loss of data, loss of goodwill, system downtime, or failure to submit assignments due to network interruptions.
+                To the maximum extent permitted by applicable law, in no event shall Unisphere or its developers be liable for any indirect, incidental, special, consequential, or punitive damages, including loss of data, loss of goodwill, system downtime, or failure to submit assignments due to network interruptions.
               </p>
             </div>
           </section>
@@ -397,12 +386,12 @@ export const TermsOfService: React.FC = () => {
             </h2>
             <div className="space-y-3 text-content-secondary">
               <p>
-                <span className="font-mono text-xs px-1.5 py-0.5 bg-amber-50 text-amber-700 border border-amber-200 rounded">[Institution Name]</span> and Platform Administrators reserve the right to suspend or terminate user accounts:
+                Platform Administrators reserve the right to suspend or terminate user accounts:
               </p>
               <ul className="list-disc pl-5 space-y-1 mt-2">
                 <li>Upon violation of these Terms of Service or institutional codes of conduct.</li>
                 <li>In response to security incidents, suspected credential compromise, or malicious activity.</li>
-                <li>Upon formal graduation, academic withdrawal, resignation, or termination of employment.</li>
+                <li>Upon formal graduation, academic withdrawal, resignation, or termination of enrollment/employment.</li>
               </ul>
             </div>
           </section>
@@ -451,14 +440,6 @@ export const TermsOfService: React.FC = () => {
                   <a href="https://heydot.in" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">
                     heydot.in
                   </a>
-                </div>
-                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 text-sm">
-                  <strong className="text-content-primary min-w-[140px]">Institution:</strong>
-                  <span className="font-mono text-xs px-2 py-0.5 bg-amber-50 text-amber-700 border border-amber-200 rounded w-fit">[Institution Name]</span>
-                </div>
-                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 text-sm">
-                  <strong className="text-content-primary min-w-[140px]">Jurisdiction:</strong>
-                  <span className="font-mono text-xs px-2 py-0.5 bg-amber-50 text-amber-700 border border-amber-200 rounded w-fit">[Jurisdiction / Governing Law, e.g., Chennai, Tamil Nadu, India]</span>
                 </div>
               </div>
             </div>
