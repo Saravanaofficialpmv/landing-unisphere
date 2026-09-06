@@ -34,6 +34,7 @@ export const PrivacyPolicy: React.FC = () => {
   ];
 
   useEffect(() => {
+    document.title = 'Privacy Policy — Unisphere';
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 200;
       for (const section of sections) {

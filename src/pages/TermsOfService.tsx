@@ -35,6 +35,7 @@ export const TermsOfService: React.FC = () => {
   ];
 
   useEffect(() => {
+    document.title = 'Terms of Service — Unisphere';
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 200;
       for (const section of sections) {
