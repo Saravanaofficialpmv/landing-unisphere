@@ -27,14 +27,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onSignInClick, onGetStartedClick
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { name: 'Platform', href: '#platform' },
-    { name: 'Solutions', href: '#solutions' },
-    { name: 'Features', href: '#features' },
-    { name: 'For Institutions', href: '#institutions' },
-    { name: 'Resources', href: '#resources' },
-  ];
-
   const menuItems: StaggeredMenuItem[] = [
     { label: 'Platform Overview', ariaLabel: 'Go to platform overview', link: '#platform' },
     { label: 'Stakeholder Portals', ariaLabel: 'Go to stakeholder portals', link: '#solutions' },
@@ -52,25 +44,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onSignInClick, onGetStartedClick
     { label: 'Privacy Policy', link: '/privacy-policy' },
     { label: 'Terms of Service', link: '/terms-of-service' },
   ];
-
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    
-    if (location.pathname !== '/') {
-      navigate('/' + href);
-      setTimeout(() => {
-        const target = document.querySelector(href);
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 100);
-    } else {
-      const target = document.querySelector(href);
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  };
 
   const extraMenuContent = (
     <div className="flex flex-col gap-2.5 pt-2">
@@ -135,20 +108,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onSignInClick, onGetStartedClick
                 </span>
               </div>
             </Link>
-
-            {/* Desktop Navigation Links */}
-            <nav className="hidden md:flex items-center gap-1 lg:gap-2 px-3 py-1.5 rounded-full bg-surface-soft/90 border border-border/80 shadow-2xs">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={(e) => handleLinkClick(e, link.href)}
-                  className="px-3.5 py-1.5 text-xs lg:text-sm font-semibold text-content-secondary hover:text-primary transition-colors duration-150 rounded-full hover:bg-white cursor-pointer"
-                >
-                  {link.name}
-                </a>
-              ))}
-            </nav>
 
             {/* Desktop Action Buttons & Staggered Menu Trigger */}
             <div className="hidden md:flex items-center gap-2.5">
