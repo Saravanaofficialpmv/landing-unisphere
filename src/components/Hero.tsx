@@ -22,53 +22,51 @@ export const Hero: React.FC<HeroProps> = ({ onGetStartedClick, onExploreClick })
   return (
     <section 
       id="platform" 
-      className="relative pt-32 pb-20 sm:pt-40 sm:pb-28 lg:pt-44 lg:pb-32 bg-[#07080f] text-white overflow-hidden"
+      className="relative pt-24 pb-16 sm:pt-28 sm:pb-20 lg:pt-32 lg:pb-24 bg-[#07080f] text-white overflow-hidden"
     >
-      {/* Background WebGL Scanner Effect (React Bits) - Neon Signal Field */}
-      <div className="absolute inset-0 -z-10 pointer-events-none overflow-hidden">
+      {/* React Bits Scanner Hero Element Wrapper */}
+      <div 
+        style={{ width: '100%', height: '600px', position: 'relative' }} 
+        className="w-full h-[600px] relative overflow-hidden flex flex-col items-center justify-center"
+      >
         <Scanner
           color1="#5227FF"
           color2="#FF9FFC"
           color3="#FFFFFF"
-          speed={0.45}
-          sweepSpeed={0.22}
+          speed={0.5}
+          sweepSpeed={0.25}
           sweepWidth={1.6}
-          sweepFalloff={5.5}
-          scale={1.4}
-          frequency={2.0}
+          sweepFalloff={6}
+          scale={1.5}
+          frequency={2}
           ripple={0.22}
           bandDensity={11}
           lineSharpness={5.5}
-          glow={0.35}
+          glow={0.22}
           scanDirection="vertical"
           colorSpread={0.7}
-          brightness={1.1}
+          brightness={1.0}
           contrast={1.15}
           softness={1.4}
-          vignette={0.4}
+          vignette={0.45}
           scanline={true}
           grain={true}
           grainIntensity={0.05}
           opacity={1.0}
           mouseInteraction={true}
           mouseRadius={0.5}
-          mouseStrength={0.6}
-          className="w-full h-full"
+          mouseStrength={0.5}
+          className="absolute inset-0 w-full h-full pointer-events-none"
         />
-      </div>
 
-      {/* Atmospheric Top Glow & Grid Texture */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[450px] bg-gradient-to-b from-[#5227FF]/18 via-[#2563EB]/10 to-transparent rounded-full blur-3xl -z-20 pointer-events-none" />
-      <div className="absolute inset-0 subtle-grid-pattern opacity-10 -z-20 pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="flex flex-col items-center text-center">
+        {/* Hero Interactive Content Overlay */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center">
           {/* Eyebrow Pill Badge */}
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/15 backdrop-blur-md text-white shadow-inner mb-6"
+            className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/15 backdrop-blur-md text-white shadow-inner mb-4 sm:mb-6"
           >
             <span className="px-2 py-0.5 rounded-full bg-white text-black font-extrabold text-[10px] tracking-wider uppercase shadow-xs">
               NEW
@@ -109,7 +107,7 @@ export const Hero: React.FC<HeroProps> = ({ onGetStartedClick, onExploreClick })
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-6 text-base sm:text-lg md:text-xl text-slate-300 max-w-3xl font-normal leading-relaxed text-balance"
+            className="mt-4 sm:mt-6 text-base sm:text-lg md:text-xl text-slate-300 max-w-3xl font-normal leading-relaxed text-balance"
           >
             Unisphere SRM connects students, faculty, HODs, parents, and administrators through one role-based academic management platform—bringing everyday campus workflows, academic progress, communication, and institutional operations together.
           </motion.p>
@@ -119,7 +117,7 @@ export const Hero: React.FC<HeroProps> = ({ onGetStartedClick, onExploreClick })
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-8 flex flex-col sm:flex-row items-center gap-3.5 w-full sm:w-auto"
+            className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center gap-3.5 w-full sm:w-auto"
           >
             <button
               type="button"
@@ -144,7 +142,7 @@ export const Hero: React.FC<HeroProps> = ({ onGetStartedClick, onExploreClick })
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="mt-4 text-xs sm:text-sm text-slate-400 font-medium"
+            className="mt-3 sm:mt-4 text-xs sm:text-sm text-slate-400 font-medium"
           >
             Designed for modern higher-education institutions.
           </motion.p>
@@ -154,7 +152,7 @@ export const Hero: React.FC<HeroProps> = ({ onGetStartedClick, onExploreClick })
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.45 }}
-            className="mt-6 flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-xs sm:text-sm font-semibold"
+            className="mt-3 sm:mt-4 flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-xs sm:text-sm font-semibold"
           >
             {roleTags.map((role, idx) => (
               <React.Fragment key={role.name}>
@@ -172,11 +170,11 @@ export const Hero: React.FC<HeroProps> = ({ onGetStartedClick, onExploreClick })
             ))}
           </motion.div>
         </div>
+      </div>
 
-        {/* Central Dashboard Mockup Visual */}
-        <div className="mt-16 sm:mt-24 relative z-10">
-          <HeroDashboard />
-        </div>
+      {/* Central Dashboard Mockup Visual */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 sm:mt-16 relative z-10">
+        <HeroDashboard />
       </div>
 
       {/* Smooth Transition Fade to Light Page Background Below */}
