@@ -30,8 +30,8 @@ export const Hero: React.FC<HeroProps> = ({ onGetStartedClick, onExploreClick })
         className="w-full h-[600px] relative overflow-hidden flex flex-col items-center justify-center"
       >
         <Scanner
-          color1="#5227FF"
-          color2="#FF9FFC"
+          color1="#1D4ED8"
+          color2="#38BDF8"
           color3="#FFFFFF"
           speed={0.5}
           sweepSpeed={0.25}
@@ -84,7 +84,7 @@ export const Hero: React.FC<HeroProps> = ({ onGetStartedClick, onExploreClick })
             className="text-4xl sm:text-6xl md:text-7xl font-extrabold text-white tracking-tight leading-[1.1] max-w-4xl"
           >
             One platform to connect your{' '}
-            <span className="inline-flex text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-200 to-pink-400">
+            <span className="inline-flex text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-sky-300 to-blue-200">
               <RotatingText
                 texts={[
                   'entire campus.',
@@ -92,7 +92,7 @@ export const Hero: React.FC<HeroProps> = ({ onGetStartedClick, onExploreClick })
                   '5 stakeholder portals.',
                   'connected institution.'
                 ]}
-                mainClassName="inline-flex font-extrabold text-white drop-shadow-[0_0_30px_rgba(96,165,250,0.6)]"
+                mainClassName="inline-flex font-extrabold text-white drop-shadow-[0_0_30px_rgba(37,99,235,0.6)]"
                 staggerFrom="last"
                 staggerDuration={0.02}
                 splitLevelClassName="overflow-hidden inline-flex pb-1"
