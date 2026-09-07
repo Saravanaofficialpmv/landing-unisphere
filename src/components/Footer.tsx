@@ -1,15 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { ArrowUp, Shield, FileText, Mail, Phone, Globe } from 'lucide-react';
+import { ArrowUp, Shield, Mail, Phone, Globe, Calendar, X } from 'lucide-react';
 
-interface FooterProps {
-  onSignInClick: () => void;
-  onGetStartedClick: () => void;
+export interface FooterProps {
+  onSignInClick?: () => void;
+  onBookDemoClick?: () => void;
+  onGetStartedClick?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onSignInClick, onGetStartedClick }) => {
+export const Footer: React.FC<FooterProps> = ({ 
+  onSignInClick, 
+  onBookDemoClick,
+  onGetStartedClick 
+}) => {
   const location = useLocation();
   const navigate = useNavigate();
+  const [cookieModalOpen, setCookieModalOpen] = useState(false);
+
+  const handleDemoClick = onBookDemoClick || onGetStartedClick;
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -37,25 +45,25 @@ export const Footer: React.FC<FooterProps> = ({ onSignInClick, onGetStartedClick
     <footer className="bg-surface-soft border-t border-border pt-16 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-border/80">
-          {/* Left Column: Brand, Logo, Tagline */}
+          {/* Brand Column */}
           <div className="md:col-span-4 flex flex-col items-start">
-            <Link 
-              to="/" 
+            <Link
+              to="/"
               onClick={location.pathname === '/' ? scrollToTop : undefined}
-              className="flex items-center gap-3 group"
+              className="flex items-center gap-2.5 group focus:outline-none"
             >
-              <img 
-                src="/logo.png" 
-                alt="Unisphere Logo" 
-                className="w-10 h-10 object-contain rounded-xl shadow-xs group-hover:scale-105 transition-transform duration-200" 
+              <img
+                src="/logo.png"
+                alt="Unisphere SRM Logo"
+                className="w-9 h-9 object-contain rounded-xl shadow-xs group-hover:scale-105 transition-transform duration-200"
               />
               <span className="font-extrabold text-xl tracking-tight text-content-primary">
-                Unisphere
+                Unisphere SRM
               </span>
             </Link>
 
-            <p className="mt-4 text-sm text-content-secondary max-w-sm leading-relaxed">
-              A unified academic and campus management platform connecting students, faculty, parents, HODs, and administrators.
+            <p className="mt-4 text-xs sm:text-sm text-content-secondary max-w-sm leading-relaxed">
+              The connected academic management and campus platform unifying students, faculty, HODs, parents, and administrators for modern higher-education institutions.
             </p>
 
             <div className="mt-5 flex flex-col gap-2 text-xs text-content-secondary">
@@ -73,140 +81,278 @@ export const Footer: React.FC<FooterProps> = ({ onSignInClick, onGetStartedClick
               </a>
             </div>
 
-            <div className="mt-6 flex items-center gap-3">
-              <button
-                type="button"
-                onClick={onGetStartedClick}
-                className="px-4 py-2 text-xs font-bold text-white bg-primary hover:bg-primary-dark rounded-xl transition-all shadow-xs active:scale-95"
-              >
-                Request Campus Demo
-              </button>
-              <button
-                type="button"
-                onClick={onSignInClick}
-                className="px-4 py-2 text-xs font-bold text-content-primary bg-white hover:bg-surface-soft border border-border rounded-xl transition-all active:scale-95"
-              >
-                Sign In
-              </button>
-            </div>
+            {handleDemoClick && (
+              <div className="mt-6">
+                <button
+                  type="button"
+                  onClick={handleDemoClick}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-white bg-primary hover:bg-primary-dark shadow-xs transition-all active:scale-95 cursor-pointer"
+                >
+                  <Calendar className="w-3.5 h-3.5" />
+                  <span>Book an Institutional Demo</span>
+                </button>
+              </div>
+            )}
           </div>
 
-          {/* Center-Left Column: Platform Links */}
-          <div className="md:col-span-3">
+          {/* Column 1: Platform */}
+          <div className="md:col-span-2">
             <h4 className="text-xs font-extrabold uppercase tracking-wider text-content-primary mb-4">
               Platform
             </h4>
             <ul className="space-y-2.5">
-              {[
-                { name: 'Overview', href: '#overview' },
-                { name: 'Portals', href: '#portals' },
-                { name: 'Features', href: '#features' },
-                { name: 'Technology', href: '#technology' },
-              ].map((link) => (
-                <li key={link.name}>
-                  <a
-                    href={link.href}
-                    onClick={(e) => handleSectionClick(e, link.href)}
-                    className="text-sm text-content-secondary hover:text-primary transition-colors inline-block"
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
+              <li>
+                <a
+                  href="#platform"
+                  onClick={(e) => handleSectionClick(e, '#platform')}
+                  className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
+                >
+                  Platform Overview
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#solutions"
+                  onClick={(e) => handleSectionClick(e, '#solutions')}
+                  className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
+                >
+                  Stakeholder Portals
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#features"
+                  onClick={(e) => handleSectionClick(e, '#features')}
+                  className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
+                >
+                  12 Modules
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#workflow"
+                  onClick={(e) => handleSectionClick(e, '#workflow')}
+                  className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
+                >
+                  Connected Workflow
+                </a>
+              </li>
             </ul>
           </div>
 
-          {/* Center-Right Column: Resources Links */}
+          {/* Column 2: Solutions */}
           <div className="md:col-span-2">
             <h4 className="text-xs font-extrabold uppercase tracking-wider text-content-primary mb-4">
-              Resources
+              Portals
             </h4>
             <ul className="space-y-2.5">
               <li>
                 <a
-                  href="#about"
-                  onClick={(e) => handleSectionClick(e, '#about')}
-                  className="text-sm text-content-secondary hover:text-primary transition-colors inline-block"
+                  href="#solutions"
+                  onClick={(e) => handleSectionClick(e, '#solutions')}
+                  className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
                 >
-                  About
+                  Student Experience
                 </a>
               </li>
               <li>
                 <a
-                  href="#ecosystem"
-                  onClick={(e) => handleSectionClick(e, '#ecosystem')}
-                  className="text-sm text-content-secondary hover:text-primary transition-colors inline-block"
+                  href="#solutions"
+                  onClick={(e) => handleSectionClick(e, '#solutions')}
+                  className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
                 >
-                  Ecosystem
+                  Faculty Management
                 </a>
               </li>
               <li>
-                <button
-                  type="button"
-                  onClick={onSignInClick}
-                  className="text-sm text-content-secondary hover:text-primary transition-colors text-left"
+                <a
+                  href="#solutions"
+                  onClick={(e) => handleSectionClick(e, '#solutions')}
+                  className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
                 >
-                  Sign In
-                </button>
+                  HOD Department Hub
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#solutions"
+                  onClick={(e) => handleSectionClick(e, '#solutions')}
+                  className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
+                >
+                  Parent Oversight
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#solutions"
+                  onClick={(e) => handleSectionClick(e, '#solutions')}
+                  className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
+                >
+                  Admin Governance
+                </a>
               </li>
             </ul>
           </div>
 
-          {/* Right Column: Dedicated Legal Links */}
-          <div className="md:col-span-3">
-            <h4 className="text-xs font-extrabold uppercase tracking-wider text-content-primary mb-4 flex items-center gap-1.5">
-              <Shield className="w-3.5 h-3.5 text-primary" />
-              <span>Legal</span>
+          {/* Column 3: For Institutions */}
+          <div className="md:col-span-2">
+            <h4 className="text-xs font-extrabold uppercase tracking-wider text-content-primary mb-4">
+              Institutions
             </h4>
             <ul className="space-y-2.5">
+              <li>
+                <a
+                  href="#governance"
+                  onClick={(e) => handleSectionClick(e, '#governance')}
+                  className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
+                >
+                  RBAC & Governance
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#implementation"
+                  onClick={(e) => handleSectionClick(e, '#implementation')}
+                  className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
+                >
+                  Implementation Path
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#resources"
+                  onClick={(e) => handleSectionClick(e, '#resources')}
+                  className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
+                >
+                  FAQ
+                </a>
+              </li>
+              {handleDemoClick && (
+                <li>
+                  <button
+                    type="button"
+                    onClick={handleDemoClick}
+                    className="text-xs sm:text-sm text-primary font-bold hover:underline inline-block text-left cursor-pointer"
+                  >
+                    Request Demo
+                  </button>
+                </li>
+              )}
+            </ul>
+          </div>
+
+          {/* Column 4: Access */}
+          <div className="md:col-span-2">
+            <h4 className="text-xs font-extrabold uppercase tracking-wider text-content-primary mb-4">
+              Access
+            </h4>
+            <ul className="space-y-2.5">
+              {onSignInClick && (
+                <li>
+                  <button
+                    type="button"
+                    onClick={onSignInClick}
+                    className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors text-left cursor-pointer"
+                  >
+                    Portal Login
+                  </button>
+                </li>
+              )}
+              <li>
+                <a
+                  href="mailto:heydigitals.care@gmail.com"
+                  className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
+                >
+                  Institutional Contact
+                </a>
+              </li>
               <li>
                 <Link
                   to="/privacy-policy"
-                  className={`text-sm transition-colors flex items-center gap-1.5 ${
-                    location.pathname === '/privacy-policy'
-                      ? 'text-primary font-bold'
-                      : 'text-content-secondary hover:text-primary'
-                  }`}
+                  className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
                 >
-                  <FileText className="w-3.5 h-3.5 text-primary/70" />
-                  <span>Privacy Policy</span>
+                  Student Privacy Policy
                 </Link>
               </li>
               <li>
                 <Link
                   to="/terms-of-service"
-                  className={`text-sm transition-colors flex items-center gap-1.5 ${
-                    location.pathname === '/terms-of-service'
-                      ? 'text-primary font-bold'
-                      : 'text-content-secondary hover:text-primary'
-                  }`}
+                  className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
                 >
-                  <FileText className="w-3.5 h-3.5 text-primary/70" />
-                  <span>Terms of Service</span>
+                  Terms of Service
                 </Link>
               </li>
             </ul>
-            <p className="mt-4 text-xs text-content-tertiary leading-relaxed">
-              Transparent governance and privacy standards for all institutional users.
-            </p>
           </div>
         </div>
 
-        {/* Bottom Bar: Copyright + Scroll to top */}
+        {/* Bottom Bar: Legal + Copyright */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-content-tertiary">
-          <p>© 2026 Unisphere. All rights reserved.</p>
+          <p>© 2026 UNISPHERE SRM. All rights reserved.</p>
 
-          <button
-            type="button"
-            onClick={scrollToTop}
-            className="p-2 rounded-xl bg-white border border-border hover:border-primary/40 text-content-secondary hover:text-primary shadow-2xs transition-all flex items-center gap-1.5"
-            aria-label="Scroll back to top"
-          >
-            <span>Back to top</span>
-            <ArrowUp className="w-3.5 h-3.5" />
-          </button>
+          <div className="flex flex-wrap items-center gap-4 sm:gap-6">
+            <Link
+              to="/privacy-policy"
+              className="hover:text-primary transition-colors"
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              to="/terms-of-service"
+              className="hover:text-primary transition-colors"
+            >
+              Terms of Service
+            </Link>
+            <button
+              type="button"
+              onClick={() => setCookieModalOpen(true)}
+              className="hover:text-primary transition-colors cursor-pointer"
+            >
+              Cookie Policy
+            </button>
+            <button
+              type="button"
+              onClick={scrollToTop}
+              className="p-1.5 rounded-lg bg-white border border-border hover:border-primary/40 text-content-secondary hover:text-primary shadow-2xs transition-all flex items-center gap-1 cursor-pointer"
+              aria-label="Scroll back to top"
+            >
+              <span>Top</span>
+              <ArrowUp className="w-3 h-3" />
+            </button>
+          </div>
         </div>
       </div>
+
+      {/* Cookie Policy Modal */}
+      {cookieModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-content-primary/40 backdrop-blur-xs">
+          <div className="bg-white rounded-2xl border border-border p-6 max-w-md w-full shadow-xl space-y-4">
+            <div className="flex items-center justify-between border-b border-border/80 pb-3">
+              <div className="flex items-center gap-2">
+                <Shield className="w-4 h-4 text-primary" />
+                <h3 className="text-base font-bold text-content-primary">Institutional Cookie Policy</h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setCookieModalOpen(false)}
+                className="p-1 rounded-lg text-content-tertiary hover:text-content-primary"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+            <p className="text-xs text-content-secondary leading-relaxed">
+              Unisphere SRM uses strictly essential cookies required for session authentication, role-based access control, and platform security. We do not use intrusive third-party cross-site advertising trackers.
+            </p>
+            <button
+              type="button"
+              onClick={() => setCookieModalOpen(false)}
+              className="w-full py-2 bg-primary text-white text-xs font-bold rounded-xl hover:bg-primary-dark transition-colors cursor-pointer"
+            >
+              Accept & Close
+            </button>
+          </div>
+        </div>
+      )}
     </footer>
   );
 };

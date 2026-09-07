@@ -22,6 +22,7 @@ export interface FeatureItem {
   id: string;
   title: string;
   description: string;
+  outcome?: string;
   iconName: string;
   category: 'Academics' | 'Campus Life' | 'Career & Ops';
 }
@@ -63,4 +64,48 @@ export interface RoleAccessItem {
   description: string;
   color: string;
   features: string[];
+}
+
+export interface ProblemItem {
+  id: string;
+  title: string;
+  description: string;
+  iconName: string;
+  impact: string;
+}
+
+export interface GovernanceCard {
+  id: string;
+  title: string;
+  description: string;
+  iconName: string;
+  capabilities: string[];
+}
+
+export interface ImplementationStep {
+  number: string;
+  title: string;
+  description: string;
+  details: string[];
+}
+
+export interface FAQItem {
+  question: string;
+  answer: string;
+  category?: string;
+}
+
+export interface DemoRequestData {
+  institutionName: string;
+  institutionType: string;
+  city: string;
+  state: string;
+  country: string;
+  contactPerson: string;
+  designation: string;
+  email: string;
+  phone: string;
+  modules: string[];
+  preferredTime: 'Morning' | 'Afternoon' | 'Evening';
+  notes?: string;
 }

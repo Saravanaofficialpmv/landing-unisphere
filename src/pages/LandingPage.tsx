@@ -1,26 +1,41 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Navbar } from '../components/Navbar';
 import { Hero } from '../components/Hero';
 import { TrustStrip } from '../components/TrustStrip';
-import { AboutUnisphere } from '../components/AboutUnisphere';
+import { ProblemSection } from '../components/ProblemSection';
 import { PortalCards } from '../components/PortalCards';
 import { FeatureGrid } from '../components/FeatureGrid';
 import { AppShowcase } from '../components/AppShowcase';
 import { EcosystemFlow } from '../components/EcosystemFlow';
-import { Technology } from '../components/Technology';
 import { WhyUnisphere } from '../components/WhyUnisphere';
-import { SimpleSurface } from '../components/SimpleSurface';
 import { RoleAccess } from '../components/RoleAccess';
+import { ImplementationJourney } from '../components/ImplementationJourney';
+import { FAQSection } from '../components/FAQSection';
 import { FinalCTA } from '../components/FinalCTA';
 import { Footer } from '../components/Footer';
 import { AuthModal } from '../components/AuthModal';
 import { DemoRequestModal } from '../components/DemoRequestModal';
 import { UserRole } from '../types';
+import { Sparkles } from 'lucide-react';
 
 export function LandingPage() {
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [demoModalOpen, setDemoModalOpen] = useState(false);
   const [selectedRoleForAuth, setSelectedRoleForAuth] = useState<UserRole>('student');
+  const [showMobileStickyBar, setShowMobileStickyBar] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 450) {
+        setShowMobileStickyBar(true);
+      } else {
+        setShowMobileStickyBar(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleOpenAuth = (role: UserRole = 'student') => {
     setSelectedRoleForAuth(role);
@@ -32,14 +47,7 @@ export function LandingPage() {
   };
 
   const handleExploreScroll = () => {
-    const target = document.querySelector('#portals');
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const handleLearnMoreScroll = () => {
-    const target = document.querySelector('#features');
+    const target = document.querySelector('#solutions');
     if (target) {
       target.scrollIntoView({ behavior: 'smooth' });
     }
@@ -47,7 +55,7 @@ export function LandingPage() {
 
   return (
     <div className="min-h-screen bg-white text-content-primary flex flex-col selection:bg-primary/15 selection:text-primary">
-      {/* Navigation Bar */}
+      {/* 1. Navbar */}
       <Navbar
         onSignInClick={() => handleOpenAuth('student')}
         onGetStartedClick={handleOpenDemo}
@@ -55,52 +63,56 @@ export function LandingPage() {
 
       {/* Main Content Sections */}
       <main className="flex-1">
-        {/* Hero Section with interactive central dashboard */}
+        {/* 2. Hero Section */}
         <Hero
           onGetStartedClick={handleOpenDemo}
           onExploreClick={handleExploreScroll}
         />
 
-        {/* 4 Key Metrics Strip */}
+        {/* 3. Institutional value/trust strip */}
         <TrustStrip />
 
-        {/* About Unisphere Section */}
-        <AboutUnisphere onLearnMoreClick={handleLearnMoreScroll} />
+        {/* 4. The disconnected-campus problem */}
+        <ProblemSection
+          onExploreSolutions={handleExploreScroll}
+          onBookDemoClick={handleOpenDemo}
+        />
 
-        {/* 5 Tailored Portals */}
-        <PortalCards onSelectPortal={(role) => handleOpenAuth(role)} />
+        {/* 5. One platform / five stakeholder experiences */}
+        <PortalCards
+          onSelectPortal={(role) => handleOpenAuth(role)}
+          onBookDemoClick={handleOpenDemo}
+        />
 
-        {/* 12 Academic & Campus Modules Grid */}
+        {/* 6 & 7. Academic management capabilities & Campus operations capabilities */}
         <FeatureGrid />
 
-        {/* Realistic Multi-Portal Application Showcase */}
+        {/* 8. Interactive product experience */}
         <AppShowcase />
 
-        {/* Continuous 5-Role Connected Ecosystem */}
-        <EcosystemFlow />
+        {/* 9. Connected institutional workflow */}
+        <EcosystemFlow onBookDemoClick={handleOpenDemo} />
 
-        {/* Technology Architecture Stack */}
-        <Technology />
-
-        {/* 3 Core Value Drivers */}
+        {/* 10. Why institutions choose Unisphere */}
         <WhyUnisphere />
 
-        {/* Simple on the Surface Micro-UI Preview Cards */}
-        <SimpleSurface />
+        {/* 11. Role-based access and governance */}
+        <RoleAccess />
 
-        {/* Role-Based Governance Matrix */}
-        <RoleAccess onSelectRole={(role) => handleOpenAuth(role)} />
+        {/* 12. Implementation journey */}
+        <ImplementationJourney onDiscussClick={handleOpenDemo} />
 
-        {/* Final Blue Ambient CTA */}
-        <FinalCTA
-          onGetStartedClick={handleOpenDemo}
-          onExploreClick={handleExploreScroll}
-        />
+        {/* 13. FAQ */}
+        <FAQSection onBookDemoClick={handleOpenDemo} />
+
+        {/* 14. Final institutional demo CTA */}
+        <FinalCTA onGetStartedClick={handleOpenDemo} />
       </main>
 
-      {/* Footer with Legal links */}
+      {/* 15. Footer */}
       <Footer
         onSignInClick={() => handleOpenAuth('student')}
+        onBookDemoClick={handleOpenDemo}
         onGetStartedClick={handleOpenDemo}
       />
 
@@ -115,6 +127,24 @@ export function LandingPage() {
         isOpen={demoModalOpen}
         onClose={() => setDemoModalOpen(false)}
       />
+
+      {/* Mobile Sticky Conversion Bar */}
+      {showMobileStickyBar && (
+        <div className="fixed bottom-0 inset-x-0 z-40 p-3 bg-white/95 backdrop-blur-md border-t border-border shadow-elevated md:hidden flex items-center justify-between gap-3 animate-in fade-in duration-200">
+          <div className="flex flex-col">
+            <span className="text-xs font-extrabold text-content-primary">UNISPHERE SRM</span>
+            <span className="text-[10px] text-content-secondary">Connected Campus</span>
+          </div>
+          <button
+            type="button"
+            onClick={handleOpenDemo}
+            className="px-4 py-2 bg-primary hover:bg-primary-dark text-white text-xs font-extrabold rounded-xl shadow-xs flex items-center gap-1.5 active:scale-95 cursor-pointer"
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>Book a Demo</span>
+          </button>
+        </div>
+      )}
     </div>
   );
 }

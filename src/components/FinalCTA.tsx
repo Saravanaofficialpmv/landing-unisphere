@@ -1,13 +1,24 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Compass, Sparkles, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, MessageSquare, Sparkles, CheckCircle2 } from 'lucide-react';
 
 interface FinalCTAProps {
   onGetStartedClick: () => void;
-  onExploreClick: () => void;
+  onTalkToTeam?: () => void;
 }
 
-export const FinalCTA: React.FC<FinalCTAProps> = ({ onGetStartedClick, onExploreClick }) => {
+export const FinalCTA: React.FC<FinalCTAProps> = ({ 
+  onGetStartedClick, 
+  onTalkToTeam 
+}) => {
+  const handleContactTeam = () => {
+    if (onTalkToTeam) {
+      onTalkToTeam();
+    } else {
+      window.location.href = 'mailto:heydigitals.care@gmail.com?subject=Institutional%20Inquiry%20-%20Unisphere%20SRM';
+    }
+  };
+
   return (
     <section className="py-20 sm:py-28 bg-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -30,18 +41,18 @@ export const FinalCTA: React.FC<FinalCTAProps> = ({ onGetStartedClick, onExplore
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/20 text-white backdrop-blur-md mb-6">
               <Sparkles className="w-3.5 h-3.5" />
               <span className="text-xs font-extrabold uppercase tracking-widest">
-                Start Connecting Today
+                Institutional Evaluation
               </span>
             </div>
 
-            {/* Main Heading */}
+            {/* Main H2 */}
             <h2 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-balance">
-              Your campus, connected.
+              See what a connected campus could look like for your institution.
             </h2>
 
             {/* Description */}
-            <p className="mt-6 text-base sm:text-lg lg:text-xl text-white/85 max-w-2xl font-normal leading-relaxed text-balance">
-              Bring students, faculty, parents, HODs and administrators together with Unisphere.
+            <p className="mt-6 text-base sm:text-lg lg:text-xl text-white/90 max-w-2xl font-normal leading-relaxed text-balance">
+              Get a guided look at Unisphere SRM and explore how your students, faculty, HODs, parents and administrators can work from one connected platform.
             </p>
 
             {/* CTA Buttons */}
@@ -49,34 +60,36 @@ export const FinalCTA: React.FC<FinalCTAProps> = ({ onGetStartedClick, onExplore
               <button
                 type="button"
                 onClick={onGetStartedClick}
-                className="w-full sm:w-auto px-8 py-4 text-base font-bold text-primary bg-white hover:bg-white/95 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center gap-2 group active:scale-95"
+                className="w-full sm:w-auto px-8 py-4 text-sm sm:text-base font-extrabold text-primary bg-white hover:bg-white/95 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center gap-2.5 group active:scale-95 cursor-pointer"
               >
-                <span>Get Started</span>
+                <span>Book an Institutional Demo</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
               <button
                 type="button"
-                onClick={onExploreClick}
-                className="w-full sm:w-auto px-8 py-4 text-base font-bold text-white bg-white/10 hover:bg-white/20 border border-white/30 rounded-2xl backdrop-blur-md transition-all duration-200 flex items-center justify-center gap-2 active:scale-95"
+                onClick={handleContactTeam}
+                className="w-full sm:w-auto px-8 py-4 text-sm sm:text-base font-bold text-white bg-white/10 hover:bg-white/20 border border-white/30 rounded-2xl backdrop-blur-md transition-all duration-200 flex items-center justify-center gap-2 active:scale-95 cursor-pointer"
               >
-                <Compass className="w-4 h-4" />
-                <span>Explore the Platform</span>
+                <MessageSquare className="w-4 h-4" />
+                <span>Talk to Our Team</span>
               </button>
             </div>
 
-            {/* Reassurance pills */}
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-6 text-xs sm:text-sm text-white/80 font-semibold">
-              <div className="flex items-center gap-2">
+            {/* Supporting Trust Line */}
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-xs sm:text-sm text-white/80 font-semibold">
+              <div className="flex items-center gap-1.5">
                 <CheckCircle2 className="w-4 h-4 text-white" />
-                <span>5 Role-Tailored Portals</span>
+                <span>No obligation</span>
               </div>
-              <div className="flex items-center gap-2">
+              <span className="text-white/40 hidden sm:inline">•</span>
+              <div className="flex items-center gap-1.5">
                 <CheckCircle2 className="w-4 h-4 text-white" />
-                <span>Zero Data Redundancy</span>
+                <span>Guided platform walkthrough</span>
               </div>
-              <div className="flex items-center gap-2">
+              <span className="text-white/40 hidden sm:inline">•</span>
+              <div className="flex items-center gap-1.5">
                 <CheckCircle2 className="w-4 h-4 text-white" />
-                <span>Instant Multi-Device Sync</span>
+                <span>Designed for institutional evaluation</span>
               </div>
             </div>
           </div>
@@ -85,3 +98,5 @@ export const FinalCTA: React.FC<FinalCTAProps> = ({ onGetStartedClick, onExplore
     </section>
   );
 };
+
+export default FinalCTA;
