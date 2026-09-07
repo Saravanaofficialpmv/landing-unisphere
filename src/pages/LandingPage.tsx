@@ -13,6 +13,7 @@ import { ImplementationJourney } from '../components/ImplementationJourney';
 import { FAQSection } from '../components/FAQSection';
 import { FinalCTA } from '../components/FinalCTA';
 import { Footer } from '../components/Footer';
+import { TextLoop } from '../components/TextLoop';
 import { AuthModal } from '../components/AuthModal';
 import { DemoRequestModal } from '../components/DemoRequestModal';
 import { UserRole } from '../types';
@@ -92,6 +93,29 @@ export function LandingPage() {
 
         {/* 9. Connected institutional workflow */}
         <EcosystemFlow onBookDemoClick={handleOpenDemo} />
+
+        {/* Dynamic Campus Ribbon Loop */}
+        <section className="py-2 sm:py-6 bg-gradient-to-b from-white via-surface-soft/40 to-white overflow-hidden" aria-label="Unisphere SRM Brand Flow">
+          <div className="max-w-7xl mx-auto px-2 sm:px-4">
+            <TextLoop
+              text="Unisphere SRM ✦ One Campus ✦ One Connected Experience ✦ 5 Stakeholder Portals ✦ 12 Academic Modules"
+              shape="wave"
+              speed={85}
+              direction="forward"
+              separator="✦"
+              curviness={48}
+              fontSize={30}
+              fontWeight={800}
+              letterSpacing={2}
+              uppercase
+              color="#ffffff"
+              ribbon
+              ribbonColor="#2563EB"
+              ribbonWidth={68}
+              pauseOnHover
+            />
+          </div>
+        </section>
 
         {/* 10. Why institutions choose Unisphere */}
         <WhyUnisphere />
