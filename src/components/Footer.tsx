@@ -44,7 +44,7 @@ export const Footer: React.FC<FooterProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-border/80">
           {/* Brand Column */}
-          <div className="md:col-span-4 flex flex-col items-start">
+          <div className="md:col-span-5 lg:col-span-6 flex flex-col items-start">
             <Link
               to="/"
               onClick={location.pathname === '/' ? scrollToTop : undefined}
@@ -93,11 +93,14 @@ export const Footer: React.FC<FooterProps> = ({
             )}
           </div>
 
-          {/* 4 Navigation Columns matching User's Layout */}
-          <div className="md:col-span-8 grid grid-cols-2 sm:grid-cols-4 gap-6 lg:gap-8 pt-1">
-            {/* Column 1: Core Platform */}
+          {/* Navigation Columns */}
+          <div className="md:col-span-7 lg:col-span-6 grid grid-cols-2 gap-8 pt-1 sm:pl-8">
+            {/* Column 1: Platform */}
             <div>
-              <ul className="space-y-3.5">
+              <h4 className="text-xs font-extrabold uppercase tracking-wider text-content-primary mb-4">
+                Platform
+              </h4>
+              <ul className="space-y-3">
                 <li>
                   <a
                     href="#platform"
@@ -134,113 +137,42 @@ export const Footer: React.FC<FooterProps> = ({
                     Built for Institutions
                   </a>
                 </li>
-              </ul>
-            </div>
-
-            {/* Column 2: Stakeholder Portals */}
-            <div>
-              <ul className="space-y-3.5">
-                <li>
-                  <a
-                    href="#solutions"
-                    onClick={(e) => handleSectionClick(e, '#solutions')}
-                    className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
-                  >
-                    Student Experience
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#solutions"
-                    onClick={(e) => handleSectionClick(e, '#solutions')}
-                    className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
-                  >
-                    Faculty Management
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#solutions"
-                    onClick={(e) => handleSectionClick(e, '#solutions')}
-                    className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
-                  >
-                    HOD Department Hub
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#solutions"
-                    onClick={(e) => handleSectionClick(e, '#solutions')}
-                    className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
-                  >
-                    Parent Oversight
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#solutions"
-                    onClick={(e) => handleSectionClick(e, '#solutions')}
-                    className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
-                  >
-                    Admin Governance
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            {/* Column 3: Institutional Journey & FAQ */}
-            <div>
-              <ul className="space-y-3.5">
-                <li>
-                  <a
-                    href="#institutions"
-                    onClick={(e) => handleSectionClick(e, '#institutions')}
-                    className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
-                  >
-                    RBAC & Governance
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#implementation"
-                    onClick={(e) => handleSectionClick(e, '#implementation')}
-                    className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
-                  >
-                    Implementation Path
-                  </a>
-                </li>
                 <li>
                   <a
                     href="#faq"
                     onClick={(e) => handleSectionClick(e, '#faq')}
                     className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
                   >
-                    FAQ
+                    Frequently Asked Questions
                   </a>
                 </li>
-                {handleDemoClick && (
-                  <li>
-                    <button
-                      type="button"
-                      onClick={handleDemoClick}
-                      className="text-xs sm:text-sm text-primary font-bold hover:underline inline-block text-left cursor-pointer"
-                    >
-                      Request Demo
-                    </button>
-                  </li>
-                )}
               </ul>
             </div>
 
-            {/* Column 4: Access & Legal */}
+            {/* Column 2: Company & Contact */}
             <div>
-              <ul className="space-y-3.5">
+              <h4 className="text-xs font-extrabold uppercase tracking-wider text-content-primary mb-4">
+                Company
+              </h4>
+              <ul className="space-y-3">
                 <li>
                   <a
                     href="https://www.heydigital.work/contact.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
                   >
-                    Institutional Contact
+                    Institutional Inquiries
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://heydigital.work"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
+                  >
+                    HeyDigital
                   </a>
                 </li>
                 <li>
@@ -248,7 +180,7 @@ export const Footer: React.FC<FooterProps> = ({
                     to="/privacy-policy"
                     className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
                   >
-                    Student Privacy Policy
+                    Privacy Policy
                   </Link>
                 </li>
                 <li>
