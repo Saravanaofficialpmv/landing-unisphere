@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ArrowRight, ChevronRight, Sparkles } from 'lucide-react';
+import { Menu, ArrowRight, Sparkles } from 'lucide-react';
+import { StaggeredMenu, StaggeredMenuRef, StaggeredMenuItem } from './StaggeredMenu';
 
 interface NavbarProps {
   onSignInClick: () => void;
@@ -10,9 +10,9 @@ interface NavbarProps {
 
 export const Navbar: React.FC<NavbarProps> = ({ onSignInClick, onGetStartedClick }) => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const staggeredMenuRef = useRef<StaggeredMenuRef>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,9 +35,26 @@ export const Navbar: React.FC<NavbarProps> = ({ onSignInClick, onGetStartedClick
     { name: 'Resources', href: '#resources' },
   ];
 
+  const menuItems: StaggeredMenuItem[] = [
+    { label: 'Platform Overview', ariaLabel: 'Go to platform overview', link: '#platform' },
+    { label: 'Stakeholder Portals', ariaLabel: 'Go to stakeholder portals', link: '#solutions' },
+    { label: 'Academic Modules', ariaLabel: 'Go to academic modules', link: '#features' },
+    { label: 'Connected Workflow', ariaLabel: 'Go to connected workflow', link: '#workflow' },
+    { label: 'Why Unisphere', ariaLabel: 'Go to institutional foundation', link: '#institutions' },
+    { label: 'Security & Governance', ariaLabel: 'Go to role access and governance', link: '#governance' },
+    { label: 'Implementation Path', ariaLabel: 'Go to implementation journey', link: '#implementation' },
+    { label: 'FAQ', ariaLabel: 'Go to frequently asked questions', link: '#faq' },
+  ];
+
+  const socialItems = [
+    { label: 'Book Demo', link: '#', onClick: onGetStartedClick },
+    { label: 'Portal Login', link: '#', onClick: onSignInClick },
+    { label: 'Privacy Policy', link: '/privacy-policy' },
+    { label: 'Terms of Service', link: '/terms-of-service' },
+  ];
+
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
-    setMobileMenuOpen(false);
     
     if (location.pathname !== '/') {
       navigate('/' + href);
@@ -54,6 +71,32 @@ export const Navbar: React.FC<NavbarProps> = ({ onSignInClick, onGetStartedClick
       }
     }
   };
+
+  const extraMenuContent = (
+    <div className="flex flex-col gap-2.5 pt-2">
+      <button
+        type="button"
+        onClick={() => {
+          staggeredMenuRef.current?.close();
+          onGetStartedClick();
+        }}
+        className="w-full py-3 px-5 text-xs sm:text-sm font-extrabold text-white bg-primary hover:bg-primary-dark rounded-xl shadow-md shadow-primary/25 active:scale-95 transition-all flex items-center justify-center gap-2 ring-2 ring-primary/20 cursor-pointer"
+      >
+        <Sparkles className="w-4 h-4" />
+        <span>Book an Institutional Demo</span>
+      </button>
+      <button
+        type="button"
+        onClick={() => {
+          staggeredMenuRef.current?.close();
+          onSignInClick();
+        }}
+        className="w-full py-2.5 px-5 text-xs sm:text-sm font-bold text-content-primary hover:text-primary border border-border rounded-xl hover:bg-surface-soft transition-colors cursor-pointer"
+      >
+        Sign in to Stakeholder Portal
+      </button>
+    </div>
+  );
 
   return (
     <>
@@ -107,97 +150,78 @@ export const Navbar: React.FC<NavbarProps> = ({ onSignInClick, onGetStartedClick
               ))}
             </nav>
 
-            {/* Desktop Action Buttons */}
-            <div className="hidden md:flex items-center gap-3">
+            {/* Desktop Action Buttons & Staggered Menu Trigger */}
+            <div className="hidden md:flex items-center gap-2.5">
               <button
                 type="button"
                 onClick={onSignInClick}
-                className="px-4 py-2 text-xs lg:text-sm font-bold text-content-primary hover:text-primary border border-border hover:border-primary/40 rounded-xl transition-all duration-200 hover:bg-surface-soft active:scale-95 whitespace-nowrap"
+                className="px-4 py-2 text-xs lg:text-sm font-bold text-content-primary hover:text-primary border border-border hover:border-primary/40 rounded-xl transition-all duration-200 hover:bg-surface-soft active:scale-95 whitespace-nowrap cursor-pointer"
               >
                 Login
               </button>
               <button
                 type="button"
                 onClick={onGetStartedClick}
-                className="px-5 py-2.5 text-xs lg:text-sm font-extrabold text-white bg-primary hover:bg-primary-dark rounded-xl shadow-md shadow-primary/25 hover:shadow-lg hover:shadow-primary/35 transition-all duration-200 inline-flex items-center justify-center gap-2 active:scale-95 group whitespace-nowrap ring-2 ring-primary/20"
+                className="px-5 py-2.5 text-xs lg:text-sm font-extrabold text-white bg-primary hover:bg-primary-dark rounded-xl shadow-md shadow-primary/25 hover:shadow-lg hover:shadow-primary/35 transition-all duration-200 inline-flex items-center justify-center gap-2 active:scale-95 group whitespace-nowrap ring-2 ring-primary/20 cursor-pointer"
               >
                 <span>Book a Demo</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-150 shrink-0" />
               </button>
+
+              {/* Desktop Staggered Menu Button */}
+              <button
+                type="button"
+                onClick={() => staggeredMenuRef.current?.toggle()}
+                className="p-2.5 rounded-xl text-content-secondary hover:text-primary hover:bg-surface-soft border border-border hover:border-primary/40 transition-all active:scale-95 flex items-center gap-2 group cursor-pointer"
+                aria-label="Open institutional menu"
+                title="Open Staggered Menu"
+              >
+                <span className="text-xs font-extrabold tracking-wider uppercase hidden xl:inline">Menu</span>
+                <Menu className="w-4 h-4 group-hover:rotate-90 transition-transform duration-200" />
+              </button>
             </div>
 
-            {/* Mobile Actions & Menu Button */}
+            {/* Mobile Actions & Staggered Menu Trigger */}
             <div className="flex md:hidden items-center gap-2">
               <button
                 type="button"
                 onClick={onGetStartedClick}
-                className="px-3 py-1.5 text-xs font-bold text-white bg-primary rounded-lg shadow-xs active:scale-95"
+                className="px-3 py-1.5 text-xs font-bold text-white bg-primary rounded-lg shadow-xs active:scale-95 cursor-pointer"
               >
                 Book a Demo
               </button>
               <button
                 type="button"
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2 rounded-xl text-content-secondary hover:text-content-primary hover:bg-surface-soft border border-border/80 focus:outline-none"
+                onClick={() => staggeredMenuRef.current?.toggle()}
+                className="p-2 rounded-xl text-content-secondary hover:text-content-primary hover:bg-surface-soft border border-border/80 focus:outline-none active:scale-95 cursor-pointer"
                 aria-label="Toggle navigation menu"
               >
-                {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                <Menu className="w-5 h-5 text-content-primary" />
               </button>
             </div>
           </div>
         </div>
       </header>
 
-      {/* Mobile Drawer Navigation */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-x-0 top-[60px] z-40 bg-white/95 backdrop-blur-xl border-b border-border shadow-xl px-6 py-6 md:hidden flex flex-col gap-4"
-          >
-            <div className="flex flex-col space-y-1">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={(e) => handleLinkClick(e, link.href)}
-                  className="flex items-center justify-between py-2.5 px-3 text-sm font-semibold text-content-primary hover:text-primary hover:bg-primary-subtle/50 rounded-xl transition-all cursor-pointer"
-                >
-                  <span>{link.name}</span>
-                  <ChevronRight className="w-4 h-4 text-content-tertiary" />
-                </a>
-              ))}
-            </div>
-
-            <div className="pt-4 border-t border-border flex flex-col gap-2.5">
-              <button
-                type="button"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onSignInClick();
-                }}
-                className="w-full py-2.5 text-center text-sm font-bold text-content-primary border border-border rounded-xl hover:bg-surface-soft transition-colors"
-              >
-                Login
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onGetStartedClick();
-                }}
-                className="w-full py-3 text-center text-sm font-extrabold text-white bg-primary hover:bg-primary-dark rounded-xl shadow-md shadow-primary/25 active:scale-95 flex items-center justify-center gap-2"
-              >
-                <Sparkles className="w-4 h-4" />
-                <span>Book an Institutional Demo</span>
-              </button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* React Bits StaggeredMenu Component */}
+      <StaggeredMenu
+        ref={staggeredMenuRef}
+        isFixed={true}
+        hideHeader={true}
+        position="right"
+        colors={['#DBEAFE', '#2563EB']}
+        accentColor="#2563EB"
+        items={menuItems}
+        socialItems={socialItems}
+        displaySocials={true}
+        displayItemNumbering={true}
+        extraContent={extraMenuContent}
+        onItemClick={(item) => {
+          if (location.pathname !== '/' && item.link.startsWith('#')) {
+            navigate('/' + item.link);
+          }
+        }}
+      />
     </>
   );
 };
