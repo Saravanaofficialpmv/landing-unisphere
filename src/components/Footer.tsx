@@ -3,13 +3,11 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ArrowUp, Shield, Mail, Phone, Globe, Calendar, X } from 'lucide-react';
 
 export interface FooterProps {
-  onSignInClick?: () => void;
   onBookDemoClick?: () => void;
   onGetStartedClick?: () => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({ 
-  onSignInClick, 
   onBookDemoClick,
   onGetStartedClick 
 }) => {
@@ -237,17 +235,6 @@ export const Footer: React.FC<FooterProps> = ({
             {/* Column 4: Access & Legal */}
             <div>
               <ul className="space-y-3.5">
-                {onSignInClick && (
-                  <li>
-                    <button
-                      type="button"
-                      onClick={onSignInClick}
-                      className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors text-left cursor-pointer"
-                    >
-                      Portal Login
-                    </button>
-                  </li>
-                )}
                 <li>
                   <a
                     href="https://www.heydigital.work/contact.html"

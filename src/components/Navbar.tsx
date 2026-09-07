@@ -4,11 +4,10 @@ import { Menu, Sparkles } from 'lucide-react';
 import { StaggeredMenu, StaggeredMenuRef, StaggeredMenuItem } from './StaggeredMenu';
 
 interface NavbarProps {
-  onSignInClick: () => void;
   onGetStartedClick: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onSignInClick, onGetStartedClick }) => {
+export const Navbar: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
@@ -36,7 +35,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onSignInClick, onGetStartedClick
 
   const socialItems = [
     { label: 'Book Demo', link: '#', onClick: onGetStartedClick },
-    { label: 'Portal Login', link: '#', onClick: onSignInClick },
     { label: 'Privacy Policy', link: '/privacy-policy' },
   ];
 
@@ -126,14 +124,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onSignInClick, onGetStartedClick
 
           {/* Actions & Pill CTA (Right - Reference 2 Sign up pill) */}
           <div className="flex items-center gap-2 sm:gap-3">
-            <button
-              type="button"
-              onClick={onSignInClick}
-              className="hidden lg:inline-flex text-xs sm:text-sm font-medium text-slate-300 hover:text-white px-2 py-1 transition-colors cursor-pointer"
-            >
-              Login
-            </button>
-
             {/* Solid White Pill Button */}
             <button
               type="button"

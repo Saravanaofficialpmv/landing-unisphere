@@ -11,13 +11,9 @@ import { FAQSection } from '../components/FAQSection';
 import { FinalCTA } from '../components/FinalCTA';
 import { Footer } from '../components/Footer';
 import { TextLoop } from '../components/TextLoop';
-import { AuthModal } from '../components/AuthModal';
-import { UserRole } from '../types';
 import { Sparkles } from 'lucide-react';
 
 export function LandingPage() {
-  const [authModalOpen, setAuthModalOpen] = useState(false);
-  const [selectedRoleForAuth, setSelectedRoleForAuth] = useState<UserRole>('student');
   const [showMobileStickyBar, setShowMobileStickyBar] = useState(false);
 
   useEffect(() => {
@@ -37,11 +33,6 @@ export function LandingPage() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleOpenAuth = (role: UserRole = 'student') => {
-    setSelectedRoleForAuth(role);
-    setAuthModalOpen(true);
-  };
-
   const handleOpenDemo = () => {
     window.location.href = 'https://www.heydigital.work/contact.html';
   };
@@ -57,7 +48,6 @@ export function LandingPage() {
     <div className="min-h-screen bg-white text-content-primary flex flex-col selection:bg-primary/15 selection:text-primary">
       {/* 1. Navbar */}
       <Navbar
-        onSignInClick={() => handleOpenAuth('student')}
         onGetStartedClick={handleOpenDemo}
       />
 
@@ -102,7 +92,6 @@ export function LandingPage() {
 
         {/* 5. One platform / five stakeholder experiences */}
         <PortalCards
-          onSelectPortal={(role) => handleOpenAuth(role)}
           onBookDemoClick={handleOpenDemo}
         />
 
@@ -124,16 +113,8 @@ export function LandingPage() {
 
       {/* 15. Footer */}
       <Footer
-        onSignInClick={() => handleOpenAuth('student')}
         onBookDemoClick={handleOpenDemo}
         onGetStartedClick={handleOpenDemo}
-      />
-
-      {/* Interactive Modals */}
-      <AuthModal
-        isOpen={authModalOpen}
-        onClose={() => setAuthModalOpen(false)}
-        initialRole={selectedRoleForAuth}
       />
 
       {/* Mobile Sticky Conversion Bar */}

@@ -9,10 +9,8 @@ import {
   Clock
 } from 'lucide-react';
 import { Footer } from '../components/Footer';
-import { AuthModal } from '../components/AuthModal';
 
 export const PrivacyPolicy: React.FC = () => {
-  const [authModalOpen, setAuthModalOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>('intro');
 
   const sections = [
@@ -96,13 +94,6 @@ export const PrivacyPolicy: React.FC = () => {
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>Back to Home</span>
             </Link>
-            <button
-              type="button"
-              onClick={() => setAuthModalOpen(true)}
-              className="hidden md:inline-flex px-4 py-2 text-xs font-bold text-white bg-primary hover:bg-primary-dark rounded-xl transition-all shadow-xs"
-            >
-              Sign In
-            </button>
           </div>
         </div>
       </header>
@@ -477,15 +468,7 @@ export const PrivacyPolicy: React.FC = () => {
 
       {/* Footer */}
       <Footer 
-        onSignInClick={() => setAuthModalOpen(true)} 
         onGetStartedClick={() => { window.location.href = 'https://www.heydigital.work/contact.html'; }} 
-      />
-
-      {/* Modals */}
-      <AuthModal
-        isOpen={authModalOpen}
-        onClose={() => setAuthModalOpen(false)}
-        initialRole="student"
       />
     </div>
   );

@@ -1,52 +1,71 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { TRUST_METRICS } from '../data/landingPageData';
-import { Building2, Users, Workflow, Sparkles } from 'lucide-react';
+import { GlowingEffect } from './ui/glowing-effect';
+import universityIcon from '../assets/university.png';
+import workforceIcon from '../assets/workforce.png';
+import workflowIcon from '../assets/workflow.png';
+import feedbackIcon from '../assets/feedback.png';
 
 export const TrustStrip: React.FC = () => {
-  const iconMap: Record<string, React.ReactNode> = {
-    campus: <Building2 className="w-5 h-5 text-primary" />,
-    roles: <Users className="w-5 h-5 text-primary" />,
-    workflows: <Workflow className="w-5 h-5 text-primary" />,
-    experience: <Sparkles className="w-5 h-5 text-primary" />
+  const iconMap: Record<string, { src: string; alt: string }> = {
+    campus: { src: universityIcon, alt: 'One Campus' },
+    roles: { src: workforceIcon, alt: 'Every Role' },
+    workflows: { src: workflowIcon, alt: 'Every Workflow' },
+    experience: { src: feedbackIcon, alt: 'One Experience' }
   };
 
   return (
-    <section className="pt-14 pb-12 sm:pt-16 sm:pb-14 border-b border-border/80 bg-surface-soft/40 relative">
+    <section className="pt-12 pb-12 sm:pt-16 sm:pb-14 border-b border-border/80 bg-surface-soft/40 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-          {TRUST_METRICS.map((metric, idx) => (
-            <motion.div
-              key={metric.id}
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: idx * 0.08 }}
-              className="flex flex-col justify-between p-5 sm:p-6 rounded-2xl bg-white border border-border shadow-xs hover:border-primary/40 hover:shadow-card transition-all group cursor-default"
-            >
-              <div>
-                {/* Top Row: Icon + Number Badge */}
-                <div className="flex items-center justify-between mb-4">
-                  <div className="w-10 h-10 rounded-xl bg-primary-subtle border border-primary/20 flex items-center justify-center group-hover:scale-105 transition-transform shadow-2xs">
-                    {iconMap[metric.id]}
+          {TRUST_METRICS.map((metric, idx) => {
+            const iconData = iconMap[metric.id];
+            return (
+              <motion.div
+                key={metric.id}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: idx * 0.08 }}
+                className="relative h-full rounded-2xl md:rounded-3xl border border-slate-200/80 bg-slate-50/70 p-2 md:p-2.5 transition-all duration-300 shadow-xs hover:shadow-card group flex flex-col"
+              >
+                <GlowingEffect
+                  spread={40}
+                  glow={true}
+                  disabled={false}
+                  proximity={64}
+                  inactiveZone={0.01}
+                  borderWidth={1.5}
+                />
+                <div className="relative z-10 flex-1 p-6 sm:p-7 rounded-xl md:rounded-2xl bg-white border border-border/70 shadow-2xs flex flex-col justify-between">
+                  <div>
+                    {/* Icon Container */}
+                    <div className="w-12 h-12 rounded-2xl bg-primary-subtle/70 border border-primary/20 flex items-center justify-center mb-5 group-hover:scale-105 transition-transform shadow-2xs">
+                      {iconData && (
+                        <img 
+                          src={iconData.src} 
+                          alt={iconData.alt} 
+                          className="w-7 h-7 object-contain select-none pointer-events-none" 
+                          loading="eager"
+                        />
+                      )}
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="text-lg sm:text-xl font-extrabold text-content-primary tracking-tight group-hover:text-primary transition-colors">
+                      {metric.label}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-sm text-content-secondary mt-2 leading-relaxed font-normal">
+                      {metric.description}
+                    </p>
                   </div>
-                  <span className="text-xs font-mono font-extrabold text-primary px-2.5 py-0.5 rounded-full bg-primary-subtle border border-primary/20 shadow-2xs">
-                    {metric.value}
-                  </span>
                 </div>
-
-                {/* Title */}
-                <h3 className="text-lg sm:text-xl font-extrabold text-content-primary tracking-tight group-hover:text-primary transition-colors">
-                  {metric.label}
-                </h3>
-
-                {/* Description */}
-                <p className="text-xs sm:text-sm text-content-secondary mt-1.5 leading-relaxed font-normal">
-                  {metric.description}
-                </p>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

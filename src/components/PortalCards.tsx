@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { PORTALS_DATA } from '../data/landingPageData';
 import { 
@@ -7,15 +7,12 @@ import {
   Building2, 
   Users, 
   ShieldCheck, 
-  ArrowRight, 
   Sparkles
 } from 'lucide-react';
-import { UserRole } from '../types';
 import { GlowingEffect } from '@/components/ui/glowing-effect';
 import { CloudShader } from '@/components/ui/cloud-shader';
 
 interface PortalCardsProps {
-  onSelectPortal: (role: UserRole) => void;
   onBookDemoClick?: () => void;
 }
 
@@ -59,9 +56,45 @@ const PORTAL_SUMMARIES: Record<string, {
 };
 
 export const PortalCards: React.FC<PortalCardsProps> = ({ 
-  onSelectPortal,
   onBookDemoClick 
 }) => {
+  const [mobileActiveIndex, setMobileActiveIndex] = useState(0);
+  const mobileScrollRef = useRef<HTMLUListElement>(null);
+
+  const handleMobileScroll = useCallback(() => {
+    const el = mobileScrollRef.current;
+    if (!el) return;
+    const children = Array.from(el.children) as HTMLElement[];
+    if (children.length === 0) return;
+
+    const containerCenter = el.scrollLeft + el.clientWidth / 2;
+    let closestIdx = 0;
+    let minDiff = Infinity;
+
+    children.forEach((child, i) => {
+      const childCenter = child.offsetLeft + child.offsetWidth / 2;
+      const diff = Math.abs(containerCenter - childCenter);
+      if (diff < minDiff) {
+        minDiff = diff;
+        closestIdx = i;
+      }
+    });
+
+    setMobileActiveIndex(closestIdx);
+  }, []);
+
+  const scrollToMobileCard = (idx: number) => {
+    const el = mobileScrollRef.current;
+    if (!el) return;
+    const children = Array.from(el.children) as HTMLElement[];
+    if (!children[idx]) return;
+
+    const targetChild = children[idx];
+    const targetLeft = targetChild.offsetLeft - (el.clientWidth - targetChild.offsetWidth) / 2;
+    el.scrollTo({ left: Math.max(0, targetLeft), behavior: 'smooth' });
+    setMobileActiveIndex(idx);
+  };
+
   const getIcon = (iconName: string) => {
     switch (iconName) {
       case 'GraduationCap':
@@ -80,7 +113,6 @@ export const PortalCards: React.FC<PortalCardsProps> = ({
   };
 
   // Balanced 12-column responsive layout: 3 cards top (col-4 each), 2 cards bottom (col-6 each)
-  // Completely eliminates disproportionate vertical stretching and huge blank spaces
   const gridSpans = [
     "col-span-12 md:col-span-6 lg:col-span-4", // 0: Student (Top Row, 1/3)
     "col-span-12 md:col-span-6 lg:col-span-4", // 1: Faculty (Top Row, 1/3)
@@ -118,7 +150,7 @@ export const PortalCards: React.FC<PortalCardsProps> = ({
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-14">
+        <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-14">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/20 border border-white/30 text-white mb-4 shadow-sm backdrop-blur-md">
             <Sparkles className="w-3.5 h-3.5 text-blue-100" />
             <span className="text-xs font-bold uppercase tracking-wider">
@@ -135,8 +167,34 @@ export const PortalCards: React.FC<PortalCardsProps> = ({
           </p>
         </div>
 
-        {/* 5 Portals Balanced Responsive Bento Grid (3 Top + 2 Bottom) */}
-        <ul className="grid grid-cols-12 gap-4 lg:gap-5 p-0 m-0 list-none">
+        {/* Mobile Quick-Select Role Switcher (Hidden on Desktop) */}
+        <div className="flex md:hidden items-center justify-start gap-2 overflow-x-auto no-scrollbar mb-5 px-1 py-1">
+          {PORTALS_DATA.map((portal, pIdx) => {
+            const summary = PORTAL_SUMMARIES[portal.id];
+            const isActive = mobileActiveIndex === pIdx;
+            return (
+              <button
+                key={portal.id}
+                type="button"
+                onClick={() => scrollToMobileCard(pIdx)}
+                className={`px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all duration-200 border cursor-pointer ${
+                  isActive
+                    ? 'bg-white text-primary border-white shadow-md shadow-blue-950/30 scale-105'
+                    : 'bg-white/15 hover:bg-white/25 text-white/95 border-white/20'
+                }`}
+              >
+                {summary?.roleBadge || portal.badge}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* 5 Portals: Horizontal Swipeable on Mobile, Balanced Bento Grid on Desktop */}
+        <ul
+          ref={mobileScrollRef}
+          onScroll={handleMobileScroll}
+          className="flex md:grid md:grid-cols-12 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none no-scrollbar gap-4 lg:gap-5 p-0 m-0 list-none pb-4 md:pb-0 touch-pan-x"
+        >
           {PORTALS_DATA.map((portal, index) => {
             const Icon = getIcon(portal.iconName);
             const spanClass = gridSpans[index] || "col-span-12 lg:col-span-4";
@@ -154,20 +212,11 @@ export const PortalCards: React.FC<PortalCardsProps> = ({
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.06 }}
-                className={`list-none flex flex-col ${spanClass}`}
+                className={`list-none flex flex-col w-[85vw] max-w-[340px] shrink-0 snap-center md:w-auto md:max-w-none md:shrink md:snap-align-none ${spanClass}`}
               >
                 {/* Outer Frosted Glass Frame with GlowingEffect */}
                 <div 
-                  onClick={() => onSelectPortal(portal.id as UserRole)}
-                  className="relative h-full rounded-2xl md:rounded-3xl border border-white/40 bg-white/30 hover:bg-white/40 backdrop-blur-2xl p-2 transition-all duration-300 shadow-xl shadow-blue-950/20 group cursor-pointer flex flex-col"
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      onSelectPortal(portal.id as UserRole);
-                    }
-                  }}
+                  className="relative h-full rounded-2xl md:rounded-3xl border border-white/40 bg-white/30 hover:bg-white/40 backdrop-blur-2xl p-2 transition-all duration-300 shadow-xl shadow-blue-950/20 group flex flex-col"
                 >
                   <GlowingEffect
                     spread={40}
@@ -223,18 +272,29 @@ export const PortalCards: React.FC<PortalCardsProps> = ({
                         ))}
                       </div>
                     </div>
-
-                    {/* Clean Minimal Action Link */}
-                    <div className="pt-3 border-t border-border/50 flex items-center justify-between text-xs font-bold text-content-primary group-hover:text-primary transition-colors">
-                      <span>Explore Preview</span>
-                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                    </div>
                   </div>
                 </div>
               </motion.li>
             );
           })}
         </ul>
+
+        {/* Mobile Swipe Pagination Dots (Hidden on Desktop) */}
+        <div className="flex md:hidden items-center justify-center gap-1.5 mt-3 mb-2">
+          {PORTALS_DATA.map((_, dotIdx) => (
+            <button
+              key={dotIdx}
+              type="button"
+              onClick={() => scrollToMobileCard(dotIdx)}
+              className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                mobileActiveIndex === dotIdx
+                  ? 'w-6 bg-white shadow-xs'
+                  : 'w-1.5 bg-white/40 hover:bg-white/70'
+              }`}
+              aria-label={`Go to portal ${dotIdx + 1}`}
+            />
+          ))}
+        </div>
 
         {/* Minimal Demo Banner on Floating Glass */}
         {onBookDemoClick && (

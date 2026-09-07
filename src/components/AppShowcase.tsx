@@ -1,26 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { 
-  GraduationCap, 
-  BookOpenCheck, 
-  Building2, 
-  Users, 
-  ShieldCheck, 
   Sparkles, 
   Lock 
 } from 'lucide-react';
-import { UserRole } from '../types';
 import CardSwap, { Card } from './CardSwap';
 
 export const AppShowcase: React.FC = () => {
-  const [activeRoleIndex, setActiveRoleIndex] = useState(0);
-
-  const roles = [
-    { id: 'student' as UserRole, name: 'Student', icon: GraduationCap, color: '#2563EB', roleLabel: 'Student View', tagline: 'Learn. Track. Grow.' },
-    { id: 'faculty' as UserRole, name: 'Faculty', icon: BookOpenCheck, color: '#7C3AED', roleLabel: 'Faculty View', tagline: 'Teach. Manage. Guide.' },
-    { id: 'hod' as UserRole, name: 'HOD', icon: Building2, color: '#D97706', roleLabel: 'Department View', tagline: 'Lead your department.' },
-    { id: 'parent' as UserRole, name: 'Parent', icon: Users, color: '#059669', roleLabel: 'Parent View', tagline: 'Stay connected.' },
-    { id: 'admin' as UserRole, name: 'Admin', icon: ShieldCheck, color: '#DC2626', roleLabel: 'Institutional View', tagline: 'Manage the institution.' },
-  ];
 
   const showcaseCards = [
     {
@@ -89,27 +74,6 @@ export const AppShowcase: React.FC = () => {
           <p className="mt-3 text-base sm:text-lg text-content-secondary font-normal text-balance">
             Automatically swapping across the five connected stakeholder views to preview how information is tailored for each campus persona.
           </p>
-
-          {/* Active Role Indicators */}
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
-            {roles.map((r, idx) => {
-              const Icon = r.icon;
-              const isFront = activeRoleIndex === idx;
-              return (
-                <div
-                  key={r.id}
-                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all duration-300 ${
-                    isFront
-                      ? 'bg-white text-content-primary border border-border shadow-xs scale-105'
-                      : 'bg-transparent text-content-tertiary border border-transparent'
-                  }`}
-                >
-                  <Icon className="w-3.5 h-3.5" style={{ color: r.color }} />
-                  <span>{r.name}</span>
-                </div>
-              );
-            })}
-          </div>
         </div>
 
         {/* CardSwap 3D Automatic Showcase Container */}
@@ -123,7 +87,6 @@ export const AppShowcase: React.FC = () => {
             pauseOnHover={true}
             skewAmount={3}
             easing="elastic"
-            onSwap={(newIdx) => setActiveRoleIndex(newIdx)}
           >
             {showcaseCards.map((card) => (
               <Card
