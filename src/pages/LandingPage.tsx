@@ -73,28 +73,7 @@ export function LandingPage() {
         {/* 3. Institutional value/trust strip */}
         <TrustStrip />
 
-        {/* 4. The disconnected-campus problem */}
-        <ProblemSection
-          onExploreSolutions={handleExploreScroll}
-          onBookDemoClick={handleOpenDemo}
-        />
-
-        {/* 5. One platform / five stakeholder experiences */}
-        <PortalCards
-          onSelectPortal={(role) => handleOpenAuth(role)}
-          onBookDemoClick={handleOpenDemo}
-        />
-
-        {/* 6 & 7. Academic management capabilities & Campus operations capabilities */}
-        <FeatureGrid />
-
-        {/* 8. Interactive product experience */}
-        <AppShowcase />
-
-        {/* 9. Connected institutional workflow */}
-        <EcosystemFlow onBookDemoClick={handleOpenDemo} />
-
-        {/* Dynamic Campus Ribbon Loop - 100% Edge-to-Edge */}
+        {/* Dynamic Campus Ribbon Loop - Placed directly under Trust Strip */}
         <section className="w-full overflow-hidden py-0 my-0 relative" aria-label="Unisphere SRM Brand Flow">
           <TextLoop
             text="Unisphere SRM ✦ One Campus ✦ One Connected Experience ✦ 5 Stakeholder Portals ✦ 12 Academic Modules"
@@ -116,6 +95,27 @@ export function LandingPage() {
             className="w-full"
           />
         </section>
+
+        {/* 4. The disconnected-campus problem */}
+        <ProblemSection
+          onExploreSolutions={handleExploreScroll}
+          onBookDemoClick={handleOpenDemo}
+        />
+
+        {/* 5. One platform / five stakeholder experiences */}
+        <PortalCards
+          onSelectPortal={(role) => handleOpenAuth(role)}
+          onBookDemoClick={handleOpenDemo}
+        />
+
+        {/* 6 & 7. Academic management capabilities & Campus operations capabilities */}
+        <FeatureGrid />
+
+        {/* 8. Interactive product experience */}
+        <AppShowcase />
+
+        {/* 9. Connected institutional workflow */}
+        <EcosystemFlow onBookDemoClick={handleOpenDemo} />
 
         {/* 10. Why institutions choose Unisphere */}
         <WhyUnisphere />

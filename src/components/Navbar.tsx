@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, ArrowRight, Sparkles } from 'lucide-react';
+import { Menu, Sparkles } from 'lucide-react';
 import { StaggeredMenu, StaggeredMenuRef, StaggeredMenuItem } from './StaggeredMenu';
 
 interface NavbarProps {
@@ -71,111 +71,110 @@ export const Navbar: React.FC<NavbarProps> = ({ onSignInClick, onGetStartedClick
     </div>
   );
 
+  const handleNavScroll = (hash: string) => {
+    if (location.pathname !== '/') {
+      navigate('/' + hash);
+      return;
+    }
+    const target = document.querySelector(hash);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <>
-      <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled
-            ? 'bg-white/95 backdrop-blur-md border-b border-border shadow-subtle py-3 text-content-primary'
-            : 'bg-[#07080f]/75 backdrop-blur-md border-b border-white/10 py-4 sm:py-5 text-white'
-        }`}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between">
-            {/* Brand Logo */}
-            <Link 
-              to="/"
-              onClick={(e) => {
-                if (location.pathname === '/') {
-                  e.preventDefault();
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }
-              }}
-              className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-xl"
-              aria-label="Unisphere SRM Home"
+      <header className="fixed top-3 sm:top-5 inset-x-0 z-50 px-3 sm:px-6 pointer-events-none">
+        <div 
+          className={`max-w-5xl mx-auto rounded-2xl sm:rounded-full transition-all duration-300 pointer-events-auto flex items-center justify-between px-4 sm:px-6 py-2.5 sm:py-2.5 ${
+            isScrolled
+              ? 'bg-[#090d1a]/85 backdrop-blur-xl border border-white/15 shadow-2xl shadow-black/40 text-white'
+              : 'bg-white/[0.05] hover:bg-white/[0.08] backdrop-blur-xl border border-white/10 shadow-xl shadow-black/20 text-white'
+          }`}
+        >
+          {/* Brand Logo (Left) */}
+          <Link 
+            to="/"
+            onClick={(e) => {
+              if (location.pathname === '/') {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
+            }}
+            className="flex items-center gap-2.5 group focus:outline-none shrink-0"
+            aria-label="Unisphere SRM Home"
+          >
+            <img 
+              src="/logo.png" 
+              alt="Unisphere SRM Logo" 
+              className="w-7 h-7 sm:w-8 sm:h-8 object-contain rounded-lg shadow-xs group-hover:scale-105 transition-transform duration-200" 
+            />
+            <span className="font-bold text-base sm:text-lg tracking-tight text-white">
+              Unisphere
+            </span>
+          </Link>
+
+          {/* Desktop Navigation Links (Center / Right - Reference 2 style) */}
+          <nav className="hidden md:flex items-center gap-6 lg:gap-8 text-sm font-medium text-slate-300">
+            <button 
+              type="button" 
+              onClick={() => handleNavScroll('#features')}
+              className="hover:text-white transition-colors cursor-pointer"
             >
-              <img 
-                src="/logo.png" 
-                alt="Unisphere SRM Logo" 
-                className="w-9 h-9 sm:w-10 sm:h-10 object-contain rounded-xl shadow-xs group-hover:scale-105 transition-transform duration-200" 
-              />
-              <div className="flex flex-col">
-                <span className={`font-extrabold text-lg sm:text-xl tracking-tight flex items-center gap-1.5 ${
-                  isScrolled ? 'text-content-primary' : 'text-white'
-                }`}>
-                  UNISPHERE
-                  <span className={`text-[10px] font-extrabold px-1.5 py-0.5 rounded tracking-wider ${
-                    isScrolled 
-                      ? 'bg-primary-subtle text-primary border border-primary/20' 
-                      : 'bg-blue-500/20 text-blue-300 border border-blue-400/30'
-                  }`}>
-                    SRM
-                  </span>
-                </span>
-              </div>
-            </Link>
+              Features
+            </button>
+            <button 
+              type="button" 
+              onClick={() => handleNavScroll('#solutions')}
+              className="hover:text-white transition-colors cursor-pointer"
+            >
+              Portals
+            </button>
+            <button 
+              type="button" 
+              onClick={() => handleNavScroll('#workflow')}
+              className="hover:text-white transition-colors cursor-pointer"
+            >
+              Workflow
+            </button>
+            <button 
+              type="button" 
+              onClick={() => handleNavScroll('#institutions')}
+              className="hover:text-white transition-colors cursor-pointer"
+            >
+              About
+            </button>
+          </nav>
 
-            {/* Desktop Action Buttons & Staggered Menu Trigger */}
-            <div className="hidden md:flex items-center gap-2.5">
-              <button
-                type="button"
-                onClick={onSignInClick}
-                className={`px-4 py-2 text-xs lg:text-sm font-bold rounded-xl transition-all duration-200 active:scale-95 whitespace-nowrap cursor-pointer ${
-                  isScrolled
-                    ? 'text-content-primary hover:text-primary border border-border hover:border-primary/40 hover:bg-surface-soft'
-                    : 'text-white/90 hover:text-white border border-white/20 hover:border-white/40 hover:bg-white/10'
-                }`}
-              >
-                Login
-              </button>
-              <button
-                type="button"
-                onClick={onGetStartedClick}
-                className="px-5 py-2.5 text-xs lg:text-sm font-extrabold text-white bg-primary hover:bg-primary-dark rounded-xl shadow-md shadow-primary/25 hover:shadow-lg hover:shadow-primary/35 transition-all duration-200 inline-flex items-center justify-center gap-2 active:scale-95 group whitespace-nowrap ring-2 ring-primary/20 cursor-pointer"
-              >
-                <span>Book a Demo</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-150 shrink-0" />
-              </button>
+          {/* Actions & Pill CTA (Right - Reference 2 Sign up pill) */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            <button
+              type="button"
+              onClick={onSignInClick}
+              className="hidden lg:inline-flex text-xs sm:text-sm font-medium text-slate-300 hover:text-white px-2 py-1 transition-colors cursor-pointer"
+            >
+              Login
+            </button>
 
-              {/* Desktop Staggered Menu Button */}
-              <button
-                type="button"
-                onClick={() => staggeredMenuRef.current?.toggle()}
-                className={`p-2.5 rounded-xl transition-all active:scale-95 flex items-center gap-2 group cursor-pointer ${
-                  isScrolled
-                    ? 'text-content-secondary hover:text-primary hover:bg-surface-soft border border-border hover:border-primary/40'
-                    : 'text-white/90 hover:text-white hover:bg-white/10 border border-white/20 hover:border-white/40'
-                }`}
-                aria-label="Open institutional menu"
-                title="Open Staggered Menu"
-              >
-                <span className="text-xs font-extrabold tracking-wider uppercase hidden xl:inline">Menu</span>
-                <Menu className="w-4 h-4 group-hover:rotate-90 transition-transform duration-200" />
-              </button>
-            </div>
+            {/* Solid White Pill Button */}
+            <button
+              type="button"
+              onClick={onGetStartedClick}
+              className="px-4 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-extrabold text-slate-950 bg-white hover:bg-slate-100 rounded-xl sm:rounded-full shadow-md hover:shadow-lg transition-all active:scale-95 whitespace-nowrap cursor-pointer"
+            >
+              Book a Demo
+            </button>
 
-            {/* Mobile Actions & Staggered Menu Trigger */}
-            <div className="flex md:hidden items-center gap-2">
-              <button
-                type="button"
-                onClick={onGetStartedClick}
-                className="px-3 py-1.5 text-xs font-bold text-white bg-primary rounded-lg shadow-xs active:scale-95 cursor-pointer"
-              >
-                Book a Demo
-              </button>
-              <button
-                type="button"
-                onClick={() => staggeredMenuRef.current?.toggle()}
-                className={`p-2 rounded-xl border focus:outline-none active:scale-95 cursor-pointer ${
-                  isScrolled 
-                    ? 'text-content-secondary hover:text-content-primary hover:bg-surface-soft border-border/80' 
-                    : 'text-white hover:bg-white/10 border-white/20'
-                }`}
-                aria-label="Toggle navigation menu"
-              >
-                <Menu className={`w-5 h-5 ${isScrolled ? 'text-content-primary' : 'text-white'}`} />
-              </button>
-            </div>
+            {/* Menu Trigger Button */}
+            <button
+              type="button"
+              onClick={() => staggeredMenuRef.current?.toggle()}
+              className="p-1.5 sm:p-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 transition-all active:scale-95 cursor-pointer"
+              aria-label="Open menu"
+              title="Open full menu"
+            >
+              <Menu className="w-5 h-5" />
+            </button>
           </div>
         </div>
       </header>

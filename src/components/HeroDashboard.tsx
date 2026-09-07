@@ -56,13 +56,15 @@ export const HeroDashboard: React.FC = () => {
         </div>
       </div>
 
-      {/* Main Dashboard Frame */}
+      {/* Outer Floating Glass Frame (Image 1 Style) */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        className="bg-white rounded-3xl border border-border shadow-elevated overflow-hidden relative"
+        className="p-2.5 sm:p-3.5 md:p-4 rounded-[2rem] sm:rounded-[2.5rem] bg-white/35 backdrop-blur-2xl border border-white/50 shadow-2xl shadow-blue-950/25 relative"
       >
+        {/* Inner Console Card */}
+        <div className="bg-white rounded-[1.4rem] sm:rounded-3xl border border-border/80 shadow-card overflow-hidden relative">
         {/* Mockup Header / Institutional Browser Bar */}
         <div className="bg-surface-soft px-4 sm:px-6 py-3.5 border-b border-border flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -385,6 +387,7 @@ export const HeroDashboard: React.FC = () => {
               Unified Campus Database
             </span>
           </div>
+        </div>
         </div>
       </motion.div>
     </div>
