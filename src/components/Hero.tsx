@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-import { HeroDashboard } from './HeroDashboard';
 import { RotatingText } from './RotatingText';
 import { CloudShader } from './ui/cloud-shader';
 import { NoiseBackground } from './ui/noise-background';
@@ -111,12 +110,6 @@ export const Hero: React.FC<HeroProps> = ({ onGetStartedClick }) => {
             </NoiseBackground>
           </motion.div>
         </div>
-
-      {/* Central Dashboard Mockup Visual with generous outer sky space */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-8 lg:px-12 mt-12 sm:mt-16 mb-10 sm:mb-16 relative z-10">
-        <HeroDashboard />
-      </div>
-
     </section>
   );
 };
