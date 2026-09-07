@@ -102,15 +102,15 @@ export function LandingPage() {
             speed={80}
             direction="forward"
             separator="✦"
-            curviness={28}
-            fontSize={26}
+            curviness={22}
+            fontSize={24}
             fontWeight={800}
             letterSpacing={2}
             uppercase
             color="#ffffff"
             ribbon
             ribbonColor="#2563EB"
-            ribbonWidth={64}
+            ribbonWidth={56}
             preserveAspectRatio="none"
             pauseOnHover
             className="w-full"

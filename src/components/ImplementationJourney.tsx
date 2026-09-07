@@ -9,10 +9,10 @@ interface ImplementationJourneyProps {
 
 export const ImplementationJourney: React.FC<ImplementationJourneyProps> = ({ onDiscussClick }) => {
   return (
-    <section id="implementation" className="py-20 sm:py-28 bg-surface-soft/60 relative overflow-hidden">
+    <section id="implementation" className="py-12 sm:py-16 bg-surface-soft/60 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary-subtle border border-primary/20 text-primary mb-4">
             <Compass className="w-3.5 h-3.5" />
             <span className="text-xs font-extrabold uppercase tracking-wider">
@@ -77,7 +77,7 @@ export const ImplementationJourney: React.FC<ImplementationJourneyProps> = ({ on
         </div>
 
         {/* Bottom CTA Button */}
-        <div className="mt-14 text-center">
+        <div className="mt-8 sm:mt-10 text-center">
           <button
             type="button"
             onClick={onDiscussClick}

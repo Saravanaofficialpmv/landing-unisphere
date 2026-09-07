@@ -2,7 +2,7 @@ import React, { useEffect, useId, useLayoutEffect, useMemo, useRef, useState } f
 import { gsap } from 'gsap';
 import './TextLoop.css';
 
-const EDGE_PAD = 6;
+const EDGE_PAD = 4;
 
 export interface TextLoopProps {
   text?: string;
@@ -27,17 +27,17 @@ export interface TextLoopProps {
 }
 
 const getViewDimensions = (shape: string) => {
-  if (shape === 'line') return { w: 1200, h: 120 };
-  if (shape === 'wave') return { w: 1200, h: 180 };
-  if (shape === 'arch') return { w: 1200, h: 320 };
-  return { w: 1200, h: 520 };
+  if (shape === 'line') return { w: 1200, h: 80 };
+  if (shape === 'wave') return { w: 1200, h: 110 };
+  if (shape === 'arch') return { w: 1200, h: 260 };
+  return { w: 1200, h: 460 };
 };
 
 const buildPath = (shape: string, curviness: number, ribbonWidth: number, viewW: number, viewH: number): string => {
   const c = Math.max(0, curviness);
   const cx = viewW / 2;
   const cy = viewH / 2;
-  const room = Math.max(20, cy - Math.max(0, ribbonWidth) / 2 - EDGE_PAD);
+  const room = Math.max(12, cy - Math.max(0, ribbonWidth) / 2 - EDGE_PAD);
 
   switch (shape) {
     case 'circle': {
@@ -57,14 +57,14 @@ const buildPath = (shape: string, curviness: number, ribbonWidth: number, viewW:
       ].join(' ');
     }
     case 'arch': {
-      const rise = Math.min(120 + c * 1.1, room * 2);
+      const rise = Math.min(100 + c * 0.9, room * 1.5);
       return `M 120 ${cy + rise / 2} Q ${cx} ${cy - rise * 1.5} ${viewW - 120} ${cy + rise / 2}`;
     }
     case 'line':
       return `M -300 ${cy} L ${viewW + 300} ${cy}`;
     case 'wave':
     default: {
-      const a = Math.min(c * 1.35, room);
+      const a = Math.min(c * 1.1, room);
       return `M -200 ${cy} Q -100 ${cy - a} 0 ${cy} T 200 ${cy} T 400 ${cy} T 600 ${cy} T 800 ${cy} T 1000 ${cy} T 1200 ${cy} T 1400 ${cy}`;
     }
   }
@@ -74,18 +74,18 @@ export const TextLoop: React.FC<TextLoopProps> = ({
   text = 'React ✦ Bits',
   shape = 'wave',
   path,
-  speed = 90,
+  speed = 85,
   direction = 'forward',
   separator = '✦',
-  curviness = 30,
-  fontSize = 28,
+  curviness = 20,
+  fontSize = 24,
   fontWeight = 800,
   letterSpacing = 2,
   uppercase = true,
   color = '#ffffff',
   ribbon = true,
   ribbonColor = '#2563EB',
-  ribbonWidth = 66,
+  ribbonWidth = 56,
   pauseOnHover = true,
   preserveAspectRatio = 'none',
   className = '',

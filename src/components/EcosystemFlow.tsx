@@ -94,7 +94,7 @@ export const EcosystemFlow: React.FC<EcosystemFlowProps> = ({ onBookDemoClick })
   ];
 
   return (
-    <section id="workflow" className="py-20 sm:py-28 bg-white relative overflow-hidden">
+    <section id="workflow" className="pt-16 pb-6 sm:pt-24 sm:pb-8 bg-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
@@ -186,7 +186,7 @@ export const EcosystemFlow: React.FC<EcosystemFlowProps> = ({ onBookDemoClick })
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="mt-14 p-6 sm:p-8 rounded-3xl bg-primary-subtle/50 border border-primary/20 flex flex-col md:flex-row items-center justify-between gap-5 text-center md:text-left"
+          className="mt-10 sm:mt-12 p-6 sm:p-8 rounded-3xl bg-primary-subtle/50 border border-primary/20 flex flex-col md:flex-row items-center justify-between gap-5 text-center md:text-left"
         >
           <div>
             <h4 className="text-base sm:text-lg font-extrabold text-content-primary">

@@ -7,10 +7,10 @@ export const WhyUnisphere: React.FC = () => {
   const icons = [Layers, ShieldCheck, Zap];
 
   return (
-    <section id="institutions" className="py-20 sm:py-28 bg-surface-soft/50 relative">
+    <section id="institutions" className="pt-6 pb-16 sm:pt-8 sm:pb-24 bg-surface-soft/50 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary-subtle border border-primary/20 text-primary mb-4">
             <Sparkles className="w-3.5 h-3.5" />
             <span className="text-xs font-extrabold uppercase tracking-wider">
