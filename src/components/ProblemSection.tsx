@@ -10,6 +10,7 @@ import {
   Sparkles
 } from 'lucide-react';
 import { PROBLEM_CARDS } from '../data/landingPageData';
+import { ScrollReveal } from './ScrollReveal';
 
 interface ProblemSectionProps {
   onExploreSolutions: () => void;
@@ -31,7 +32,7 @@ export const ProblemSection: React.FC<ProblemSectionProps> = ({
     <section id="problem" className="py-20 sm:py-28 bg-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
+        <div className="text-center max-w-4xl mx-auto mb-14">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-amber-800 mb-4">
             <AlertTriangle className="w-3.5 h-3.5 text-amber-600" />
             <span className="text-xs font-extrabold uppercase tracking-wider">
@@ -43,13 +44,18 @@ export const ProblemSection: React.FC<ProblemSectionProps> = ({
             Your campus shouldn't run on disconnected systems.
           </h2>
 
-          <div className="mt-6 text-base sm:text-lg text-content-secondary leading-relaxed font-normal space-y-3">
-            <p>
-              Academic information often lives across spreadsheets, messaging groups, paper workflows, isolated portals, and disconnected systems.
-            </p>
-            <p className="font-semibold text-content-primary">
-              Unisphere brings the people, information, and workflows of your institution into one connected experience.
-            </p>
+          <div className="mt-6 max-w-3xl mx-auto">
+            <ScrollReveal
+              baseOpacity={0.15}
+              enableBlur={true}
+              baseRotation={1}
+              blurStrength={5}
+              containerClassName="my-2"
+              textClassName="text-base sm:text-xl md:text-2xl font-bold text-content-secondary leading-relaxed text-balance"
+              wordAnimationEnd="bottom bottom-=15%"
+            >
+              Academic information often lives across spreadsheets, messaging groups, paper workflows, isolated portals, and disconnected systems. Unisphere brings the people, information, and workflows of your institution into one connected experience.
+            </ScrollReveal>
           </div>
         </div>
 
