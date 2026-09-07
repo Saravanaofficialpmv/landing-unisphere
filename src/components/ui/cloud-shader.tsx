@@ -295,6 +295,7 @@ const CloudShaderComponent = ({
 
     let frame = 0;
     let running = true;
+    let isVisible = false;
     let resizeTimer: ReturnType<typeof setTimeout> | null = null;
     const reduceMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
@@ -318,15 +319,30 @@ const CloudShaderComponent = ({
       gl.drawArrays(gl.TRIANGLES, 0, 3);
     };
 
-    const draw = (now: number) => {
-      if (!running) return;
-      renderFrame(now);
+    const startLoop = () => {
+      if (!running || frame !== 0) return;
+      const draw = (now: number) => {
+        if (!running || !isVisible) {
+          frame = 0;
+          return;
+        }
+        renderFrame(now);
+        frame = requestAnimationFrame(draw);
+      };
       frame = requestAnimationFrame(draw);
+    };
+
+    const stopLoop = () => {
+      if (frame !== 0) {
+        cancelAnimationFrame(frame);
+        frame = 0;
+      }
     };
 
     const applyResize = (force = false) => {
       if (!canvas || !gl) return;
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      // Cap DPR to 1 for cloud shader - soft clouds look identical with 75% less GPU fillrate!
+      const dpr = 1;
       const width = canvas.clientWidth;
       const height = canvas.clientHeight;
       if (width <= 0 || height <= 0) return;
@@ -343,7 +359,6 @@ const CloudShaderComponent = ({
 
       // If height is actively animating (e.g. accordion opening/closing)
       // and width is constant, debounce buffer reallocation to avoid GPU thrashing & blanking.
-      // Hardware bilinear scaling stretches the existing buffer smoothly during the transition.
       const widthDiff = Math.abs(canvas.width - w);
       const heightDiff = Math.abs(canvas.height - h);
 
@@ -375,12 +390,24 @@ const CloudShaderComponent = ({
     observer.observe(canvas);
     applyResize(true);
 
-    frame = requestAnimationFrame(draw);
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible) {
+          startLoop();
+        } else {
+          stopLoop();
+        }
+      },
+      { threshold: 0.01, rootMargin: "120px" }
+    );
+    io.observe(canvas);
 
     return () => {
       running = false;
       if (resizeTimer) clearTimeout(resizeTimer);
-      cancelAnimationFrame(frame);
+      stopLoop();
+      io.disconnect();
       observer.disconnect();
       gl.deleteBuffer(buffer);
       gl.deleteProgram(program);

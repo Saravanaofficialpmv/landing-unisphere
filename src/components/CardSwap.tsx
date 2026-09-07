@@ -166,28 +166,59 @@ export const CardSwap: React.FC<CardSwapProps> = ({
       });
     };
 
-    intervalRef.current = window.setInterval(swap, delay);
+    let isVisible = false;
+    const startTimer = () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+      intervalRef.current = window.setInterval(swap, delay);
+    };
+    const stopTimer = () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = undefined;
+      }
+      tlRef.current?.pause();
+    };
 
-    if (pauseOnHover) {
-      const node = container.current;
-      if (!node) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible) {
+          startTimer();
+          tlRef.current?.play();
+        } else {
+          stopTimer();
+        }
+      },
+      { threshold: 0.05, rootMargin: '100px' }
+    );
+    if (container.current) io.observe(container.current);
+
+    const node = container.current;
+    if (pauseOnHover && node) {
       const pause = () => {
         tlRef.current?.pause();
-        clearInterval(intervalRef.current);
+        if (intervalRef.current) clearInterval(intervalRef.current);
       };
       const resume = () => {
-        tlRef.current?.play();
-        intervalRef.current = window.setInterval(swap, delay);
+        if (isVisible) {
+          tlRef.current?.play();
+          startTimer();
+        }
       };
       node.addEventListener('mouseenter', pause);
       node.addEventListener('mouseleave', resume);
       return () => {
         node.removeEventListener('mouseenter', pause);
         node.removeEventListener('mouseleave', resume);
-        clearInterval(intervalRef.current);
+        io.disconnect();
+        stopTimer();
       };
     }
-    return () => clearInterval(intervalRef.current);
+
+    return () => {
+      io.disconnect();
+      stopTimer();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cardDistance, verticalDistance, delay, pauseOnHover, skewAmount, easing]);
 

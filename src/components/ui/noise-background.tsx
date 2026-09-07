@@ -77,19 +77,40 @@ export const NoiseBackground = ({
   // Transform for top gradient strip
   const topGradientX = useTransform(springX, (val) => val * 0.1 - 50);
 
+  const sizeRef = useRef({ width: 300, height: 80 });
+  const isVisibleRef = useRef(false);
   const velocityRef = useRef({ x: 0, y: 0 });
   const lastDirectionChangeRef = useRef(0);
 
-  // Initialize position to center
+  // Initialize position and size, observe visibility & resize without layout thrashing
   useEffect(() => {
     if (!containerRef.current) return;
 
     const container = containerRef.current;
-    const rect = container.getBoundingClientRect();
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    x.set(centerX);
-    y.set(centerY);
+    const updateSize = () => {
+      const rect = container.getBoundingClientRect();
+      sizeRef.current = { width: rect.width, height: rect.height };
+      x.set(rect.width / 2);
+      y.set(rect.height / 2);
+    };
+
+    updateSize();
+
+    const ro = new ResizeObserver(updateSize);
+    ro.observe(container);
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        isVisibleRef.current = entry.isIntersecting;
+      },
+      { threshold: 0.01, rootMargin: "100px" }
+    );
+    io.observe(container);
+
+    return () => {
+      ro.disconnect();
+      io.disconnect();
+    };
   }, [x, y]);
 
   // Generate random velocity
@@ -115,13 +136,12 @@ export const NoiseBackground = ({
     velocityRef.current = generateRandomVelocityRef.current();
   }, [speed]);
 
-  // Animate using motion/react's useAnimationFrame
+  // Animate using motion/react's useAnimationFrame without layout thrashing
   useAnimationFrame((time) => {
-    if (!animating || !containerRef.current) return;
+    if (!animating || !isVisibleRef.current || !containerRef.current) return;
 
-    const rect = containerRef.current.getBoundingClientRect();
-    const maxX = rect.width;
-    const maxY = rect.height;
+    const { width: maxX, height: maxY } = sizeRef.current;
+    if (maxX <= 0 || maxY <= 0) return;
 
     // Change direction randomly every 1.5-3 seconds
     if (time - lastDirectionChangeRef.current > 1500 + Math.random() * 1500) {
@@ -130,16 +150,14 @@ export const NoiseBackground = ({
     }
 
     // Update position based on velocity (deltaTime is ~16ms per frame at 60fps)
-    const deltaTime = 16; // Approximate frame time
+    const deltaTime = 16;
     const currentX = x.get();
     const currentY = y.get();
 
     let newX = currentX + velocityRef.current.x * deltaTime;
     let newY = currentY + velocityRef.current.y * deltaTime;
 
-    // When hitting edges, generate a completely new random direction
-    // This ensures truly random movement in all 360 degrees, not just horizontal/vertical
-    const padding = 20; // Keep some distance from edges
+    const padding = 20;
 
     if (
       newX < padding ||
@@ -147,16 +165,13 @@ export const NoiseBackground = ({
       newY < padding ||
       newY > maxY - padding
     ) {
-      // Generate completely random direction (full 360 degrees)
       const angle = Math.random() * Math.PI * 2;
       const magnitude = speed * (0.5 + Math.random() * 0.5);
       velocityRef.current = {
         x: Math.cos(angle) * magnitude,
         y: Math.sin(angle) * magnitude,
       };
-      // Reset timer to allow immediate new direction
       lastDirectionChangeRef.current = time;
-      // Clamp position to stay within bounds
       newX = Math.max(padding, Math.min(maxX - padding, newX));
       newY = Math.max(padding, Math.min(maxY - padding, newY));
     }

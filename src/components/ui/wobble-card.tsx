@@ -1,9 +1,9 @@
 "use client";
-import React, { useState } from "react";
-import { motion } from "framer-motion";
+import React, { useRef } from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-export const WobbleCard = ({
+export const WobbleCard = React.memo(({
   children,
   containerClassName,
   className,
@@ -12,48 +12,60 @@ export const WobbleCard = ({
   containerClassName?: string;
   className?: string;
 }) => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovering, setIsHovering] = useState(false);
+  const cardRef = useRef<HTMLElement>(null);
+  const rectRef = useRef<DOMRect | null>(null);
 
-  const handleMouseMove = (event: React.MouseEvent<HTMLElement>) => {
-    const { clientX, clientY } = event;
-    const rect = event.currentTarget.getBoundingClientRect();
-    const x = (clientX - (rect.left + rect.width / 2)) / 20;
-    const y = (clientY - (rect.top + rect.height / 2)) / 20;
-    setMousePosition({ x, y });
+  // Use raw motion values with spring physics for 0-rerender 60fps GPU transforms!
+  const rawX = useMotionValue(0);
+  const rawY = useMotionValue(0);
+  const isHovered = useMotionValue(0);
+
+  const springConfig = { stiffness: 220, damping: 22, mass: 0.6 };
+  const springX = useSpring(rawX, springConfig);
+  const springY = useSpring(rawY, springConfig);
+
+  const innerScale = useSpring(useTransform(isHovered, [0, 1], [1, 1.025]), springConfig);
+
+  const handleMouseEnter = () => {
+    if (cardRef.current) {
+      rectRef.current = cardRef.current.getBoundingClientRect();
+    }
+    isHovered.set(1);
   };
 
-  const handleTouchMove = (event: React.TouchEvent<HTMLElement>) => {
-    if (!event.touches[0]) return;
-    const { clientX, clientY } = event.touches[0];
-    const rect = event.currentTarget.getBoundingClientRect();
-    const x = (clientX - (rect.left + rect.width / 2)) / 20;
-    const y = (clientY - (rect.top + rect.height / 2)) / 20;
-    setMousePosition({ x, y });
+  const handleMouseMove = (event: React.MouseEvent<HTMLElement>) => {
+    let rect = rectRef.current;
+    if (!rect && cardRef.current) {
+      rect = cardRef.current.getBoundingClientRect();
+      rectRef.current = rect;
+    }
+    if (!rect) return;
+    const x = (event.clientX - (rect.left + rect.width / 2)) / 20;
+    const y = (event.clientY - (rect.top + rect.height / 2)) / 20;
+    rawX.set(x);
+    rawY.set(y);
+  };
+
+  const handleMouseLeave = () => {
+    isHovered.set(0);
+    rawX.set(0);
+    rawY.set(0);
+    rectRef.current = null;
   };
 
   return (
     <motion.section
+      ref={cardRef}
+      onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovering(true)}
-      onMouseLeave={() => {
-        setIsHovering(false);
-        setMousePosition({ x: 0, y: 0 });
-      }}
-      onTouchStart={() => setIsHovering(true)}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={() => {
-        setIsHovering(false);
-        setMousePosition({ x: 0, y: 0 });
-      }}
+      onMouseLeave={handleMouseLeave}
       style={{
-        transform: isHovering
-          ? `translate3d(${mousePosition.x}px, ${mousePosition.y}px, 0) scale3d(1, 1, 1)`
-          : "translate3d(0px, 0px, 0) scale3d(1, 1, 1)",
-        transition: "transform 0.1s ease-out",
+        x: springX,
+        y: springY,
+        transformStyle: "preserve-3d",
       }}
       className={cn(
-        "mx-auto w-full bg-indigo-800 relative rounded-2xl overflow-hidden",
+        "mx-auto w-full bg-indigo-800 relative rounded-2xl overflow-hidden will-change-transform",
         containerClassName
       )}
     >
@@ -66,12 +78,11 @@ export const WobbleCard = ({
       >
         <motion.div
           style={{
-            transform: isHovering
-              ? `translate3d(${-mousePosition.x}px, ${-mousePosition.y}px, 0) scale3d(1.03, 1.03, 1)`
-              : "translate3d(0px, 0px, 0) scale3d(1, 1, 1)",
-            transition: "transform 0.1s ease-out",
+            x: useTransform(springX, (x) => -x),
+            y: useTransform(springY, (y) => -y),
+            scale: innerScale,
           }}
-          className={cn("h-full p-4 sm:p-6 lg:p-8", className)}
+          className={cn("h-full p-4 sm:p-6 lg:p-8 will-change-transform", className)}
         >
           <Noise />
           {children}
@@ -79,16 +90,20 @@ export const WobbleCard = ({
       </div>
     </motion.section>
   );
-};
+});
 
-const Noise = () => {
+WobbleCard.displayName = "WobbleCard";
+
+const Noise = React.memo(() => {
   return (
     <div
       className="absolute inset-0 w-full h-full scale-[1.2] transform opacity-20 [mask-image:radial-gradient(#fff,transparent,85%)] pointer-events-none"
       style={{
         backgroundImage: "url(/noise.webp)",
-        backgroundSize: "30%",
+        backgroundSize: "200px 200px",
       }}
     />
   );
-};
+});
+
+Noise.displayName = "Noise";

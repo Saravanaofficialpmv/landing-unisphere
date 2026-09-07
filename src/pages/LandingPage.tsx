@@ -21,11 +21,15 @@ export function LandingPage() {
   const [showMobileStickyBar, setShowMobileStickyBar] = useState(false);
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      if (window.scrollY > 450) {
-        setShowMobileStickyBar(true);
-      } else {
-        setShowMobileStickyBar(false);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const shouldShow = window.scrollY > 450;
+          setShowMobileStickyBar((prev) => (prev !== shouldShow ? shouldShow : prev));
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 

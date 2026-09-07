@@ -194,8 +194,21 @@ export const TextLoop: React.FC<TextLoopProps> = ({
       root.addEventListener('pointerleave', resume);
     }
 
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          tween.play();
+        } else {
+          tween.pause();
+        }
+      },
+      { threshold: 0.01, rootMargin: '100px' }
+    );
+    if (root) io.observe(root);
+
     return () => {
       tween.kill();
+      io.disconnect();
       if (pauseOnHover && root) {
         root.removeEventListener('pointerenter', pause);
         root.removeEventListener('pointerleave', resume);
