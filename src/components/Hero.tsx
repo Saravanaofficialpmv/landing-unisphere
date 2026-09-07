@@ -12,13 +12,6 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ onGetStartedClick }) => {
-  const roleTags = [
-    { name: 'Student', color: '#3B82F6' },
-    { name: 'Faculty', color: '#A855F7' },
-    { name: 'HOD', color: '#F59E0B' },
-    { name: 'Parent', color: '#10B981' },
-    { name: 'Admin', color: '#F43F5E' },
-  ];
 
   return (
     <section 
@@ -116,30 +109,6 @@ export const Hero: React.FC<HeroProps> = ({ onGetStartedClick }) => {
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform shrink-0" />
               </button>
             </NoiseBackground>
-          </motion.div>
-
-          {/* Stakeholder Pills Strip */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="mt-6 sm:mt-8 flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 text-xs font-semibold"
-          >
-            <span className="text-xs text-slate-400 font-medium mr-1 hidden xs:inline">
-              Built for:
-            </span>
-            {roleTags.map((role) => (
-              <span
-                key={role.name}
-                className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-slate-200 backdrop-blur-md shadow-xs font-medium flex items-center gap-2 hover:bg-white/10 transition-colors"
-              >
-                <span 
-                  className="w-2 h-2 rounded-full inline-block shadow-xs" 
-                  style={{ backgroundColor: role.color }} 
-                />
-                {role.name}
-              </span>
-            ))}
           </motion.div>
         </div>
 

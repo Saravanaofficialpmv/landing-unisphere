@@ -223,7 +223,7 @@ function compile(gl: WebGLRenderingContext, type: number, source: string) {
   return shader;
 }
 
-export const CloudShader = ({
+const CloudShaderComponent = ({
   className,
   children,
   speed = 1,
@@ -254,9 +254,10 @@ export const CloudShader = ({
     if (!canvas) return;
 
     const gl = canvas.getContext("webgl", {
-      alpha: false,
+      alpha: true,
       antialias: false,
       premultipliedAlpha: false,
+      preserveDrawingBuffer: true,
     });
     if (!gl) return;
 
@@ -294,31 +295,15 @@ export const CloudShader = ({
 
     let frame = 0;
     let running = true;
+    let resizeTimer: ReturnType<typeof setTimeout> | null = null;
     const reduceMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
 
-    const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      const width = canvas.clientWidth;
-      const height = canvas.clientHeight;
-      const w = Math.max(1, Math.floor(width * dpr));
-      const h = Math.max(1, Math.floor(height * dpr));
-      if (canvas.width !== w || canvas.height !== h) {
-        canvas.width = w;
-        canvas.height = h;
-      }
-      gl.viewport(0, 0, w, h);
-      gl.uniform2f(loc.res, w, h);
-    };
-
-    const observer = new ResizeObserver(resize);
-    observer.observe(canvas);
-    resize();
-
     const start = performance.now();
-    const draw = (now: number) => {
-      if (!running) return;
+
+    const renderFrame = (now: number) => {
+      if (!running || !gl || gl.isContextLost()) return;
       const p = paramsRef.current;
       const elapsed = reduceMotion ? 0 : ((now - start) / 1000) * p.speed;
       const cloud = parseHex(p.cloudColor);
@@ -331,13 +316,70 @@ export const CloudShader = ({
       gl.uniform3f(loc.skyTop, skyTop[0], skyTop[1], skyTop[2]);
       gl.uniform3f(loc.skyBottom, skyBottom[0], skyBottom[1], skyBottom[2]);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
+    };
+
+    const draw = (now: number) => {
+      if (!running) return;
+      renderFrame(now);
       frame = requestAnimationFrame(draw);
     };
+
+    const applyResize = (force = false) => {
+      if (!canvas || !gl) return;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const width = canvas.clientWidth;
+      const height = canvas.clientHeight;
+      if (width <= 0 || height <= 0) return;
+
+      const w = Math.max(1, Math.floor(width * dpr));
+      const h = Math.max(1, Math.floor(height * dpr));
+
+      // If already matched, verify viewport & uniforms
+      if (canvas.width === w && canvas.height === h) {
+        gl.viewport(0, 0, w, h);
+        gl.uniform2f(loc.res, w, h);
+        return;
+      }
+
+      // If height is actively animating (e.g. accordion opening/closing)
+      // and width is constant, debounce buffer reallocation to avoid GPU thrashing & blanking.
+      // Hardware bilinear scaling stretches the existing buffer smoothly during the transition.
+      const widthDiff = Math.abs(canvas.width - w);
+      const heightDiff = Math.abs(canvas.height - h);
+
+      if (!force && canvas.width > 0 && canvas.height > 0) {
+        if (widthDiff < 8 && heightDiff < 160) {
+          if (resizeTimer) clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(() => {
+            applyResize(true);
+          }, 180);
+          return;
+        }
+      }
+
+      if (resizeTimer) {
+        clearTimeout(resizeTimer);
+        resizeTimer = null;
+      }
+
+      canvas.width = w;
+      canvas.height = h;
+      gl.viewport(0, 0, w, h);
+      gl.uniform2f(loc.res, w, h);
+
+      // Immediately render synchronously so the canvas is NEVER blank or black!
+      renderFrame(performance.now());
+    };
+
+    const observer = new ResizeObserver(() => applyResize(false));
+    observer.observe(canvas);
+    applyResize(true);
 
     frame = requestAnimationFrame(draw);
 
     return () => {
       running = false;
+      if (resizeTimer) clearTimeout(resizeTimer);
       cancelAnimationFrame(frame);
       observer.disconnect();
       gl.deleteBuffer(buffer);
@@ -356,7 +398,8 @@ export const CloudShader = ({
     >
       <canvas
         ref={canvasRef}
-        className="pointer-events-none absolute inset-0 h-full w-full"
+        className="pointer-events-none absolute inset-0 h-full w-full transform-gpu"
+        style={{ willChange: "transform" }}
       />
       {children ? (
         <div className="relative z-10 flex h-full w-full items-center justify-center">
@@ -366,3 +409,5 @@ export const CloudShader = ({
     </div>
   );
 };
+
+export const CloudShader = React.memo(CloudShaderComponent);

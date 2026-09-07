@@ -28,13 +28,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onSignInClick, onGetStartedClick
   }, []);
 
   const menuItems: StaggeredMenuItem[] = [
-    { label: 'Platform Overview', ariaLabel: 'Go to platform overview', link: '#platform' },
-    { label: 'Stakeholder Portals', ariaLabel: 'Go to stakeholder portals', link: '#solutions' },
-    { label: 'Academic Modules', ariaLabel: 'Go to academic modules', link: '#features' },
-    { label: 'Connected Workflow', ariaLabel: 'Go to connected workflow', link: '#workflow' },
-    { label: 'Why Unisphere', ariaLabel: 'Go to institutional foundation', link: '#institutions' },
-    { label: 'Security & Governance', ariaLabel: 'Go to role access and governance', link: '#governance' },
-    { label: 'Implementation Path', ariaLabel: 'Go to implementation journey', link: '#implementation' },
+    { label: 'Portals & Roles', ariaLabel: 'Go to stakeholder portals', link: '#solutions' },
+    { label: 'Interactive Showcase', ariaLabel: 'Go to interactive showcase', link: '#showcase' },
+    { label: 'Built for Institutions', ariaLabel: 'Go to institutional foundation', link: '#institutions' },
     { label: 'FAQ', ariaLabel: 'Go to frequently asked questions', link: '#faq' },
   ];
 
@@ -42,31 +38,20 @@ export const Navbar: React.FC<NavbarProps> = ({ onSignInClick, onGetStartedClick
     { label: 'Book Demo', link: '#', onClick: onGetStartedClick },
     { label: 'Portal Login', link: '#', onClick: onSignInClick },
     { label: 'Privacy Policy', link: '/privacy-policy' },
-    { label: 'Terms of Service', link: '/terms-of-service' },
   ];
 
   const extraMenuContent = (
-    <div className="flex flex-col gap-2.5 pt-2">
+    <div className="flex flex-col gap-2 pt-1">
       <button
         type="button"
         onClick={() => {
           staggeredMenuRef.current?.close();
           onGetStartedClick();
         }}
-        className="w-full py-3 px-5 text-xs sm:text-sm font-extrabold text-white bg-primary hover:bg-primary-dark rounded-xl shadow-md shadow-primary/25 active:scale-95 transition-all flex items-center justify-center gap-2 ring-2 ring-primary/20 cursor-pointer"
+        className="w-full py-2.5 px-4 text-xs sm:text-sm font-extrabold text-white bg-primary hover:bg-primary-dark rounded-xl shadow-sm shadow-primary/25 active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer"
       >
-        <Sparkles className="w-4 h-4" />
-        <span>Book an Institutional Demo</span>
-      </button>
-      <button
-        type="button"
-        onClick={() => {
-          staggeredMenuRef.current?.close();
-          onSignInClick();
-        }}
-        className="w-full py-2.5 px-5 text-xs sm:text-sm font-bold text-content-primary hover:text-primary border border-border rounded-xl hover:bg-surface-soft transition-colors cursor-pointer"
-      >
-        Sign in to Stakeholder Portal
+        <Sparkles className="w-3.5 h-3.5" />
+        <span>Book a Demo</span>
       </button>
     </div>
   );
@@ -118,13 +103,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onSignInClick, onGetStartedClick
           <nav className="hidden md:flex items-center gap-6 lg:gap-8 text-sm font-medium text-slate-300">
             <button 
               type="button" 
-              onClick={() => handleNavScroll('#features')}
-              className="hover:text-white transition-colors cursor-pointer"
-            >
-              Features
-            </button>
-            <button 
-              type="button" 
               onClick={() => handleNavScroll('#solutions')}
               className="hover:text-white transition-colors cursor-pointer"
             >
@@ -132,17 +110,17 @@ export const Navbar: React.FC<NavbarProps> = ({ onSignInClick, onGetStartedClick
             </button>
             <button 
               type="button" 
-              onClick={() => handleNavScroll('#workflow')}
+              onClick={() => handleNavScroll('#showcase')}
               className="hover:text-white transition-colors cursor-pointer"
             >
-              Workflow
+              Showcase
             </button>
             <button 
               type="button" 
               onClick={() => handleNavScroll('#institutions')}
               className="hover:text-white transition-colors cursor-pointer"
             >
-              About
+              Institutions
             </button>
           </nav>
 

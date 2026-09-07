@@ -14,28 +14,28 @@ import {
 
 export const TRUST_METRICS: MetricItem[] = [
   {
-    id: 'portals',
-    value: '5',
-    label: 'Connected Stakeholder Experiences',
-    description: 'Tailored workspaces for students, faculty, HODs, parents, and administrators.'
+    id: 'campus',
+    value: '01',
+    label: 'One Campus',
+    description: 'Everything connected in one digital ecosystem.'
   },
   {
-    id: 'modules',
-    value: '12',
-    label: 'Academic & Campus Modules',
-    description: 'Comprehensive coverage from lecture attendance to career placements and fees.'
+    id: 'roles',
+    value: '02',
+    label: 'Every Role',
+    description: 'Purpose-built experiences for every campus stakeholder.'
   },
   {
     id: 'workflows',
-    value: 'Role-Based',
-    label: 'Institutional Workflows',
-    description: 'Granular permissions and seamless data handoffs aligned to institutional hierarchy.'
+    value: '03',
+    label: 'Every Workflow',
+    description: 'From attendance and academics to fees and careers.'
   },
   {
-    id: 'platform',
-    value: 'One',
-    label: 'Connected Platform',
-    description: 'Unified ecosystem eliminating disparate tools, spreadsheets, and data silos.'
+    id: 'experience',
+    value: '04',
+    label: 'One Experience',
+    description: 'A unified platform built around your institution.'
   }
 ];
 
@@ -561,7 +561,7 @@ export const FAQ_DATA: FAQItem[] = [
   },
   {
     question: 'Can an institution request a product demonstration?',
-    answer: 'Yes. Institution leaders, Deans, HODs, and administrators can request a comprehensive institutional demonstration through the "Book an Institutional Demo" form. Our platform team will coordinate a guided walkthrough tailored to your institution’s size, programmes, and academic workflows.'
+    answer: 'Yes. Institution leaders, Deans, HODs, and administrators can request a comprehensive institutional demonstration through the "Book a Free Demo" link. Our platform team will coordinate a guided walkthrough tailored to your institution’s size, programmes, and academic workflows.'
   },
   {
     question: 'Is Unisphere suitable for engineering colleges?',

@@ -2,29 +2,12 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
-  padding: 0;
 }
 
 .text-loop-svg {
   display: block;
   width: 100%;
-  height: 80px;
-}
-
-@media (min-width: 640px) {
-  .text-loop-svg {
-    height: 96px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .text-loop-svg {
-    height: 110px;
-  }
+  height: auto;
 }
 
 .text-loop-text {

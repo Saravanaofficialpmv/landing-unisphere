@@ -2,7 +2,8 @@ import React, { useEffect, useId, useLayoutEffect, useMemo, useRef, useState } f
 import { gsap } from 'gsap';
 import './TextLoop.css';
 
-const EDGE_PAD = 4;
+const VIEW_W = 1200;
+const EDGE_PAD = 6;
 
 export interface TextLoopProps {
   text?: string;
@@ -21,23 +22,24 @@ export interface TextLoopProps {
   ribbonColor?: string;
   ribbonWidth?: number;
   pauseOnHover?: boolean;
-  preserveAspectRatio?: string;
+  viewBoxHeight?: number;
   className?: string;
   style?: React.CSSProperties;
 }
 
-const getViewDimensions = (shape: string) => {
-  if (shape === 'line') return { w: 1200, h: 80 };
-  if (shape === 'wave') return { w: 1200, h: 110 };
-  if (shape === 'arch') return { w: 1200, h: 260 };
-  return { w: 1200, h: 460 };
+const getViewDimensions = (shape: string, customH?: number) => {
+  if (customH) return { w: VIEW_W, h: customH };
+  if (shape === 'line') return { w: VIEW_W, h: 100 };
+  if (shape === 'wave') return { w: VIEW_W, h: 180 };
+  if (shape === 'arch') return { w: VIEW_W, h: 300 };
+  return { w: VIEW_W, h: 520 };
 };
 
 const buildPath = (shape: string, curviness: number, ribbonWidth: number, viewW: number, viewH: number): string => {
   const c = Math.max(0, curviness);
   const cx = viewW / 2;
   const cy = viewH / 2;
-  const room = Math.max(12, cy - Math.max(0, ribbonWidth) / 2 - EDGE_PAD);
+  const room = Math.max(10, cy - Math.max(0, ribbonWidth) / 2 - EDGE_PAD);
 
   switch (shape) {
     case 'circle': {
@@ -57,15 +59,15 @@ const buildPath = (shape: string, curviness: number, ribbonWidth: number, viewW:
       ].join(' ');
     }
     case 'arch': {
-      const rise = Math.min(100 + c * 0.9, room * 1.5);
+      const rise = Math.min(120 + c * 1.1, room * 2);
       return `M 120 ${cy + rise / 2} Q ${cx} ${cy - rise * 1.5} ${viewW - 120} ${cy + rise / 2}`;
     }
     case 'line':
-      return `M -300 ${cy} L ${viewW + 300} ${cy}`;
+      return `M -320 ${cy} L ${viewW + 320} ${cy}`;
     case 'wave':
     default: {
-      const a = Math.min(c * 1.1, room);
-      return `M -200 ${cy} Q -100 ${cy - a} 0 ${cy} T 200 ${cy} T 400 ${cy} T 600 ${cy} T 800 ${cy} T 1000 ${cy} T 1200 ${cy} T 1400 ${cy}`;
+      const a = Math.min(c * 1.2, room);
+      return `M -320 ${cy} Q -160 ${cy - a} 0 ${cy} T 320 ${cy} T 640 ${cy} T 960 ${cy} T 1280 ${cy} T ${viewW + 320} ${cy}`;
     }
   }
 };
@@ -77,7 +79,7 @@ export const TextLoop: React.FC<TextLoopProps> = ({
   speed = 85,
   direction = 'forward',
   separator = '✦',
-  curviness = 20,
+  curviness = 36,
   fontSize = 24,
   fontWeight = 800,
   letterSpacing = 2,
@@ -87,7 +89,7 @@ export const TextLoop: React.FC<TextLoopProps> = ({
   ribbonColor = '#2563EB',
   ribbonWidth = 56,
   pauseOnHover = true,
-  preserveAspectRatio = 'none',
+  viewBoxHeight,
   className = '',
   style = {}
 }) => {
@@ -102,7 +104,10 @@ export const TextLoop: React.FC<TextLoopProps> = ({
   const rawId = useId();
   const pathId = `text-loop-${rawId.replace(/:/g, '')}`;
 
-  const { w: viewW, h: viewH } = useMemo(() => getViewDimensions(shape), [shape]);
+  const { w: viewW, h: viewH } = useMemo(
+    () => getViewDimensions(shape, viewBoxHeight),
+    [shape, viewBoxHeight]
+  );
 
   const d = useMemo(
     () => path || buildPath(shape, curviness, ribbonWidth, viewW, viewH),
@@ -206,7 +211,7 @@ export const TextLoop: React.FC<TextLoopProps> = ({
       <svg
         className="text-loop-svg"
         viewBox={`0 0 ${viewW} ${viewH}`}
-        preserveAspectRatio={preserveAspectRatio}
+        preserveAspectRatio="xMidYMid meet"
         role="img"
         aria-label={text}
       >

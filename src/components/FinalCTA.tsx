@@ -15,30 +15,30 @@ export const FinalCTA: React.FC<FinalCTAProps> = ({
     if (onTalkToTeam) {
       onTalkToTeam();
     } else {
-      window.location.href = 'mailto:heydigitals.care@gmail.com?subject=Institutional%20Inquiry%20-%20Unisphere%20SRM';
+      window.location.href = 'https://www.heydigital.work/contact.html';
     }
   };
 
   return (
-    <section className="py-20 sm:py-28 bg-white relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="w-full bg-surface-soft relative overflow-hidden pt-0 pb-10 sm:pb-16">
+      {/* Edge-to-edge full width container seamlessly merging with FAQ section above */}
+      <div className="relative w-full rounded-t-none rounded-b-[2.5rem] sm:rounded-b-[3.5rem] lg:rounded-b-[4.5rem] bg-gradient-to-b from-[#153e90] from-0% via-[#153e90] via-25% to-[#0f2c6b] text-white p-8 sm:p-14 lg:p-20 overflow-hidden shadow-2xl shadow-primary/20 text-center">
+        {/* Ambient Glows - positioned safely away from top seam */}
+        <div className="absolute -bottom-28 -right-28 w-96 h-96 bg-primary-light/30 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary-light/10 rounded-full blur-3xl pointer-events-none" />
+
+        {/* Decorative Dot Grid - masked at top so boundary is 100% pure identical color */}
+        <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.15)_1px,transparent_1px)] [background-size:24px_24px] opacity-25 [mask-image:linear-gradient(to_bottom,transparent_0%,black_100px)] pointer-events-none" />
+
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="relative rounded-4xl bg-gradient-to-b from-primary via-primary-dark to-[#153e90] text-white p-8 sm:p-14 lg:p-20 overflow-hidden shadow-2xl shadow-primary/20 text-center"
+          transition={{ duration: 0.5 }}
+          className="relative z-10 max-w-4xl mx-auto flex flex-col items-center"
         >
-          {/* Ambient Glows */}
-          <div className="absolute -top-24 -left-24 w-80 h-80 bg-white/15 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute -bottom-24 -right-24 w-80 h-80 bg-primary-light/30 rounded-full blur-3xl pointer-events-none" />
-
-          {/* Decorative Dot Grid */}
-          <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.15)_1px,transparent_1px)] [background-size:24px_24px] opacity-30 pointer-events-none" />
-
-          <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center">
             {/* Top Pill */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/20 text-white backdrop-blur-md mb-6">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/20 text-white backdrop-blur-md mb-6 shadow-2xs">
               <Sparkles className="w-3.5 h-3.5" />
               <span className="text-xs font-extrabold uppercase tracking-widest">
                 Institutional Evaluation
@@ -62,7 +62,7 @@ export const FinalCTA: React.FC<FinalCTAProps> = ({
                 onClick={onGetStartedClick}
                 className="w-full sm:w-auto px-8 py-4 text-sm sm:text-base font-extrabold text-primary bg-white hover:bg-white/95 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center gap-2.5 group active:scale-95 cursor-pointer"
               >
-                <span>Book an Institutional Demo</span>
+                <span>Book a Free Demo</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
               <button
@@ -92,7 +92,6 @@ export const FinalCTA: React.FC<FinalCTAProps> = ({
                 <span>Designed for institutional evaluation</span>
               </div>
             </div>
-          </div>
         </motion.div>
       </div>
     </section>

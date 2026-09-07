@@ -89,200 +89,191 @@ export const Footer: React.FC<FooterProps> = ({
                   className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-white bg-primary hover:bg-primary-dark shadow-xs transition-all active:scale-95 cursor-pointer"
                 >
                   <Calendar className="w-3.5 h-3.5" />
-                  <span>Book an Institutional Demo</span>
+                  <span>Book a Free Demo</span>
                 </button>
               </div>
             )}
           </div>
 
-          {/* Column 1: Platform */}
-          <div className="md:col-span-2">
-            <h4 className="text-xs font-extrabold uppercase tracking-wider text-content-primary mb-4">
-              Platform
-            </h4>
-            <ul className="space-y-2.5">
-              <li>
-                <a
-                  href="#platform"
-                  onClick={(e) => handleSectionClick(e, '#platform')}
-                  className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
-                >
-                  Platform Overview
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#solutions"
-                  onClick={(e) => handleSectionClick(e, '#solutions')}
-                  className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
-                >
-                  Stakeholder Portals
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#features"
-                  onClick={(e) => handleSectionClick(e, '#features')}
-                  className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
-                >
-                  12 Modules
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#workflow"
-                  onClick={(e) => handleSectionClick(e, '#workflow')}
-                  className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
-                >
-                  Connected Workflow
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Column 2: Solutions */}
-          <div className="md:col-span-2">
-            <h4 className="text-xs font-extrabold uppercase tracking-wider text-content-primary mb-4">
-              Portals
-            </h4>
-            <ul className="space-y-2.5">
-              <li>
-                <a
-                  href="#solutions"
-                  onClick={(e) => handleSectionClick(e, '#solutions')}
-                  className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
-                >
-                  Student Experience
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#solutions"
-                  onClick={(e) => handleSectionClick(e, '#solutions')}
-                  className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
-                >
-                  Faculty Management
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#solutions"
-                  onClick={(e) => handleSectionClick(e, '#solutions')}
-                  className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
-                >
-                  HOD Department Hub
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#solutions"
-                  onClick={(e) => handleSectionClick(e, '#solutions')}
-                  className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
-                >
-                  Parent Oversight
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#solutions"
-                  onClick={(e) => handleSectionClick(e, '#solutions')}
-                  className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
-                >
-                  Admin Governance
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Column 3: For Institutions */}
-          <div className="md:col-span-2">
-            <h4 className="text-xs font-extrabold uppercase tracking-wider text-content-primary mb-4">
-              Institutions
-            </h4>
-            <ul className="space-y-2.5">
-              <li>
-                <a
-                  href="#governance"
-                  onClick={(e) => handleSectionClick(e, '#governance')}
-                  className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
-                >
-                  RBAC & Governance
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#implementation"
-                  onClick={(e) => handleSectionClick(e, '#implementation')}
-                  className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
-                >
-                  Implementation Path
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#resources"
-                  onClick={(e) => handleSectionClick(e, '#resources')}
-                  className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
-                >
-                  FAQ
-                </a>
-              </li>
-              {handleDemoClick && (
+          {/* 4 Navigation Columns matching User's Layout */}
+          <div className="md:col-span-8 grid grid-cols-2 sm:grid-cols-4 gap-6 lg:gap-8 pt-1">
+            {/* Column 1: Core Platform */}
+            <div>
+              <ul className="space-y-3.5">
                 <li>
-                  <button
-                    type="button"
-                    onClick={handleDemoClick}
-                    className="text-xs sm:text-sm text-primary font-bold hover:underline inline-block text-left cursor-pointer"
+                  <a
+                    href="#platform"
+                    onClick={(e) => handleSectionClick(e, '#platform')}
+                    className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
                   >
-                    Request Demo
-                  </button>
+                    Platform Overview
+                  </a>
                 </li>
-              )}
-            </ul>
-          </div>
-
-          {/* Column 4: Access */}
-          <div className="md:col-span-2">
-            <h4 className="text-xs font-extrabold uppercase tracking-wider text-content-primary mb-4">
-              Access
-            </h4>
-            <ul className="space-y-2.5">
-              {onSignInClick && (
                 <li>
-                  <button
-                    type="button"
-                    onClick={onSignInClick}
-                    className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors text-left cursor-pointer"
+                  <a
+                    href="#solutions"
+                    onClick={(e) => handleSectionClick(e, '#solutions')}
+                    className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
                   >
-                    Portal Login
-                  </button>
+                    Stakeholder Portals
+                  </a>
                 </li>
-              )}
-              <li>
-                <a
-                  href="mailto:heydigitals.care@gmail.com"
-                  className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
-                >
-                  Institutional Contact
-                </a>
-              </li>
-              <li>
-                <Link
-                  to="/privacy-policy"
-                  className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
-                >
-                  Student Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/terms-of-service"
-                  className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
-                >
-                  Terms of Service
-                </Link>
-              </li>
-            </ul>
+                <li>
+                  <a
+                    href="#showcase"
+                    onClick={(e) => handleSectionClick(e, '#showcase')}
+                    className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
+                  >
+                    Interactive Showcase
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#institutions"
+                    onClick={(e) => handleSectionClick(e, '#institutions')}
+                    className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
+                  >
+                    Built for Institutions
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Column 2: Stakeholder Portals */}
+            <div>
+              <ul className="space-y-3.5">
+                <li>
+                  <a
+                    href="#solutions"
+                    onClick={(e) => handleSectionClick(e, '#solutions')}
+                    className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
+                  >
+                    Student Experience
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#solutions"
+                    onClick={(e) => handleSectionClick(e, '#solutions')}
+                    className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
+                  >
+                    Faculty Management
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#solutions"
+                    onClick={(e) => handleSectionClick(e, '#solutions')}
+                    className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
+                  >
+                    HOD Department Hub
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#solutions"
+                    onClick={(e) => handleSectionClick(e, '#solutions')}
+                    className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
+                  >
+                    Parent Oversight
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#solutions"
+                    onClick={(e) => handleSectionClick(e, '#solutions')}
+                    className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
+                  >
+                    Admin Governance
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Column 3: Institutional Journey & FAQ */}
+            <div>
+              <ul className="space-y-3.5">
+                <li>
+                  <a
+                    href="#institutions"
+                    onClick={(e) => handleSectionClick(e, '#institutions')}
+                    className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
+                  >
+                    RBAC & Governance
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#implementation"
+                    onClick={(e) => handleSectionClick(e, '#implementation')}
+                    className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
+                  >
+                    Implementation Path
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#faq"
+                    onClick={(e) => handleSectionClick(e, '#faq')}
+                    className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
+                  >
+                    FAQ
+                  </a>
+                </li>
+                {handleDemoClick && (
+                  <li>
+                    <button
+                      type="button"
+                      onClick={handleDemoClick}
+                      className="text-xs sm:text-sm text-primary font-bold hover:underline inline-block text-left cursor-pointer"
+                    >
+                      Request Demo
+                    </button>
+                  </li>
+                )}
+              </ul>
+            </div>
+
+            {/* Column 4: Access & Legal */}
+            <div>
+              <ul className="space-y-3.5">
+                {onSignInClick && (
+                  <li>
+                    <button
+                      type="button"
+                      onClick={onSignInClick}
+                      className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors text-left cursor-pointer"
+                    >
+                      Portal Login
+                    </button>
+                  </li>
+                )}
+                <li>
+                  <a
+                    href="https://www.heydigital.work/contact.html"
+                    className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
+                  >
+                    Institutional Contact
+                  </a>
+                </li>
+                <li>
+                  <Link
+                    to="/privacy-policy"
+                    className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
+                  >
+                    Student Privacy Policy
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/terms-of-service"
+                    className="text-xs sm:text-sm text-content-secondary hover:text-primary transition-colors inline-block"
+                  >
+                    Terms of Service
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
 

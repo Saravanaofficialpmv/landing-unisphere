@@ -10,11 +10,9 @@ import {
 } from 'lucide-react';
 import { Footer } from '../components/Footer';
 import { AuthModal } from '../components/AuthModal';
-import { DemoRequestModal } from '../components/DemoRequestModal';
 
 export const TermsOfService: React.FC = () => {
   const [authModalOpen, setAuthModalOpen] = useState(false);
-  const [demoModalOpen, setDemoModalOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>('acceptance');
 
   const sections = [
@@ -470,7 +468,7 @@ export const TermsOfService: React.FC = () => {
       {/* Footer */}
       <Footer 
         onSignInClick={() => setAuthModalOpen(true)} 
-        onGetStartedClick={() => setDemoModalOpen(true)} 
+        onGetStartedClick={() => { window.location.href = 'https://www.heydigital.work/contact.html'; }} 
       />
 
       {/* Modals */}
@@ -478,11 +476,6 @@ export const TermsOfService: React.FC = () => {
         isOpen={authModalOpen}
         onClose={() => setAuthModalOpen(false)}
         initialRole="student"
-      />
-
-      <DemoRequestModal
-        isOpen={demoModalOpen}
-        onClose={() => setDemoModalOpen(false)}
       />
     </div>
   );

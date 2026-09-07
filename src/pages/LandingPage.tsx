@@ -4,24 +4,19 @@ import { Hero } from '../components/Hero';
 import { TrustStrip } from '../components/TrustStrip';
 import { ProblemSection } from '../components/ProblemSection';
 import { PortalCards } from '../components/PortalCards';
-import { FeatureGrid } from '../components/FeatureGrid';
 import { AppShowcase } from '../components/AppShowcase';
-import { EcosystemFlow } from '../components/EcosystemFlow';
 import { WhyUnisphere } from '../components/WhyUnisphere';
-import { RoleAccess } from '../components/RoleAccess';
 import { ImplementationJourney } from '../components/ImplementationJourney';
 import { FAQSection } from '../components/FAQSection';
 import { FinalCTA } from '../components/FinalCTA';
 import { Footer } from '../components/Footer';
 import { TextLoop } from '../components/TextLoop';
 import { AuthModal } from '../components/AuthModal';
-import { DemoRequestModal } from '../components/DemoRequestModal';
 import { UserRole } from '../types';
 import { Sparkles } from 'lucide-react';
 
 export function LandingPage() {
   const [authModalOpen, setAuthModalOpen] = useState(false);
-  const [demoModalOpen, setDemoModalOpen] = useState(false);
   const [selectedRoleForAuth, setSelectedRoleForAuth] = useState<UserRole>('student');
   const [showMobileStickyBar, setShowMobileStickyBar] = useState(false);
 
@@ -44,7 +39,7 @@ export function LandingPage() {
   };
 
   const handleOpenDemo = () => {
-    setDemoModalOpen(true);
+    window.location.href = 'https://www.heydigital.work/contact.html';
   };
 
   const handleExploreScroll = () => {
@@ -79,9 +74,9 @@ export function LandingPage() {
             text="Unisphere SRM ✦ One Campus ✦ One Connected Experience ✦ 5 Stakeholder Portals ✦ 12 Academic Modules"
             shape="wave"
             speed={80}
-            direction="forward"
+            direction="reverse"
             separator="✦"
-            curviness={22}
+            curviness={36}
             fontSize={24}
             fontWeight={800}
             letterSpacing={2}
@@ -90,7 +85,6 @@ export function LandingPage() {
             ribbon
             ribbonColor="#2563EB"
             ribbonWidth={56}
-            preserveAspectRatio="none"
             pauseOnHover
             className="w-full"
           />
@@ -108,22 +102,13 @@ export function LandingPage() {
           onBookDemoClick={handleOpenDemo}
         />
 
-        {/* 6 & 7. Academic management capabilities & Campus operations capabilities */}
-        <FeatureGrid />
-
-        {/* 8. Interactive product experience */}
+        {/* 6. Interactive product experience */}
         <AppShowcase />
 
-        {/* 9. Connected institutional workflow */}
-        <EcosystemFlow onBookDemoClick={handleOpenDemo} />
-
-        {/* 10. Why institutions choose Unisphere */}
+        {/* 10. Built for Institutions */}
         <WhyUnisphere />
 
-        {/* 11. Role-based access and governance */}
-        <RoleAccess />
-
-        {/* 12. Implementation journey */}
+        {/* 11. Implementation journey */}
         <ImplementationJourney onDiscussClick={handleOpenDemo} />
 
         {/* 13. FAQ */}
@@ -145,11 +130,6 @@ export function LandingPage() {
         isOpen={authModalOpen}
         onClose={() => setAuthModalOpen(false)}
         initialRole={selectedRoleForAuth}
-      />
-
-      <DemoRequestModal
-        isOpen={demoModalOpen}
-        onClose={() => setDemoModalOpen(false)}
       />
 
       {/* Mobile Sticky Conversion Bar */}
