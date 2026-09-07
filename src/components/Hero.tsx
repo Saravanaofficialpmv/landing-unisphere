@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Compass, ShieldCheck } from 'lucide-react';
 import { HeroDashboard } from './HeroDashboard';
+import { RotatingText } from './RotatingText';
 
 interface HeroProps {
   onGetStartedClick: () => void;
@@ -46,8 +47,24 @@ export const Hero: React.FC<HeroProps> = ({ onGetStartedClick, onExploreClick })
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-content-primary tracking-tight leading-[1.08] max-w-4xl text-balance"
           >
             One platform to connect your{' '}
-            <span className="text-primary">
-              entire campus.
+            <span className="text-primary inline-flex">
+              <RotatingText
+                texts={[
+                  'entire campus.',
+                  'academic operations.',
+                  '5 stakeholder portals.',
+                  'connected institution.'
+                ]}
+                mainClassName="inline-flex text-primary justify-center"
+                staggerFrom="last"
+                initial={{ y: '100%' }}
+                animate={{ y: 0 }}
+                exit={{ y: '-120%' }}
+                staggerDuration={0.025}
+                splitLevelClassName="overflow-hidden pb-1 sm:pb-2"
+                transition={{ type: 'spring', damping: 30, stiffness: 400 }}
+                rotationInterval={2800}
+              />
             </span>
           </motion.h1>
 
