@@ -21,47 +21,50 @@ export const Hero: React.FC<HeroProps> = ({ onGetStartedClick, onExploreClick })
 
   return (
     <section id="platform" className="relative pt-28 pb-16 sm:pt-36 sm:pb-24 lg:pt-40 lg:pb-28 overflow-hidden">
-      {/* Background WebGL Scanner Effect (React Bits) - Blue Color Palette */}
+      {/* Background Atmospheric Blue Gradient Foundation */}
+      <div className="absolute inset-0 bg-gradient-to-b from-blue-50/80 via-primary-subtle/30 to-transparent -z-30 pointer-events-none" />
+
+      {/* Background WebGL Scanner Effect (React Bits) - Vibrant Blue Waves */}
       <div 
-        className="absolute inset-0 -z-10 overflow-hidden pointer-events-none"
+        className="absolute inset-0 -z-10 overflow-hidden pointer-events-none opacity-90"
         style={{
-          maskImage: 'radial-gradient(ellipse 85% 70% at 50% 30%, black 35%, transparent 85%)',
-          WebkitMaskImage: 'radial-gradient(ellipse 85% 70% at 50% 30%, black 35%, transparent 85%)'
+          maskImage: 'radial-gradient(ellipse 90% 75% at 50% 30%, black 40%, transparent 95%)',
+          WebkitMaskImage: 'radial-gradient(ellipse 90% 75% at 50% 30%, black 40%, transparent 95%)'
         }}
       >
         <Scanner
-          color1="#1E40AF"
-          color2="#3B82F6"
-          color3="#93C5FD"
-          speed={0.35}
-          sweepSpeed={0.2}
-          sweepWidth={1.8}
-          sweepFalloff={5.5}
-          scale={1.4}
-          frequency={2}
-          ripple={0.2}
-          bandDensity={10}
-          lineSharpness={5.0}
-          glow={0.28}
+          color1="#1D4ED8"
+          color2="#2563EB"
+          color3="#60A5FA"
+          speed={0.4}
+          sweepSpeed={0.25}
+          sweepWidth={1.5}
+          sweepFalloff={2.8}
+          scale={1.3}
+          frequency={2.2}
+          ripple={0.25}
+          bandDensity={14}
+          lineSharpness={4.5}
+          glow={0.4}
           scanDirection="vertical"
-          colorSpread={0.5}
-          brightness={0.8}
-          contrast={1.1}
-          softness={1.5}
-          vignette={0.4}
+          colorSpread={0.6}
+          brightness={1.25}
+          contrast={1.2}
+          softness={1.3}
+          vignette={0.3}
           scanline={true}
           grain={true}
-          grainIntensity={0.03}
-          opacity={0.4}
+          grainIntensity={0.04}
+          opacity={0.8}
           mouseInteraction={true}
-          mouseRadius={0.45}
-          mouseStrength={0.6}
+          mouseRadius={0.5}
+          mouseStrength={0.7}
           className="w-full h-full"
         />
       </div>
 
       {/* Background Decorative subtle grid & ambient blur */}
-      <div className="absolute inset-0 subtle-grid-pattern opacity-30 -z-20 pointer-events-none" />
+      <div className="absolute inset-0 subtle-grid-pattern opacity-25 -z-20 pointer-events-none" />
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-primary/10 rounded-full blur-3xl -z-20 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -79,12 +82,12 @@ export const Hero: React.FC<HeroProps> = ({ onGetStartedClick, onExploreClick })
             </span>
           </motion.div>
 
-          {/* Primary H1 */}
+          {/* Primary H1 with Animated RotatingText */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-content-primary tracking-tight leading-[1.08] max-w-4xl text-balance"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-content-primary tracking-tight leading-tight max-w-4xl"
           >
             One platform to connect your{' '}
             <span className="text-primary inline-flex">
@@ -95,15 +98,12 @@ export const Hero: React.FC<HeroProps> = ({ onGetStartedClick, onExploreClick })
                   '5 stakeholder portals.',
                   'connected institution.'
                 ]}
-                mainClassName="inline-flex text-primary justify-center"
+                mainClassName="inline-flex text-primary font-extrabold"
                 staggerFrom="last"
-                initial={{ y: '100%' }}
-                animate={{ y: 0 }}
-                exit={{ y: '-120%' }}
-                staggerDuration={0.025}
-                splitLevelClassName="overflow-hidden pb-1 sm:pb-2"
-                transition={{ type: 'spring', damping: 30, stiffness: 400 }}
-                rotationInterval={2800}
+                staggerDuration={0.02}
+                splitLevelClassName="overflow-hidden inline-flex pb-1"
+                transition={{ type: 'spring', damping: 25, stiffness: 350 }}
+                rotationInterval={2600}
               />
             </span>
           </motion.h1>

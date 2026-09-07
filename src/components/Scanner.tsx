@@ -269,8 +269,8 @@ export const Scanner: React.FC<ScannerProps> = ({
 
     const setSize = () => {
       const rect = container.getBoundingClientRect();
-      const w = Math.max(1, Math.floor(rect.width));
-      const h = Math.max(1, Math.floor(rect.height));
+      const w = Math.max(1, Math.floor(rect.width || container.clientWidth || (typeof window !== 'undefined' ? window.innerWidth : 1200)));
+      const h = Math.max(1, Math.floor(rect.height || container.clientHeight || (typeof window !== 'undefined' ? window.innerHeight : 800)));
       renderer.setSize(w, h);
       const res = program.uniforms.iResolution.value;
       res[0] = gl.drawingBufferWidth;
@@ -309,11 +309,11 @@ export const Scanner: React.FC<ScannerProps> = ({
     window.addEventListener('mouseleave', onMouseLeave, { passive: true });
 
     let raf = 0;
-    let isVisible = true;
-    let isPageVisible = typeof document !== 'undefined' ? !document.hidden : true;
+    let running = true;
     const t0 = performance.now();
 
     const loop = (t: number) => {
+      if (!running) return;
       program.uniforms.iTime.value = (t - t0) * 0.001;
 
       if (!mouseEnabledRef.current) {
@@ -330,40 +330,26 @@ export const Scanner: React.FC<ScannerProps> = ({
       raf = requestAnimationFrame(loop);
     };
 
-    const tryStart = () => {
-      if (isVisible && isPageVisible && raf === 0) raf = requestAnimationFrame(loop);
-    };
-    const tryStop = () => {
-      if (raf !== 0) {
-        cancelAnimationFrame(raf);
-        raf = 0;
-      }
-    };
-
-    let io: IntersectionObserver | null = null;
-    if (typeof IntersectionObserver !== 'undefined') {
-      io = new IntersectionObserver(
-        ([entry]) => {
-          isVisible = entry.isIntersecting;
-          isVisible ? tryStart() : tryStop();
-        },
-        { threshold: 0 }
-      );
-      io.observe(container);
-    }
+    raf = requestAnimationFrame(loop);
 
     const onVisibility = () => {
-      isPageVisible = typeof document !== 'undefined' ? !document.hidden : true;
-      isPageVisible ? tryStart() : tryStop();
+      if (document.hidden) {
+        if (raf) {
+          cancelAnimationFrame(raf);
+          raf = 0;
+        }
+      } else {
+        if (!raf && running) {
+          raf = requestAnimationFrame(loop);
+        }
+      }
     };
     document.addEventListener('visibilitychange', onVisibility);
 
-    tryStart();
-
     return () => {
-      tryStop();
+      running = false;
+      if (raf) cancelAnimationFrame(raf);
       ro.disconnect();
-      if (io) io.disconnect();
       document.removeEventListener('visibilitychange', onVisibility);
       window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('mouseleave', onMouseLeave);

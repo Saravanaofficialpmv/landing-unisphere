@@ -41,7 +41,7 @@ export const RotatingText = forwardRef<RotatingTextRef, RotatingTextProps>((prop
     animate = { y: 0, opacity: 1 },
     exit = { y: '-120%', opacity: 0 },
     animatePresenceMode = 'wait',
-    animatePresenceInitial = false,
+    animatePresenceInitial = true,
     rotationInterval = 2000,
     staggerDuration = 0,
     staggerFrom = 'first',
@@ -56,6 +56,11 @@ export const RotatingText = forwardRef<RotatingTextRef, RotatingTextProps>((prop
   } = props;
 
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
+  const [hasMounted, setHasMounted] = useState(false);
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
 
   const splitIntoCharacters = (text: string): string[] => {
     if (typeof Intl !== 'undefined' && 'Segmenter' in Intl) {
@@ -175,13 +180,12 @@ export const RotatingText = forwardRef<RotatingTextRef, RotatingTextProps>((prop
   if (!texts.length) return null;
 
   return (
-    <motion.span className={cn('text-rotate', mainClassName)} {...(rest as any)} layout transition={transition}>
+    <span className={cn('text-rotate', mainClassName)} {...(rest as any)}>
       <span className="text-rotate-sr-only">{texts[currentTextIndex]}</span>
-      <AnimatePresence mode={animatePresenceMode} initial={animatePresenceInitial}>
+      <AnimatePresence mode={animatePresenceMode} initial={true}>
         <motion.span
           key={currentTextIndex}
           className={cn(splitBy === 'lines' ? 'text-rotate-lines' : 'text-rotate')}
-          layout
           aria-hidden="true"
         >
           {elements.map((wordObj, wordIndex, array) => {
@@ -191,15 +195,17 @@ export const RotatingText = forwardRef<RotatingTextRef, RotatingTextProps>((prop
                 {wordObj.characters.map((char, charIndex) => (
                   <motion.span
                     key={charIndex}
-                    initial={initial as any}
+                    initial={hasMounted ? (initial as any) : false}
                     animate={animate as any}
                     exit={exit as any}
                     transition={{
                       ...(transition as any),
-                      delay: getStaggerDelay(
-                        previousCharsCount + charIndex,
-                        array.reduce((sum, word) => sum + word.characters.length, 0)
-                      )
+                      delay: hasMounted
+                        ? getStaggerDelay(
+                            previousCharsCount + charIndex,
+                            array.reduce((sum, word) => sum + word.characters.length, 0)
+                          )
+                        : 0
                     }}
                     className={cn('text-rotate-element', elementLevelClassName)}
                   >
@@ -212,7 +218,7 @@ export const RotatingText = forwardRef<RotatingTextRef, RotatingTextProps>((prop
           })}
         </motion.span>
       </AnimatePresence>
-    </motion.span>
+    </span>
   );
 });
 
