@@ -76,8 +76,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onSignInClick, onGetStartedClick
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? 'bg-white/90 backdrop-blur-md border-b border-border shadow-subtle py-3'
-            : 'bg-white/75 backdrop-blur-xs border-b border-transparent py-4 sm:py-5'
+            ? 'bg-white/95 backdrop-blur-md border-b border-border shadow-subtle py-3 text-content-primary'
+            : 'bg-[#07080f]/75 backdrop-blur-md border-b border-white/10 py-4 sm:py-5 text-white'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -100,9 +100,15 @@ export const Navbar: React.FC<NavbarProps> = ({ onSignInClick, onGetStartedClick
                 className="w-9 h-9 sm:w-10 sm:h-10 object-contain rounded-xl shadow-xs group-hover:scale-105 transition-transform duration-200" 
               />
               <div className="flex flex-col">
-                <span className="font-extrabold text-lg sm:text-xl tracking-tight text-content-primary flex items-center gap-1.5">
+                <span className={`font-extrabold text-lg sm:text-xl tracking-tight flex items-center gap-1.5 ${
+                  isScrolled ? 'text-content-primary' : 'text-white'
+                }`}>
                   UNISPHERE
-                  <span className="text-[10px] font-extrabold px-1.5 py-0.5 rounded bg-primary-subtle text-primary border border-primary/20 tracking-wider">
+                  <span className={`text-[10px] font-extrabold px-1.5 py-0.5 rounded tracking-wider ${
+                    isScrolled 
+                      ? 'bg-primary-subtle text-primary border border-primary/20' 
+                      : 'bg-blue-500/20 text-blue-300 border border-blue-400/30'
+                  }`}>
                     SRM
                   </span>
                 </span>
@@ -114,7 +120,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onSignInClick, onGetStartedClick
               <button
                 type="button"
                 onClick={onSignInClick}
-                className="px-4 py-2 text-xs lg:text-sm font-bold text-content-primary hover:text-primary border border-border hover:border-primary/40 rounded-xl transition-all duration-200 hover:bg-surface-soft active:scale-95 whitespace-nowrap cursor-pointer"
+                className={`px-4 py-2 text-xs lg:text-sm font-bold rounded-xl transition-all duration-200 active:scale-95 whitespace-nowrap cursor-pointer ${
+                  isScrolled
+                    ? 'text-content-primary hover:text-primary border border-border hover:border-primary/40 hover:bg-surface-soft'
+                    : 'text-white/90 hover:text-white border border-white/20 hover:border-white/40 hover:bg-white/10'
+                }`}
               >
                 Login
               </button>
@@ -131,7 +141,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onSignInClick, onGetStartedClick
               <button
                 type="button"
                 onClick={() => staggeredMenuRef.current?.toggle()}
-                className="p-2.5 rounded-xl text-content-secondary hover:text-primary hover:bg-surface-soft border border-border hover:border-primary/40 transition-all active:scale-95 flex items-center gap-2 group cursor-pointer"
+                className={`p-2.5 rounded-xl transition-all active:scale-95 flex items-center gap-2 group cursor-pointer ${
+                  isScrolled
+                    ? 'text-content-secondary hover:text-primary hover:bg-surface-soft border border-border hover:border-primary/40'
+                    : 'text-white/90 hover:text-white hover:bg-white/10 border border-white/20 hover:border-white/40'
+                }`}
                 aria-label="Open institutional menu"
                 title="Open Staggered Menu"
               >
@@ -152,10 +166,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onSignInClick, onGetStartedClick
               <button
                 type="button"
                 onClick={() => staggeredMenuRef.current?.toggle()}
-                className="p-2 rounded-xl text-content-secondary hover:text-content-primary hover:bg-surface-soft border border-border/80 focus:outline-none active:scale-95 cursor-pointer"
+                className={`p-2 rounded-xl border focus:outline-none active:scale-95 cursor-pointer ${
+                  isScrolled 
+                    ? 'text-content-secondary hover:text-content-primary hover:bg-surface-soft border-border/80' 
+                    : 'text-white hover:bg-white/10 border-white/20'
+                }`}
                 aria-label="Toggle navigation menu"
               >
-                <Menu className="w-5 h-5 text-content-primary" />
+                <Menu className={`w-5 h-5 ${isScrolled ? 'text-content-primary' : 'text-white'}`} />
               </button>
             </div>
           </div>
