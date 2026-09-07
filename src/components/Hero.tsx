@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Compass, ShieldCheck } from 'lucide-react';
 import { HeroDashboard } from './HeroDashboard';
 import { RotatingText } from './RotatingText';
+import { Scanner } from './Scanner';
 
 interface HeroProps {
   onGetStartedClick: () => void;
@@ -20,9 +21,48 @@ export const Hero: React.FC<HeroProps> = ({ onGetStartedClick, onExploreClick })
 
   return (
     <section id="platform" className="relative pt-28 pb-16 sm:pt-36 sm:pb-24 lg:pt-40 lg:pb-28 overflow-hidden">
-      {/* Background Decorative subtle grid */}
-      <div className="absolute inset-0 subtle-grid-pattern opacity-40 -z-20 pointer-events-none" />
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-primary/10 rounded-full blur-3xl -z-10 pointer-events-none" />
+      {/* Background WebGL Scanner Effect (React Bits) - Blue Color Palette */}
+      <div 
+        className="absolute inset-0 -z-10 overflow-hidden pointer-events-none"
+        style={{
+          maskImage: 'radial-gradient(ellipse 85% 70% at 50% 30%, black 35%, transparent 85%)',
+          WebkitMaskImage: 'radial-gradient(ellipse 85% 70% at 50% 30%, black 35%, transparent 85%)'
+        }}
+      >
+        <Scanner
+          color1="#1E40AF"
+          color2="#3B82F6"
+          color3="#93C5FD"
+          speed={0.35}
+          sweepSpeed={0.2}
+          sweepWidth={1.8}
+          sweepFalloff={5.5}
+          scale={1.4}
+          frequency={2}
+          ripple={0.2}
+          bandDensity={10}
+          lineSharpness={5.0}
+          glow={0.28}
+          scanDirection="vertical"
+          colorSpread={0.5}
+          brightness={0.8}
+          contrast={1.1}
+          softness={1.5}
+          vignette={0.4}
+          scanline={true}
+          grain={true}
+          grainIntensity={0.03}
+          opacity={0.4}
+          mouseInteraction={true}
+          mouseRadius={0.45}
+          mouseStrength={0.6}
+          className="w-full h-full"
+        />
+      </div>
+
+      {/* Background Decorative subtle grid & ambient blur */}
+      <div className="absolute inset-0 subtle-grid-pattern opacity-30 -z-20 pointer-events-none" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-primary/10 rounded-full blur-3xl -z-20 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center text-center">
