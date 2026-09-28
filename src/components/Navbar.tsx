@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLenis } from 'lenis/react';
 import { Menu, Sparkles } from 'lucide-react';
 import { StaggeredMenu, StaggeredMenuRef, StaggeredMenuItem } from './StaggeredMenu';
 
@@ -11,6 +12,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const lenis = useLenis();
   const staggeredMenuRef = useRef<StaggeredMenuRef>(null);
 
   useEffect(() => {
@@ -59,9 +61,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
       navigate('/' + hash);
       return;
     }
-    const target = document.querySelector(hash);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
+    if (lenis) {
+      lenis.scrollTo(hash, { duration: 1.6, offset: -80 });
+    } else {
+      const target = document.querySelector(hash);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 

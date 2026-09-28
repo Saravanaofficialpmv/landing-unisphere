@@ -16,7 +16,7 @@ export const TrustStrip: React.FC = () => {
   };
 
   return (
-    <section className="pt-12 pb-12 sm:pt-16 sm:pb-14 border-b border-border/80 bg-surface-soft/40 relative">
+    <section className="pt-12 pb-12 sm:pt-16 sm:pb-14 border-b border-border/80 bg-white relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {TRUST_METRICS.map((metric, idx) => {

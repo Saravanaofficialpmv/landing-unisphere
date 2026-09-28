@@ -87,7 +87,7 @@
 }
 
 .sm-toggle:hover {
-  background: #ffffff;
+  background: #f3f3f3;
   border-color: rgba(37, 99, 235, 0.4);
   box-shadow: 0 4px 12px rgba(37, 99, 235, 0.12);
 }

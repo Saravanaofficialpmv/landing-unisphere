@@ -2,7 +2,6 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { RotatingText } from './RotatingText';
-import { CloudShader } from './ui/cloud-shader';
 import { NoiseBackground } from './ui/noise-background';
 
 interface HeroProps {
@@ -15,20 +14,23 @@ export const Hero: React.FC<HeroProps> = ({ onGetStartedClick }) => {
   return (
     <section 
       id="platform" 
-      className="relative min-h-screen min-h-[100dvh] w-full bg-[#1b3b72] text-white overflow-hidden rounded-b-[2.5rem] sm:rounded-b-[3.5rem] lg:rounded-b-[4rem] shadow-2xl border-b border-blue-900/20 flex flex-col justify-center items-center"
+      className="relative min-h-screen min-h-[100dvh] w-full text-white overflow-hidden rounded-b-[2.5rem] sm:rounded-b-[3.5rem] lg:rounded-b-[4rem] flex flex-col justify-center items-center [isolation:isolate] [transform:translateZ(0)]"
     >
-      {/* Daylight Sky CloudShader Canvas starting from top 0 filling 100% */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-        <CloudShader
-          className="h-full w-full"
-          speed={0.7}
-          count={5}
-          cloudColor="#ffffff"
-          skyTopColor="#1d4ed8"
-          skyBottomColor="#60a5fa"
-        />
-        {/* Soft atmospheric gradient to guarantee crystal-clear text contrast */}
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/35 via-slate-950/10 to-slate-950/25 pointer-events-none" />
+      {/* Hero Background Image (hero 2.png / modern formats) */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0 rounded-b-[2.5rem] sm:rounded-b-[3.5rem] lg:rounded-b-[4rem]">
+        <picture className="w-full h-full block">
+          <source srcSet="/hero-back.avif?v=hero2" type="image/avif" />
+          <source srcSet="/hero-back.webp?v=hero2" type="image/webp" />
+          <img
+            src="/hero-2.png"
+            alt="Unisphere Connected Campus"
+            className="w-full h-full object-cover object-center select-none"
+            loading="eager"
+            decoding="async"
+          />
+        </picture>
+        {/* Soft atmospheric gradient at top for navbar/text contrast without darkening the bottom edge */}
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/30 via-slate-950/10 to-transparent pointer-events-none" />
       </div>
 
       {/* Hero Interactive Content Overlay - Centered in Fullscreen */}

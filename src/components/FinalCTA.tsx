@@ -20,9 +20,9 @@ export const FinalCTA: React.FC<FinalCTAProps> = ({
   };
 
   return (
-    <section className="w-full bg-surface-soft relative overflow-hidden pt-0 pb-10 sm:pb-16">
-      {/* Edge-to-edge full width container seamlessly merging with FAQ section above */}
-      <div className="relative w-full rounded-t-none rounded-b-[2.5rem] sm:rounded-b-[3.5rem] lg:rounded-b-[4.5rem] bg-gradient-to-b from-[#153e90] from-0% via-[#153e90] via-25% to-[#0f2c6b] text-white p-8 sm:p-14 lg:p-20 overflow-hidden shadow-2xl shadow-primary/20 text-center">
+    <section className="w-full bg-white relative overflow-hidden py-10 sm:py-16 px-4 sm:px-6 lg:px-8">
+      {/* Floating rounded container */}
+      <div className="max-w-7xl mx-auto relative w-full rounded-[2.5rem] sm:rounded-[3.5rem] lg:rounded-[4.5rem] bg-gradient-to-b from-[#153e90] from-0% via-[#153e90] via-25% to-[#0f2c6b] text-white p-8 sm:p-14 lg:p-20 overflow-hidden shadow-2xl shadow-primary/20 text-center">
         {/* Ambient Glows - positioned safely away from top seam */}
         <div className="absolute -bottom-28 -right-28 w-96 h-96 bg-primary-light/30 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary-light/10 rounded-full blur-3xl pointer-events-none" />

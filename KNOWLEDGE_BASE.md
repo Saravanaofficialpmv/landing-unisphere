@@ -33,7 +33,8 @@
 | **Animation Engine** | [Framer Motion](https://www.framer.com/motion/) | `^11.11.11` | Viewport-triggered micro-interactions and modal transitions |
 | **Iconography** | [Lucide React](https://lucide.dev/) | `^0.454.0` | Consistent, clean icon set |
 | **Routing** | [React Router DOM](https://reactrouter.com/) | `^7.18.2` | Client-side routing with automatic scroll-to-top |
-| **Typography** | [Google Fonts: Manrope](https://fonts.google.com/specimen/Manrope) | 300–800 | Apple-inspired clean modern typography |
+| **Smooth Scrolling** | [Lenis](https://lenis.darkroom.engineering/) | `^1.3.26` | Soft, inertial momentum scrolling with reduced velocity |
+| **Typography** | [Google Fonts: Momo Trust Display](https://fonts.google.com/specimen/Momo+Trust+Display) | 400 | Approachable, user-friendly modern typography |
 
 ### 2.2 Showcased Target Ecosystem (Mobile & Backend)
 
@@ -150,6 +151,8 @@ src/
     ├── SimpleSurface.tsx        # 6 realistic micro-UI widgets (Attendance, CGPA, Timetable, etc.)
     ├── RoleAccess.tsx           # Granular permission comparison matrix for all 5 roles
     ├── FinalCTA.tsx             # Ambient blue glow conversion banner
+    ├── BrandIntro.tsx           # Cinematic brand reveal animation
+    ├── ScrollStatement.tsx      # Pinned scroll-driven statement text and expanding color fill
     ├── Footer.tsx               # Navigation links, copyright, policy links, back-to-top button
     ├── AuthModal.tsx            # Role-based login modal with 1-click test credentials
     ├── DemoRequestModal.tsx     # Institutional demo booking form with field validation

@@ -1,4 +1,7 @@
 import { useState, useEffect } from 'react';
+import { useLenis } from 'lenis/react';
+import { motion } from 'framer-motion';
+import { BrandIntro } from '../components/BrandIntro';
 import { Navbar } from '../components/Navbar';
 import { Hero } from '../components/Hero';
 import { TrustStrip } from '../components/TrustStrip';
@@ -8,13 +11,24 @@ import { AppShowcase } from '../components/AppShowcase';
 import { WhyUnisphere } from '../components/WhyUnisphere';
 import { ImplementationJourney } from '../components/ImplementationJourney';
 import { FAQSection } from '../components/FAQSection';
-import { FinalCTA } from '../components/FinalCTA';
+import { ScrollStatement } from '../components/ScrollStatement';
 import { Footer } from '../components/Footer';
 import { TextLoop } from '../components/TextLoop';
 import { Sparkles } from 'lucide-react';
 
 export function LandingPage() {
   const [showMobileStickyBar, setShowMobileStickyBar] = useState(false);
+  const [introFinished, setIntroFinished] = useState(false);
+  const lenis = useLenis();
+
+  // Temporarily pause scroll during brand intro
+  useEffect(() => {
+    if (!introFinished) {
+      lenis?.stop();
+    } else {
+      lenis?.start();
+    }
+  }, [introFinished, lenis]);
 
   useEffect(() => {
     let ticking = false;
@@ -38,18 +52,33 @@ export function LandingPage() {
   };
 
   const handleExploreScroll = () => {
-    const target = document.querySelector('#solutions');
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
+    if (lenis) {
+      lenis.scrollTo('#solutions', { duration: 1.6, offset: -80 });
+    } else {
+      const target = document.querySelector('#solutions');
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
   return (
-    <div className="min-h-screen bg-white text-content-primary flex flex-col selection:bg-primary/15 selection:text-primary">
-      {/* 1. Navbar */}
-      <Navbar
-        onGetStartedClick={handleOpenDemo}
-      />
+    <>
+      {/* Cinematic Brand Intro (Brand-only sequence, ~2.4s max) */}
+      {!introFinished && (
+        <BrandIntro onComplete={() => setIntroFinished(true)} />
+      )}
+
+      <motion.div 
+        className="min-h-screen bg-white text-content-primary flex flex-col selection:bg-primary/15 selection:text-primary"
+        initial={{ opacity: 0.95 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+      >
+        {/* 1. Navbar */}
+        <Navbar
+          onGetStartedClick={handleOpenDemo}
+        />
 
       {/* Main Content Sections */}
       <main className="flex-1">
@@ -107,11 +136,11 @@ export function LandingPage() {
         {/* 13. FAQ */}
         <FAQSection onBookDemoClick={handleOpenDemo} />
 
-        {/* 14. Final institutional demo CTA */}
-        <FinalCTA onGetStartedClick={handleOpenDemo} />
+        {/* 14. Scroll Statement & Brand Reveal */}
+        <ScrollStatement onBookDemoClick={handleOpenDemo} />
       </main>
 
-      {/* 15. Footer */}
+      {/* 15. Footer — flows naturally after scroll animation on blue background */}
       <Footer
         onBookDemoClick={handleOpenDemo}
         onGetStartedClick={handleOpenDemo}
@@ -134,7 +163,8 @@ export function LandingPage() {
           </button>
         </div>
       )}
-    </div>
+      </motion.div>
+    </>
   );
 }
 

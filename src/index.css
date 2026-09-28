@@ -1,15 +1,31 @@
+@import 'lenis/dist/lenis.css';
+
+@font-face {
+  font-family: 'Momo Trust Display';
+  src: url('/fonts/MomoTrustDisplay-Regular.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
   html {
-    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Momo Trust Display', 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     color: #0F172A;
-    background-color: #FFFFFF;
+    background-color: #f3f3f3;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    scroll-behavior: auto !important;
   }
 
   /* Custom subtle scrollbar */

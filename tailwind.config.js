@@ -7,6 +7,7 @@ export default {
   theme: {
     extend: {
       colors: {
+        white: '#f3f3f3',
         primary: {
           DEFAULT: '#2563EB',
           light: '#3B82F6',
@@ -14,7 +15,7 @@ export default {
           subtle: '#EEF2FF',
         },
         surface: {
-          DEFAULT: '#FFFFFF',
+          DEFAULT: '#f3f3f3',
           soft: '#F8FAFC',
           muted: '#F1F5F9',
         },
@@ -37,7 +38,8 @@ export default {
         }
       },
       fontFamily: {
-        sans: ['Manrope', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        sans: ['"Momo Trust Display"', 'Geist', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        display: ['"Momo Trust Display"', 'sans-serif'],
       },
       spacing: {
         '4.5': '1.125rem',

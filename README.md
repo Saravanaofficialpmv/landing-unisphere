@@ -9,7 +9,8 @@
 
 ## 🌟 Highlights & Features
 
-- **Apple-Inspired Aesthetic**: Modern typography with Google Fonts *Manrope*, spacious layouts, minimal color accents, and subtle glassmorphism.
+- **Apple-Inspired Aesthetic**: Modern typography with Google Fonts *Momo Trust Display*, spacious layouts, minimal color accents, and subtle glassmorphism.
+- **Silky Soft Inertial Scrolling**: Powered by **Lenis** with a relaxed deceleration curve and reduced wheel velocity for a smooth, premium feel.
 - **Central Interactive Dashboard**: Live interactive timetable, attendance gauge, and course status surrounded by 5 floating role cards with Framer Motion animations.
 - **5 Dedicated Portals**:
   - 🎓 **Student**: Learn. Track. Grow.
@@ -74,7 +75,7 @@ npm run build
 
 ```
 landing-unisphere/
-├── index.html                 # Manrope font, favicon & SEO meta tags
+├── index.html                 # Momo Trust Display font, favicon & SEO meta tags
 ├── package.json               # Dependencies & build scripts
 ├── vite.config.ts             # Vite build configuration
 ├── tailwind.config.js         # Custom Unisphere color tokens & theme
@@ -99,8 +100,9 @@ landing-unisphere/
         ├── WhyUnisphere.tsx   # 3 high-impact value cards
         ├── SimpleSurface.tsx  # 6 realistic micro-UI widgets
         ├── RoleAccess.tsx     # 5 persona governance columns
-        ├── FinalCTA.tsx       # Ambient glow call to action
-        ├── Footer.tsx         # Modern footer with links & back to top
+        ├── BrandIntro.tsx     # Cinematic brand reveal animation
+        ├── ScrollStatement.tsx # Pinned horizontal text glide & color fill
+        ├── Footer.tsx         # Modern card footer with oversized Unisphere wordmark
         ├── AuthModal.tsx      # Interactive sign-in modal
         └── DemoRequestModal.tsx # Demo scheduling modal
 ```
