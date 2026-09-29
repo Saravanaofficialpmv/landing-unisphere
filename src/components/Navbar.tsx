@@ -36,8 +36,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
   ];
 
   const socialItems = [
-    { label: 'Book Demo', link: '#', onClick: onGetStartedClick },
     { label: 'Privacy Policy', link: '/privacy-policy' },
+    { label: 'Terms of Service', link: '/terms-of-service' },
+    { label: 'Cookie Policy', link: '/cookie-policy' },
+    { label: 'Acceptable Use', link: '/acceptable-use' },
+    { label: 'Security & Trust', link: '/security' },
+    { label: 'Accessibility', link: '/accessibility' },
   ];
 
   const extraMenuContent = (
@@ -75,7 +79,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
     <>
       <header className="fixed top-3 sm:top-5 inset-x-0 z-50 px-3 sm:px-6 pointer-events-none">
         <div 
-          className={`max-w-5xl mx-auto rounded-2xl sm:rounded-full transition-all duration-300 pointer-events-auto flex items-center justify-between px-4 sm:px-6 py-2.5 sm:py-2.5 ${
+          className={`max-w-5xl mx-auto rounded-2xl transition-all duration-300 pointer-events-auto flex items-center justify-between px-4 sm:px-6 py-2.5 sm:py-2.5 ${
             isScrolled
               ? 'bg-[#090d1a]/85 backdrop-blur-xl border border-white/15 shadow-2xl shadow-black/40 text-white'
               : 'bg-white/[0.05] hover:bg-white/[0.08] backdrop-blur-xl border border-white/10 shadow-xl shadow-black/20 text-white'
@@ -163,6 +167,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
         accentColor="#2563EB"
         items={menuItems}
         socialItems={socialItems}
+        socialTitle="Institutional Policies & Legal"
         displaySocials={true}
         displayItemNumbering={true}
         extraContent={extraMenuContent}

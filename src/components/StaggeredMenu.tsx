@@ -1,4 +1,5 @@
 import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useLayoutEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { X } from 'lucide-react';
 import './StaggeredMenu.css';
@@ -28,6 +29,7 @@ export interface StaggeredMenuProps {
   colors?: string[];
   items?: StaggeredMenuItem[];
   socialItems?: StaggeredMenuSocialItem[];
+  socialTitle?: string;
   displaySocials?: boolean;
   displayItemNumbering?: boolean;
   className?: string;
@@ -47,11 +49,13 @@ export interface StaggeredMenuProps {
 }
 
 export const StaggeredMenu = forwardRef<StaggeredMenuRef, StaggeredMenuProps>((props, ref) => {
+  const navigate = useNavigate();
   const {
     position = 'right',
     colors = ['#DBEAFE', '#2563EB'],
     items = [],
     socialItems = [],
+    socialTitle = 'Institutional Policies & Legal',
     displaySocials = true,
     displayItemNumbering = true,
     className = '',
@@ -639,18 +643,20 @@ export const StaggeredMenu = forwardRef<StaggeredMenuRef, StaggeredMenuProps>((p
           )}
 
           {displaySocials && socialItems && socialItems.length > 0 && (
-            <div className="sm-socials" aria-label="Quick links">
-              <h3 className="sm-socials-title">Institutional Quick Access</h3>
+            <div className="sm-socials" aria-label="Policies and quick access">
+              <h3 className="sm-socials-title">{socialTitle}</h3>
               <ul className="sm-socials-list" role="list">
                 {socialItems.map((s, i) => (
                   <li key={s.label + i} className="sm-socials-item">
                     <a
                       href={s.link}
                       onClick={(e) => {
+                        e.preventDefault();
+                        closeMenu();
                         if (s.onClick) {
-                          e.preventDefault();
                           s.onClick();
-                          closeMenu();
+                        } else if (s.link && s.link !== '#') {
+                          navigate(s.link);
                         }
                       }}
                       className="sm-socials-link"

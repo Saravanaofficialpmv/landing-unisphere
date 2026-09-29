@@ -1,9 +1,14 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ReactLenis } from 'lenis/react';
 import { ScrollToTop } from './components/ScrollToTop';
 import { LandingPage } from './pages/LandingPage';
 import { PrivacyPolicy } from './pages/PrivacyPolicy';
 import { TermsOfService } from './pages/TermsOfService';
+import { CookiePolicy } from './pages/CookiePolicy';
+import { AcceptableUsePolicy } from './pages/AcceptableUsePolicy';
+import { SecurityPolicy } from './pages/SecurityPolicy';
+import { AccessibilityStatement } from './pages/AccessibilityStatement';
+import { NotFound } from './pages/NotFound';
 
 export function App() {
   // Lenis options tailored for a soft, silky feel with reduced scroll speed
@@ -24,14 +29,20 @@ export function App() {
           {/* Public Application Home Page */}
           <Route path="/" element={<LandingPage />} />
 
-          {/* Public Privacy Policy Page */}
+          {/* Legal and Policy Pages */}
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-
-          {/* Public Terms of Service Page */}
           <Route path="/terms-of-service" element={<TermsOfService />} />
+          <Route path="/cookie-policy" element={<CookiePolicy />} />
+          <Route path="/acceptable-use" element={<AcceptableUsePolicy />} />
+          <Route path="/acceptable-use-policy" element={<AcceptableUsePolicy />} />
+          <Route path="/security" element={<SecurityPolicy />} />
+          <Route path="/security-policy" element={<SecurityPolicy />} />
+          <Route path="/accessibility" element={<AccessibilityStatement />} />
+          <Route path="/accessibility-statement" element={<AccessibilityStatement />} />
 
-          {/* Catch-all redirect to Home */}
-          <Route path="*" element={<Navigate to="/" replace />} />
+          {/* 404 Page Not Found */}
+          <Route path="/404" element={<NotFound />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
     </ReactLenis>

@@ -185,13 +185,13 @@ export const RotatingText = forwardRef<RotatingTextRef, RotatingTextProps>((prop
       <AnimatePresence mode={animatePresenceMode} initial={true}>
         <motion.span
           key={currentTextIndex}
-          className={cn(splitBy === 'lines' ? 'text-rotate-lines' : 'text-rotate')}
+          className={cn(splitBy === 'lines' ? 'text-rotate-lines' : 'text-rotate', 'whitespace-nowrap flex-nowrap shrink-0')}
           aria-hidden="true"
         >
           {elements.map((wordObj, wordIndex, array) => {
             const previousCharsCount = array.slice(0, wordIndex).reduce((sum, word) => sum + word.characters.length, 0);
             return (
-              <span key={wordIndex} className={cn('text-rotate-word', splitLevelClassName)}>
+              <span key={wordIndex} className={cn('text-rotate-word', 'whitespace-nowrap shrink-0', splitLevelClassName)}>
                 {wordObj.characters.map((char, charIndex) => (
                   <motion.span
                     key={charIndex}

@@ -1,476 +1,500 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { 
-  ArrowLeft, 
   Shield, 
-  Layers, 
-  ChevronRight,
-  Info,
-  Clock
+  Users, 
+  Database, 
+  Lock, 
+  GraduationCap, 
+  BookOpen, 
+  Building2, 
+  HeartHandshake, 
+  UserCog, 
+  CheckCircle, 
+  Server, 
+  Mail
 } from 'lucide-react';
-import { Footer } from '../components/Footer';
+import { LegalLayout, SectionItem } from '../components/LegalLayout';
 
 export const PrivacyPolicy: React.FC = () => {
-  const [activeSection, setActiveSection] = useState<string>('intro');
-
-  const sections = [
+  const sections: SectionItem[] = [
     { id: 'introduction', title: '1. Introduction' },
-    { id: 'information-collected', title: '2. Information We Collect' },
-    { id: 'how-we-use', title: '3. How We Use Information' },
-    { id: 'authentication', title: '4. Authentication & Account Information' },
-    { id: 'academic-data', title: '5. Academic & Institutional Data' },
-    { id: 'data-storage', title: '6. Data Storage' },
-    { id: 'third-party', title: '7. Third-Party Services' },
-    { id: 'data-security', title: '8. Data Security' },
-    { id: 'data-retention', title: '9. Data Retention' },
-    { id: 'user-rights', title: '10. User Rights' },
-    { id: 'children-student-privacy', title: '11. Children / Student Privacy' },
-    { id: 'policy-changes', title: '12. Changes to This Privacy Policy' },
-    { id: 'contact-us', title: '13. Contact Us' },
+    { id: 'information-we-collect', title: '2. Information We Collect' },
+    { id: 'academic-institutional-data', title: '3. Academic & Institutional Data' },
+    { id: 'how-we-use-information', title: '4. How We Use Information' },
+    { id: 'authentication-accounts', title: '5. Authentication & Accounts' },
+    { id: 'role-based-access', title: '6. Role-Based Access & Permissions' },
+    { id: 'data-storage-security', title: '7. Data Storage & Security' },
+    { id: 'data-sharing-disclosure', title: '8. Data Sharing & Disclosure' },
+    { id: 'third-party-services', title: '9. Third-Party Services' },
+    { id: 'data-retention', title: '10. Data Retention' },
+    { id: 'user-rights-requests', title: '11. User Rights & Data Requests' },
+    { id: 'cookies-analytics', title: '12. Cookies & Analytics' },
+    { id: 'children-student-data', title: '13. Children\'s & Student Data' },
+    { id: 'policy-changes', title: '14. Changes to This Policy' },
+    { id: 'contact-privacy-requests', title: '15. Contact & Privacy Requests' },
   ];
 
-  useEffect(() => {
-    document.title = 'Privacy Policy — Unisphere';
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY + 200;
-      for (const section of sections) {
-        const el = document.getElementById(section.id);
-        if (el) {
-          const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveSection(section.id);
-            break;
-          }
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-    e.preventDefault();
-    const el = document.getElementById(id);
-    if (el) {
-      const yOffset = -90;
-      const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
-      window.scrollTo({ top: y, behavior: 'smooth' });
-    }
-  };
+  const noticeContent = (
+    <div>
+      <span className="font-bold text-content-primary">Institutional Data Architecture Notice: </span>
+      UNISPHERE operates primarily as a specialized educational software provider and Data Processor to subscribing colleges, universities, and educational institutions (the Data Controllers). Inquiries regarding institutional student rosters, academic grading policies, or university-mandated retention periods should be coordinated directly with your institution's registrar or IT administrator.
+    </div>
+  );
 
   return (
-    <div className="min-h-screen bg-white text-content-primary flex flex-col selection:bg-primary/15 selection:text-primary font-sans antialiased">
-      {/* Sticky Top Header */}
-      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-border/80 shadow-2xs">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Link 
-              to="/" 
-              className="flex items-center gap-2.5 group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg"
-            >
-              <img 
-                src="/logo.png" 
-                alt="Unisphere Logo" 
-                className="w-9 h-9 object-contain rounded-xl shadow-xs group-hover:scale-105 transition-transform duration-200" 
-              />
-              <span className="font-extrabold text-lg tracking-tight text-content-primary">
-                Unisphere
-              </span>
-            </Link>
+    <LegalLayout
+      title="Privacy Policy"
+      subtitle="How UNISPHERE collects, safeguards, manages, and governs academic and institutional data across connected higher education operations."
+      badgeText="Data Governance & Privacy"
+      badgeIcon={Shield}
+      effectiveDate="September 2026"
+      version="2.4"
+      sections={sections}
+      noticeContent={noticeContent}
+    >
+      {/* 1. Introduction */}
+      <section id="introduction" className="scroll-mt-24 pt-4 border-t border-border/70">
+        <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
+          <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center shrink-0">1</span>
+          <span>Introduction</span>
+        </h2>
+        <div className="space-y-3.5 text-content-secondary">
+          <p>
+            Welcome to <strong className="text-content-primary font-bold">UNISPHERE</strong> ("the Platform", "we", "our", or "us"). UNISPHERE is a unified academic operations operating system designed specifically for higher education institutions, connecting students, faculty members, department heads, parents, and administrative leadership.
+          </p>
+          <p>
+            We recognize that academic records, campus communications, and student progress metrics are inherently sensitive and must be handled with the highest standard of confidentiality and institutional integrity. This Privacy Policy details our data governance practices, describing what information is processed, the lawful grounds for processing, the precise access boundaries enforced across user roles, and how we protect institutional data sovereignty.
+          </p>
+          <p>
+            By accessing UNISPHERE through your institution's portal or visiting our public web domains, you acknowledge that your information is handled in accordance with this Privacy Policy and applicable institutional agreements.
+          </p>
+        </div>
+      </section>
 
-            <span className="text-border-dark">/</span>
-            <span className="text-sm font-semibold text-content-secondary hidden sm:inline">
-              Privacy Policy
-            </span>
+      {/* 2. Information We Collect */}
+      <section id="information-we-collect" className="scroll-mt-24 pt-8 border-t border-border/70">
+        <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
+          <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center shrink-0">2</span>
+          <span>Information We Collect</span>
+        </h2>
+        <div className="space-y-4 text-content-secondary">
+          <p>
+            We collect and process only the information strictly necessary to facilitate institutional operations, course management, identity verification, and cross-stakeholder communication:
+          </p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+            <div className="p-4 rounded-2xl bg-surface-soft border border-border">
+              <h3 className="font-bold text-content-primary text-sm mb-2 flex items-center gap-2">
+                <Users className="w-4 h-4 text-primary" />
+                <span>Account & Profile Data</span>
+              </h3>
+              <p className="text-xs leading-relaxed">
+                Full legal name, institutional email address, employee ID or student enrollment/roll number, academic program, semester/year, profile photograph, and contact phone number provided by the institution or user.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-2xl bg-surface-soft border border-border">
+              <h3 className="font-bold text-content-primary text-sm mb-2 flex items-center gap-2">
+                <Server className="w-4 h-4 text-primary" />
+                <span>Technical & Telemetry Data</span>
+              </h3>
+              <p className="text-xs leading-relaxed">
+                IP address, device operating system, browser type and version, session timestamps, network latency metrics, and essential authorization tokens needed to verify active portal sessions.
+              </p>
+            </div>
           </div>
 
-          <div className="flex items-center gap-3">
-            <Link
-              to="/"
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-content-secondary hover:text-content-primary bg-surface-soft hover:bg-surface-muted border border-border rounded-xl transition-colors"
-            >
-              <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Back to Home</span>
-            </Link>
+          <p>
+            We do not collect sensitive biometric data, credit bureau histories, or personal geolocation tracking. Location data is limited to coarse server-side IP geolocation strictly used to detect anomalous account takeover attempts.
+          </p>
+        </div>
+      </section>
+
+      {/* 3. Academic and Institutional Data */}
+      <section id="academic-institutional-data" className="scroll-mt-24 pt-8 border-t border-border/70">
+        <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
+          <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center shrink-0">3</span>
+          <span>Academic and Institutional Data</span>
+        </h2>
+        <div className="space-y-3.5 text-content-secondary">
+          <p>
+            UNISPHERE acts as a secure repository for institutional academic workflows. Data processed under this category includes:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm">
+            <li><strong className="text-content-primary font-semibold">Attendance & Session Records:</strong> Lecture attendance records, laboratory presence logs, leave applications, medical duty certifications, and attendance threshold calculations.</li>
+            <li><strong className="text-content-primary font-semibold">Assessment & Curricular Metrics:</strong> Internal continuous assessment marks, semester examination results, GPA/CGPA calculations, course credits, and transcript records.</li>
+            <li><strong className="text-content-primary font-semibold">Timetables & Workload Allocations:</strong> Classroom schedules, laboratory allocations, faculty course distribution matrices, and institutional academic calendars.</li>
+            <li><strong className="text-content-primary font-semibold">Institutional Circulars & Notices:</strong> Official campus announcements, department circulars, emergency campus alerts, and academic deadlines.</li>
+          </ul>
+          <div className="p-4 rounded-xl bg-blue-50/70 border border-blue-200/80 text-blue-950 text-xs sm:text-sm">
+            <strong className="font-bold">Ownership Clarification: </strong>
+            All student grades, syllabus materials, faculty lecture schedules, and institutional records remain the exclusive property of the contracting educational institution. UNISPHERE does not claim ownership over any academic data.
           </div>
         </div>
-      </header>
+      </section>
 
-      {/* Main Container */}
-      <div className="max-w-[1000px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 flex-1">
-        {/* Page Hero Header */}
-        <div className="border-b border-border/80 pb-8 mb-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-subtle border border-primary/20 text-primary text-xs font-bold uppercase tracking-wider mb-4">
-            <Shield className="w-3.5 h-3.5" />
-            <span>Legal Documentation</span>
+      {/* 4. How We Use Information */}
+      <section id="how-we-use-information" className="scroll-mt-24 pt-8 border-t border-border/70">
+        <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
+          <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center shrink-0">4</span>
+          <span>How We Use Information</span>
+        </h2>
+        <div className="space-y-3 text-content-secondary">
+          <p>
+            We process collected information solely for legitimate educational operational purposes:
+          </p>
+          <div className="space-y-2.5 my-3 text-sm">
+            <div className="flex items-start gap-2.5 p-3 rounded-xl bg-surface-soft border border-border/60">
+              <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+              <div><strong className="text-content-primary">Delivering Core Academic Workflows:</strong> Generating daily student/faculty timetables, calculating real-time attendance percentages, and providing automated gradebook rollups.</div>
+            </div>
+            <div className="flex items-start gap-2.5 p-3 rounded-xl bg-surface-soft border border-border/60">
+              <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+              <div><strong className="text-content-primary">Institutional Communication:</strong> Delivering administrative notices, urgent weather or campus safety announcements, and verified parent progress updates.</div>
+            </div>
+            <div className="flex items-start gap-2.5 p-3 rounded-xl bg-surface-soft border border-border/60">
+              <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+              <div><strong className="text-content-primary">Platform Integrity & Security:</strong> Auditing administrative modifications, preventing unauthorized access attempts, and verifying token validity.</div>
+            </div>
+            <div className="flex items-start gap-2.5 p-3 rounded-xl bg-surface-soft border border-border/60">
+              <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+              <div><strong className="text-content-primary">Diagnostic Optimization:</strong> Measuring endpoint latency and platform stability during high-concurrency campus events like semester result releases.</div>
+            </div>
           </div>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-content-primary">
-            Privacy Policy
-          </h1>
-          <p className="mt-3 text-base sm:text-lg text-content-secondary leading-relaxed">
-            How Unisphere collects, protects, manages, and utilizes academic and user data across platform portals.
+          <p className="text-xs text-content-tertiary">
+            We never use student, faculty, or institutional data to construct commercial user profiles, deliver targeted advertising, or train third-party public machine learning models.
+          </p>
+        </div>
+      </section>
+
+      {/* 5. Authentication and Account Information */}
+      <section id="authentication-accounts" className="scroll-mt-24 pt-8 border-t border-border/70">
+        <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
+          <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center shrink-0">5</span>
+          <span>Authentication and Account Information</span>
+        </h2>
+        <div className="space-y-3.5 text-content-secondary">
+          <p>
+            User accounts are provisioned and authorized in partnership with your institution's central directory:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm">
+            <li><strong className="text-content-primary font-semibold">Institutional SSO Integration:</strong> Where configured, UNISPHERE authenticates accounts via standard institutional Single Sign-On (SAML 2.0, OpenID Connect, Google Workspace for Education, or Microsoft Entra ID). UNISPHERE does not store raw user directory passwords in these configurations.</li>
+            <li><strong className="text-content-primary font-semibold">Direct Credential Security:</strong> For deployments using native UNISPHERE authentication, passwords are encrypted using salted, adaptive cryptographic hashes (Argon2 / bcrypt). Passwords are never stored or transmitted in plaintext.</li>
+            <li><strong className="text-content-primary font-semibold">Session Management:</strong> Authenticated sessions utilize cryptographically signed JSON Web Tokens (JWT) or secure HTTP-only cookies with strict expiration thresholds and automatic idle timeouts.</li>
+          </ul>
+        </div>
+      </section>
+
+      {/* 6. Role-Based Access and Permissions */}
+      <section id="role-based-access" className="scroll-mt-24 pt-8 border-t border-border/70">
+        <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
+          <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center shrink-0">6</span>
+          <span>Role-Based Access and Permissions</span>
+        </h2>
+        <div className="space-y-4 text-content-secondary">
+          <p>
+            UNISPHERE enforces a strict Role-Based Access Control (RBAC) architecture. Data visibility is strictly compartmentalized based on five distinct institutional personas:
           </p>
 
-          <div className="mt-6 flex flex-wrap items-center gap-4 text-xs font-medium text-content-tertiary">
-            <div className="flex items-center gap-1.5">
-              <Clock className="w-4 h-4 text-content-secondary" />
-              <span>Effective Date: </span>
-              <span className="font-semibold text-content-secondary">
-                August 2026
-              </span>
+          <div className="space-y-3.5 my-4">
+            {/* Student Role */}
+            <div className="p-4 rounded-2xl border border-blue-200 bg-blue-50/30">
+              <div className="flex items-center justify-between mb-2">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#2563EB]/10 text-[#2563EB] font-bold text-xs">
+                  <GraduationCap className="w-4 h-4" />
+                  <span>Student Persona</span>
+                </span>
+                <span className="text-[11px] font-semibold text-content-tertiary">Scope: Personal Records Only</span>
+              </div>
+              <p className="text-xs text-content-secondary leading-relaxed">
+                Students can only view their own attendance logs, personal class schedule, individual grades, course syllabus, and official campus announcements. Students have <strong className="text-content-primary">zero visibility</strong> into peer grades, other students' contact numbers, or internal faculty evaluations.
+              </p>
             </div>
-            <div className="flex items-center gap-1.5">
-              <Info className="w-4 h-4 text-content-secondary" />
-              <span>Version: </span>
-              <span className="font-semibold text-content-secondary">1.0</span>
+
+            {/* Faculty Role */}
+            <div className="p-4 rounded-2xl border border-purple-200 bg-purple-50/30">
+              <div className="flex items-center justify-between mb-2">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#7C3AED]/10 text-[#7C3AED] font-bold text-xs">
+                  <BookOpen className="w-4 h-4" />
+                  <span>Faculty Persona</span>
+                </span>
+                <span className="text-[11px] font-semibold text-content-tertiary">Scope: Assigned Courses & Batches</span>
+              </div>
+              <p className="text-xs text-content-secondary leading-relaxed">
+                Faculty can record attendance, input evaluation scores, upload lesson plans, and view rosters exclusively for the classes and courses officially assigned to them by their HOD. Faculty cannot view records from unassigned departments.
+              </p>
+            </div>
+
+            {/* HOD Role */}
+            <div className="p-4 rounded-2xl border border-amber-200 bg-amber-50/30">
+              <div className="flex items-center justify-between mb-2">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#D97706]/10 text-[#D97706] font-bold text-xs">
+                  <Building2 className="w-4 h-4" />
+                  <span>Head of Department (HOD)</span>
+                </span>
+                <span className="text-[11px] font-semibold text-content-tertiary">Scope: Department-Wide Oversight</span>
+              </div>
+              <p className="text-xs text-content-secondary leading-relaxed">
+                HODs have oversight over departmental curriculum pacing, faculty workload balances, attendance anomalies across all departmental batches, elective subject allocations, and departmental leave escalations.
+              </p>
+            </div>
+
+            {/* Parent Role */}
+            <div className="p-4 rounded-2xl border border-emerald-200 bg-emerald-50/30">
+              <div className="flex items-center justify-between mb-2">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#059669]/10 text-[#059669] font-bold text-xs">
+                  <HeartHandshake className="w-4 h-4" />
+                  <span>Parent / Guardian Persona</span>
+                </span>
+                <span className="text-[11px] font-semibold text-content-tertiary">Scope: Linked Ward(s) Only</span>
+              </div>
+              <p className="text-xs text-content-secondary leading-relaxed">
+                Parents are granted read-only visibility into their officially registered ward's verified attendance summary, published grade reports, institutional fee receipts, and official university notices. Parents cannot view any other student's information or communicate with other parents.
+              </p>
+            </div>
+
+            {/* Admin Role */}
+            <div className="p-4 rounded-2xl border border-rose-200 bg-rose-50/30">
+              <div className="flex items-center justify-between mb-2">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#DC2626]/10 text-[#DC2626] font-bold text-xs">
+                  <UserCog className="w-4 h-4" />
+                  <span>System Administrator</span>
+                </span>
+                <span className="text-[11px] font-semibold text-content-tertiary">Scope: Campus Infrastructure & Governance</span>
+              </div>
+              <p className="text-xs text-content-secondary leading-relaxed">
+                Designated institutional administrators manage master user rosters, configure term dates, oversee campus-wide integrations, and review security audit trails. Administrative actions are logged in immutable system audit trails.
+              </p>
             </div>
           </div>
         </div>
+      </section>
 
-        {/* Notice Box */}
-        <div className="mb-10 p-5 rounded-2xl bg-surface-soft border border-border/80 flex items-start gap-3.5 text-sm text-content-secondary leading-relaxed">
-          <Info className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-          <div>
-            <span className="font-bold text-content-primary">Notice regarding platform deployment: </span>
-            Unisphere is an academic management and collaboration platform. This policy outlines general data handling practices. Specific institutional retention guidelines and access governance are administered by the subscribing organization.
+      {/* 7. Data Storage and Security */}
+      <section id="data-storage-security" className="scroll-mt-24 pt-8 border-t border-border/70">
+        <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
+          <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center shrink-0">7</span>
+          <span>Data Storage and Security</span>
+        </h2>
+        <div className="space-y-3.5 text-content-secondary">
+          <p>
+            We implement defense-in-depth security measures to protect institutional information against unauthorized access, loss, or destruction:
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-3 text-xs sm:text-sm">
+            <div className="p-4 rounded-2xl bg-surface-soft border border-border">
+              <div className="flex items-center gap-2 text-content-primary font-bold mb-1.5">
+                <Lock className="w-4 h-4 text-primary" />
+                <span>Encryption Standards</span>
+              </div>
+              <p className="text-content-secondary leading-relaxed">
+                All data in transit is encrypted using modern TLS 1.3 / HTTPS. All persistent data, database storage, and backups are encrypted at rest using AES-256 standard encryption algorithms.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-2xl bg-surface-soft border border-border">
+              <div className="flex items-center gap-2 text-content-primary font-bold mb-1.5">
+                <Database className="w-4 h-4 text-primary" />
+                <span>Tenant Segregation</span>
+              </div>
+              <p className="text-content-secondary leading-relaxed">
+                Institutions operate within strictly segregated multi-tenant database partitions. Rigorous tenant ID validation occurs at the database query layer to prevent cross-institution data leakage.
+              </p>
+            </div>
+          </div>
+          <p className="text-xs text-content-tertiary">
+            While we apply comprehensive, industry-standard technical and organizational safeguards, no internet-based software architecture can guarantee 100% invulnerability. We maintain an incident response protocol to remediate potential vulnerabilities promptly.
+          </p>
+        </div>
+      </section>
+
+      {/* 8. Data Sharing and Disclosure */}
+      <section id="data-sharing-disclosure" className="scroll-mt-24 pt-8 border-t border-border/70">
+        <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
+          <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center shrink-0">8</span>
+          <span>Data Sharing and Disclosure</span>
+        </h2>
+        <div className="space-y-3.5 text-content-secondary">
+          <p className="font-semibold text-content-primary">
+            We never sell, rent, monetize, or trade student, faculty, or institutional data to advertising brokers, market research firms, or commercial third parties.
+          </p>
+          <p>
+            Data disclosure is strictly confined to the following scenarios:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm">
+            <li><strong className="text-content-primary font-semibold">Institutional Operation:</strong> Data is disclosed to authorized personnel within your own educational institution in accordance with their assigned roles.</li>
+            <li><strong className="text-content-primary font-semibold">Authorized Sub-Processors:</strong> Vetted infrastructure providers (such as cloud hosting, transactional notification dispatchers) bound by written Data Processing Agreements (DPAs).</li>
+            <li><strong className="text-content-primary font-semibold">Legal & Regulatory Mandates:</strong> Where required by valid subpoena, court order, or governmental educational oversight body, following prior notification to the institution unless legally prohibited.</li>
+          </ul>
+        </div>
+      </section>
+
+      {/* 9. Third-Party Services */}
+      <section id="third-party-services" className="scroll-mt-24 pt-8 border-t border-border/70">
+        <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
+          <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center shrink-0">9</span>
+          <span>Third-Party Services</span>
+        </h2>
+        <div className="space-y-3.5 text-content-secondary">
+          <p>
+            UNISPHERE integrates with select, enterprise-grade technology partners to deliver specific technical capabilities:
+          </p>
+          <div className="space-y-2 text-xs sm:text-sm my-3">
+            <div className="p-3 rounded-xl bg-surface-soft border border-border flex items-start gap-3">
+              <Server className="w-4 h-4 text-content-secondary shrink-0 mt-0.5" />
+              <div>
+                <strong className="text-content-primary">Cloud Infrastructure: </strong>
+                Data is hosted on ISO 27001 and SOC 2 Type II compliant cloud facilities located within recognized domestic data centers.
+              </div>
+            </div>
+            <div className="p-3 rounded-xl bg-surface-soft border border-border flex items-start gap-3">
+              <Mail className="w-4 h-4 text-content-secondary shrink-0 mt-0.5" />
+              <div>
+                <strong className="text-content-primary">Transactional Communications: </strong>
+                SMS and automated email gateways for urgent emergency alerts and password resets under strict zero-retention transit contracts.
+              </div>
+            </div>
           </div>
         </div>
+      </section>
 
-        {/* Quick Jump Navigation */}
-        <div className="mb-12 p-6 rounded-3xl bg-surface-soft border border-border">
-          <h2 className="text-xs font-extrabold uppercase tracking-wider text-content-primary mb-4 flex items-center gap-2">
-            <Layers className="w-4 h-4 text-primary" />
-            <span>Table of Contents</span>
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
-            {sections.map((sec) => (
-              <a
-                key={sec.id}
-                href={`#${sec.id}`}
-                onClick={(e) => scrollToSection(e, sec.id)}
-                className={`px-3 py-2 rounded-xl transition-all flex items-center justify-between text-xs font-semibold ${
-                  activeSection === sec.id
-                    ? 'bg-white text-primary shadow-xs border border-primary/20 font-bold'
-                    : 'text-content-secondary hover:text-content-primary hover:bg-white/60'
-                }`}
-              >
-                <span>{sec.title}</span>
-                <ChevronRight className={`w-3.5 h-3.5 ${activeSection === sec.id ? 'text-primary' : 'text-content-tertiary'}`} />
+      {/* 10. Data Retention */}
+      <section id="data-retention" className="scroll-mt-24 pt-8 border-t border-border/70">
+        <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
+          <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center shrink-0">10</span>
+          <span>Data Retention</span>
+        </h2>
+        <div className="space-y-3.5 text-content-secondary">
+          <p>
+            Because UNISPHERE acts on behalf of educational institutions, retention schedules are determined by university bylaws and regulatory education guidelines:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm">
+            <li><strong className="text-content-primary font-semibold">Active Enrollment & Service:</strong> Records are retained throughout the student's enrollment or faculty member's active tenure.</li>
+            <li><strong className="text-content-primary font-semibold">Graduated & Alumni Records:</strong> Transcript and graduation records are archived in compliance with statutory university archival regulations.</li>
+            <li><strong className="text-content-primary font-semibold">Contract Termination:</strong> Upon termination of an institution's service agreement, institutional data is exported in standard formats to the institution and securely scrubbed from production databases within 90 days.</li>
+          </ul>
+        </div>
+      </section>
+
+      {/* 11. User Rights and Data Requests */}
+      <section id="user-rights-requests" className="scroll-mt-24 pt-8 border-t border-border/70">
+        <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
+          <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center shrink-0">11</span>
+          <span>User Rights and Data Requests</span>
+        </h2>
+        <div className="space-y-3.5 text-content-secondary">
+          <p>
+            Users possess specific rights regarding their personal information under applicable privacy frameworks:
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 my-3 text-xs sm:text-sm">
+            <div className="p-3.5 rounded-xl bg-surface-soft border border-border">
+              <strong className="text-content-primary block mb-1">Right to Access & Review</strong>
+              Review personal information, course registrations, and attendance logs directly through the portal.
+            </div>
+            <div className="p-3.5 rounded-xl bg-surface-soft border border-border">
+              <strong className="text-content-primary block mb-1">Right to Rectification</strong>
+              Request correction of inaccurate biographical or contact information via the campus registrar.
+            </div>
+            <div className="p-3.5 rounded-xl bg-surface-soft border border-border">
+              <strong className="text-content-primary block mb-1">Right to Data Portability</strong>
+              Export personal academic schedules and transcript summaries in standard structured digital formats.
+            </div>
+            <div className="p-3.5 rounded-xl bg-surface-soft border border-border">
+              <strong className="text-content-primary block mb-1">Right to Restriction / Deletion</strong>
+              Subject to institutional statutory duties to maintain permanent academic records.
+            </div>
+          </div>
+          <p className="text-xs text-content-tertiary">
+            Because student and faculty rosters are governed by the institution, data modification and deletion requests are routed to the subscribing institution's designated privacy officer or registrar.
+          </p>
+        </div>
+      </section>
+
+      {/* 12. Cookies and Analytics */}
+      <section id="cookies-analytics" className="scroll-mt-24 pt-8 border-t border-border/70">
+        <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
+          <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center shrink-0">12</span>
+          <span>Cookies and Analytics</span>
+        </h2>
+        <div className="space-y-3.5 text-content-secondary">
+          <p>
+            UNISPHERE utilizes local web storage and essential session cookies strictly required for the platform to function securely:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm">
+            <li><strong className="text-content-primary font-semibold">Strictly Necessary Cookies:</strong> Cryptographic session tokens, CSRF protection identifiers, and load balancer affinity tokens.</li>
+            <li><strong className="text-content-primary font-semibold">Functional Storage:</strong> Storing user UI preferences such as navigation drawer toggle states, active semester filters, and language selections.</li>
+            <li><strong className="text-content-primary font-semibold">Platform Diagnostics:</strong> Aggregate, anonymized performance telemetry (page load durations, render timings) without individual user tracking.</li>
+          </ul>
+          <p className="text-xs text-content-tertiary">
+            For granular technical information regarding specific cookies and local storage keys, please consult our dedicated <a href="/cookie-policy" className="text-primary font-semibold hover:underline">Cookie Policy</a>.
+          </p>
+        </div>
+      </section>
+
+      {/* 13. Children's / Student Data */}
+      <section id="children-student-data" className="scroll-mt-24 pt-8 border-t border-border/70">
+        <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
+          <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center shrink-0">13</span>
+          <span>Children's / Student Data</span>
+        </h2>
+        <div className="space-y-3.5 text-content-secondary">
+          <p>
+            UNISPHERE is built primarily for higher education institutions where enrolled students are typically aged 17 and older. However, where minor students are enrolled in dual-enrollment or collegiate preparatory programs:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm">
+            <li>We process student information solely at the direction of the educational institution for legitimate educational purposes under relevant academic exemptions (such as FERPA alignments).</li>
+            <li>Parental access is mediated strictly through the verified Parent Portal, linked exclusively to the parent or legal guardian's registered account.</li>
+            <li>We do not solicit, require, or display personal information from minor students for marketing or commercial profiling.</li>
+          </ul>
+        </div>
+      </section>
+
+      {/* 14. Changes to This Privacy Policy */}
+      <section id="policy-changes" className="scroll-mt-24 pt-8 border-t border-border/70">
+        <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
+          <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center shrink-0">14</span>
+          <span>Changes to This Privacy Policy</span>
+        </h2>
+        <div className="space-y-3.5 text-content-secondary">
+          <p>
+            We may periodically update this Privacy Policy to reflect platform feature additions, regulatory adjustments, or changes in data protection standards.
+          </p>
+          <p>
+            When material changes are made, we will notify institutional administrators via registered email and post a conspicuous advisory banner within the platform notice feed. Continued use of UNISPHERE after the effective date of an updated policy constitutes acknowledgment of the revised terms.
+          </p>
+        </div>
+      </section>
+
+      {/* 15. Contact / Privacy Requests */}
+      <section id="contact-privacy-requests" className="scroll-mt-24 pt-8 border-t border-border/70">
+        <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
+          <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center shrink-0">15</span>
+          <span>Contact / Privacy Requests</span>
+        </h2>
+        <div className="space-y-4 text-content-secondary">
+          <p>
+            If you have questions regarding this Privacy Policy, wish to exercise your data subject rights, or wish to report a privacy concern, please contact our Data Governance team:
+          </p>
+
+          <div className="p-5 rounded-2xl bg-surface-soft border border-border space-y-3 text-xs sm:text-sm">
+            <div className="font-bold text-content-primary">UNISPHERE Data Governance & Privacy Office</div>
+            <div className="text-content-secondary">
+              Email:{' '}
+              <a href="mailto:privacy@unisphere.edu" className="text-primary font-semibold hover:underline">
+                privacy@unisphere.edu
               </a>
-            ))}
+            </div>
+            <div className="text-content-secondary">
+              Campus Support Desk:{' '}
+              <a href="mailto:support@unisphere.edu" className="text-primary font-semibold hover:underline">
+                support@unisphere.edu
+              </a>
+            </div>
+            <div className="text-content-tertiary text-xs pt-2 border-t border-border/60">
+              Note: For inquiries regarding individual academic grades, course enrollments, or official university records, please contact your university registrar or campus department head.
+            </div>
           </div>
         </div>
-
-        {/* Document Content Sections */}
-        <div className="space-y-12 text-content-primary text-sm sm:text-base leading-relaxed">
-          {/* 1. Introduction */}
-          <section id="introduction" className="scroll-mt-24 pt-4 border-t border-border/60">
-            <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
-              <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center">1</span>
-              <span>Introduction</span>
-            </h2>
-            <div className="space-y-3 text-content-secondary">
-              <p>
-                Welcome to <strong className="text-content-primary">Unisphere</strong> ("the Platform", "we", "our", or "us"). Unisphere is a unified academic and campus super-application developed for use by students, faculty, heads of departments (HODs), parents, and academic administrators.
-              </p>
-              <p>
-                We are committed to maintaining the confidentiality, integrity, and privacy of all personal, academic, and administrative data processed through the Platform. This Privacy Policy details the types of information collected, how that data is processed and stored, who can access it, and the rights available to users and organizations.
-              </p>
-              <p>
-                By accessing or using Unisphere, you acknowledge that you have read, understood, and agreed to the practices described in this Privacy Policy.
-              </p>
-            </div>
-          </section>
-
-          {/* 2. Information We Collect */}
-          <section id="information-collected" className="scroll-mt-24 pt-8 border-t border-border/60">
-            <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
-              <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center">2</span>
-              <span>Information We Collect</span>
-            </h2>
-            <div className="space-y-3 text-content-secondary">
-              <p>
-                Unisphere collects information necessary to deliver comprehensive academic management, communication, and administrative services. Information collected is classified into the following categories:
-              </p>
-              <ul className="list-disc pl-5 space-y-2 mt-2">
-                <li>
-                  <strong className="text-content-primary">Account Identification Data:</strong> Full name, official institutional email address, institutional registration/roll number, employee identification ID, assigned academic department, and user role.
-                </li>
-                <li>
-                  <strong className="text-content-primary">Academic Records:</strong> Course enrollments, attendance records, internal test scores, semester grades, GPA/CGPA calculations, timetable schedules, laboratory allocations, and assignment submissions.
-                </li>
-                <li>
-                  <strong className="text-content-primary">Campus & Administrative Information:</strong> Hostel room assignments, gate pass logs, leave applications, cafeteria or fee ledger records, and official circular responses.
-                </li>
-                <li>
-                  <strong className="text-content-primary">Communications & Feedback:</strong> Messages exchanged within verified portal channels, support tickets, advisor notes, parent-faculty meeting records, and feedback forms.
-                </li>
-                <li>
-                  <strong className="text-content-primary">Technical & Usage Logs:</strong> Device type, browser user agent, IP address for security auditing, session timestamps, and page interaction telemetry for service optimization.
-                </li>
-              </ul>
-            </div>
-          </section>
-
-          {/* 3. How We Use Information */}
-          <section id="how-we-use" className="scroll-mt-24 pt-8 border-t border-border/60">
-            <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
-              <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center">3</span>
-              <span>How We Use Information</span>
-            </h2>
-            <div className="space-y-3 text-content-secondary">
-              <p>
-                Information processed through Unisphere is strictly utilized for educational and platform operations, including:
-              </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
-                <div className="p-4 rounded-2xl bg-surface-soft border border-border">
-                  <h4 className="font-bold text-content-primary text-sm mb-1">Academic Administration</h4>
-                  <p className="text-xs text-content-secondary">Facilitating automated grade calculation, attendance tracking, course registration, exam hall scheduling, and syllabus progression.</p>
-                </div>
-                <div className="p-4 rounded-2xl bg-surface-soft border border-border">
-                  <h4 className="font-bold text-content-primary text-sm mb-1">Inter-Role Communication</h4>
-                  <p className="text-xs text-content-secondary">Enabling seamless, authenticated messaging between students, faculty mentors, department heads, and parents.</p>
-                </div>
-                <div className="p-4 rounded-2xl bg-surface-soft border border-border">
-                  <h4 className="font-bold text-content-primary text-sm mb-1">Campus Safety & Governance</h4>
-                  <p className="text-xs text-content-secondary">Managing digital gate passes, hostel curfews, emergency alerts, and verified identity verification.</p>
-                </div>
-                <div className="p-4 rounded-2xl bg-surface-soft border border-border">
-                  <h4 className="font-bold text-content-primary text-sm mb-1">Platform Security & Reliability</h4>
-                  <p className="text-xs text-content-secondary">Detecting unauthorized access attempts, monitoring uptime, debugging platform performance, and enforcing role privileges.</p>
-                </div>
-              </div>
-              <p className="mt-3">
-                We do not sell, rent, or monetize personal or academic data to third-party advertising networks.
-              </p>
-            </div>
-          </section>
-
-          {/* 4. Authentication & Account Information */}
-          <section id="authentication" className="scroll-mt-24 pt-8 border-t border-border/60">
-            <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
-              <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center">4</span>
-              <span>Authentication & Account Information</span>
-            </h2>
-            <div className="space-y-3 text-content-secondary">
-              <p>
-                Access to Unisphere requires role-based authentication credentials provisioned either directly by your educational institution or authenticated via federated Single Sign-On (SSO).
-              </p>
-              <ul className="list-disc pl-5 space-y-2 mt-2">
-                <li>
-                  <strong className="text-content-primary">Credential Security:</strong> User passwords are never stored in plaintext. Cryptographic hashing algorithms and salted tokens are utilized for authentication flows.
-                </li>
-                <li>
-                  <strong className="text-content-primary">Role-Based Access Control (RBAC):</strong> Every authenticated user is bound to one or more verified profiles (Student, Faculty, HOD, Parent, Administrator). Access to internal data is strictly segregated based on minimum requisite permissions.
-                </li>
-                <li>
-                  <strong className="text-content-primary">Session Management:</strong> Authentication tokens expire automatically upon inactivity to prevent unauthorized session hijacking on shared laboratory or library workstations.
-                </li>
-              </ul>
-            </div>
-          </section>
-
-          {/* 5. Academic & Institutional Data */}
-          <section id="academic-data" className="scroll-mt-24 pt-8 border-t border-border/60">
-            <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
-              <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center">5</span>
-              <span>Academic & Institutional Data</span>
-            </h2>
-            <div className="space-y-3 text-content-secondary">
-              <p>
-                Academic and institutional records uploaded to or generated within Unisphere remain the property and responsibility of the respective educational institution.
-              </p>
-              <p>
-                Unisphere acts as a data processor on behalf of the educational organization. The institution remains the primary data controller for all student academic transcripts, attendance rosters, faculty evaluations, and department analytics.
-              </p>
-            </div>
-          </section>
-
-          {/* 6. Data Storage */}
-          <section id="data-storage" className="scroll-mt-24 pt-8 border-t border-border/60">
-            <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
-              <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center">6</span>
-              <span>Data Storage</span>
-            </h2>
-            <div className="space-y-3 text-content-secondary">
-              <p>
-                Data processed by Unisphere is hosted on secure cloud infrastructure adhering to applicable regional data privacy and residency standards.
-              </p>
-              <p>
-                Database instances employ encrypted storage volumes, automated point-in-time backups, and high-availability replication to ensure platform resilience and prevent data loss.
-              </p>
-            </div>
-          </section>
-
-          {/* 7. Third-Party Services */}
-          <section id="third-party" className="scroll-mt-24 pt-8 border-t border-border/60">
-            <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
-              <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center">7</span>
-              <span>Third-Party Services</span>
-            </h2>
-            <div className="space-y-3 text-content-secondary">
-              <p>
-                To provide critical communication, cloud computing, and infrastructure capabilities, Unisphere may integrate with vetted third-party service providers, which may include:
-              </p>
-              <ul className="list-disc pl-5 space-y-1 mt-2">
-                <li><strong className="text-content-primary">Cloud Infrastructure:</strong> High-performance server hosting, content delivery networks (CDNs), and encrypted database engines.</li>
-                <li><strong className="text-content-primary">Email & SMS Gateways:</strong> Providers utilized for delivering one-time passwords (OTP), emergency notifications, and academic circulars.</li>
-                <li><strong className="text-content-primary">Identity & SSO Providers:</strong> Institutional LDAP/OAuth2 or SAML authentication bridges where configured.</li>
-              </ul>
-              <p className="mt-2">
-                Third-party partners are contracted under strict confidentiality terms and are prohibited from utilizing data for non-platform purposes.
-              </p>
-            </div>
-          </section>
-
-          {/* 8. Data Security */}
-          <section id="data-security" className="scroll-mt-24 pt-8 border-t border-border/60">
-            <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
-              <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center">8</span>
-              <span>Data Security</span>
-            </h2>
-            <div className="space-y-3 text-content-secondary">
-              <p>
-                We employ technical and organizational safeguards designed to protect personal and academic information against unauthorized access, loss, misuse, or alteration:
-              </p>
-              <ul className="list-disc pl-5 space-y-2 mt-2">
-                <li><strong className="text-content-primary">Encryption in Transit:</strong> All communications between user browsers/mobile devices and Unisphere servers are encrypted using modern Transport Layer Security (TLS/HTTPS).</li>
-                <li><strong className="text-content-primary">Encryption at Rest:</strong> Core database stores, file attachments, and database backups are encrypted at rest using industry-standard AES cryptography.</li>
-                <li><strong className="text-content-primary">Strict Role Isolation:</strong> Architecture ensures users can only query records associated with their verified permissions.</li>
-                <li><strong className="text-content-primary">Continuous Monitoring:</strong> Real-time logging of administrative actions, rate limiting on authentication endpoints, and threat mitigation filters.</li>
-              </ul>
-            </div>
-          </section>
-
-          {/* 9. Data Retention */}
-          <section id="data-retention" className="scroll-mt-24 pt-8 border-t border-border/60">
-            <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
-              <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center">9</span>
-              <span>Data Retention</span>
-            </h2>
-            <div className="space-y-3 text-content-secondary">
-              <p>
-                Personal and academic records are retained for the duration of the user's active affiliation with their educational institution, and thereafter in accordance with standard academic archiving guidelines and applicable statutory requirements:
-              </p>
-              <ul className="list-disc pl-5 space-y-1 mt-2">
-                <li><strong className="text-content-primary">Active Academic Records:</strong> Retained throughout a student's graduation cycle and active administrative lifecycle.</li>
-                <li><strong className="text-content-primary">Audit & Security Logs:</strong> Retained for compliance and forensic analysis before automated purging.</li>
-                <li><strong className="text-content-primary">Account Deactivation:</strong> Upon formal departure or contract conclusion, non-archived user account credentials are decommissioned.</li>
-              </ul>
-            </div>
-          </section>
-
-          {/* 10. User Rights */}
-          <section id="user-rights" className="scroll-mt-24 pt-8 border-t border-border/60">
-            <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
-              <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center">10</span>
-              <span>User Rights</span>
-            </h2>
-            <div className="space-y-3 text-content-secondary">
-              <p>
-                Subject to institutional verification and statutory guidelines, authorized users possess the following rights regarding their personal data:
-              </p>
-              <ul className="list-disc pl-5 space-y-2 mt-2">
-                <li><strong className="text-content-primary">Right of Access:</strong> Review your profile, academic attendance records, internal grades, and communication logs directly through your portal dashboard.</li>
-                <li><strong className="text-content-primary">Right to Rectification:</strong> Request correction of inaccurate personal or contact details through your departmental coordinator or administrator.</li>
-                <li><strong className="text-content-primary">Right to Inquire:</strong> Submit formal privacy or data handling queries to the designated data administrator.</li>
-              </ul>
-            </div>
-          </section>
-
-          {/* 11. Children / Student Privacy */}
-          <section id="children-student-privacy" className="scroll-mt-24 pt-8 border-t border-border/60">
-            <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
-              <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center">11</span>
-              <span>Children / Student Privacy</span>
-            </h2>
-            <div className="space-y-3 text-content-secondary">
-              <p>
-                Unisphere is designed for higher education institutions, collegiate universities, and affiliated educational campuses.
-              </p>
-              <p>
-                Where students under the age of majority access the platform, parental or institutional legal guardian consent is administered directly by the educational institution during enrollment. We do not knowingly solicit personal information directly from children outside the authorized educational context.
-              </p>
-            </div>
-          </section>
-
-          {/* 12. Changes to This Privacy Policy */}
-          <section id="policy-changes" className="scroll-mt-24 pt-8 border-t border-border/60">
-            <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
-              <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center">12</span>
-              <span>Changes to This Privacy Policy</span>
-            </h2>
-            <div className="space-y-3 text-content-secondary">
-              <p>
-                We may periodically update this Privacy Policy to reflect modifications to platform capabilities, legal requirements, or operational agreements.
-              </p>
-              <p>
-                When modifications are published, the "Effective Date" at the top of this document will be revised accordingly. Material updates will be communicated through the Unisphere announcement feed or email notification.
-              </p>
-            </div>
-          </section>
-
-          {/* 13. Contact Us */}
-          <section id="contact-us" className="scroll-mt-24 pt-8 border-t border-border/60">
-            <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
-              <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center">13</span>
-              <span>Contact Us</span>
-            </h2>
-            <div className="space-y-3 text-content-secondary">
-              <p>
-                For questions, feedback, or concerns regarding this Privacy Policy or data handling on Unisphere, please reach out to our team:
-              </p>
-              <div className="mt-4 p-6 rounded-2xl bg-surface-soft border border-border space-y-3">
-                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 text-sm">
-                  <strong className="text-content-primary min-w-[140px]">Support & Inquiries:</strong>
-                  <a href="mailto:heydigitals.care@gmail.com" className="text-primary hover:underline font-semibold">
-                    heydigitals.care@gmail.com
-                  </a>
-                </div>
-                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 text-sm">
-                  <strong className="text-content-primary min-w-[140px]">Phone Support:</strong>
-                  <a href="tel:+919080407021" className="text-content-primary font-semibold hover:text-primary">
-                    +91 9080407021
-                  </a>
-                </div>
-                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 text-sm">
-                  <strong className="text-content-primary min-w-[140px]">Website:</strong>
-                  <a href="https://heydigital.work" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">
-                    heydigital.work
-                  </a>
-                </div>
-              </div>
-            </div>
-          </section>
-        </div>
-
-        {/* Bottom Back Button */}
-        <div className="mt-14 pt-8 border-t border-border/80 flex items-center justify-between">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-bold text-content-primary bg-surface-soft hover:bg-surface-muted border border-border rounded-xl transition-all"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            <span>Back to Application Home</span>
-          </Link>
-
-          <Link
-            to="/terms-of-service"
-            className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-bold text-primary hover:text-primary-dark bg-primary-subtle hover:bg-primary/10 border border-primary/20 rounded-xl transition-all"
-          >
-            <span>View Terms of Service</span>
-            <ChevronRight className="w-4 h-4" />
-          </Link>
-        </div>
-      </div>
-
-      {/* Footer */}
-      <Footer 
-        onGetStartedClick={() => { window.location.href = 'https://www.heydigital.work/contact.html'; }} 
-      />
-    </div>
+      </section>
+    </LegalLayout>
   );
 };
 

@@ -25,6 +25,31 @@ const pages = [
     title: 'Terms of Service — Unisphere',
     description: 'Unisphere Terms of Service - Institutional service terms, user responsibilities, and platform governance.',
   },
+  {
+    path: 'cookie-policy',
+    title: 'Cookie Policy — Unisphere',
+    description: 'Unisphere Cookie Policy - Information regarding web storage, essential cookies, and privacy controls.',
+  },
+  {
+    path: 'acceptable-use',
+    title: 'Acceptable Use Policy — Unisphere',
+    description: 'Unisphere Acceptable Use Policy - Standards of conduct, credential security, and prohibited actions.',
+  },
+  {
+    path: 'security',
+    title: 'Security & Responsible Disclosure — Unisphere',
+    description: 'Unisphere Security Policy - Platform architecture, access controls, and ethical vulnerability reporting.',
+  },
+  {
+    path: 'accessibility',
+    title: 'Accessibility Statement — Unisphere',
+    description: 'Unisphere Accessibility Statement - Digital inclusion standards and WCAG 2.1 AA conformance.',
+  },
+  {
+    path: '404',
+    title: 'Page Not Found — Unisphere',
+    description: 'The page you are looking for does not exist or has been moved.',
+  },
 ];
 
 for (const page of pages) {

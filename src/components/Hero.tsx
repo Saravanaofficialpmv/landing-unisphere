@@ -55,10 +55,10 @@ export const Hero: React.FC<HeroProps> = ({ onGetStartedClick }) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-[1.15] max-w-4xl mx-auto drop-shadow-[0_2px_12px_rgba(0,0,0,0.25)]"
+            className="text-[24px] min-[370px]:text-[26px] min-[420px]:text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-[1.18] max-w-4xl mx-auto drop-shadow-[0_2px_12px_rgba(0,0,0,0.25)]"
           >
             <span className="block">One platform to connect your</span>
-            <span className="block mt-1 sm:mt-2 h-[1.25em] flex items-center justify-center overflow-hidden">
+            <span className="block mt-1 sm:mt-2 h-[1.4em] sm:h-[1.25em] flex items-center justify-center overflow-hidden">
               <RotatingText
                 texts={[
                   'entire campus.',
@@ -66,12 +66,12 @@ export const Hero: React.FC<HeroProps> = ({ onGetStartedClick }) => {
                   'students & faculty.',
                   'campus workflows.'
                 ]}
-                mainClassName="inline-flex font-extrabold text-white whitespace-nowrap"
-                staggerFrom="last"
-                staggerDuration={0.02}
-                splitLevelClassName="overflow-hidden inline-flex pb-1"
+                mainClassName="inline-flex font-extrabold text-white whitespace-nowrap text-center justify-center"
+                staggerFrom="first"
+                staggerDuration={0.015}
+                splitLevelClassName="overflow-hidden inline-flex pb-1 whitespace-nowrap"
                 transition={{ type: 'spring', damping: 25, stiffness: 350 }}
-                rotationInterval={2600}
+                rotationInterval={2800}
               />
             </span>
           </motion.h1>

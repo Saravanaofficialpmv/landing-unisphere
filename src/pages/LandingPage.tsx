@@ -12,7 +12,6 @@ import { WhyUnisphere } from '../components/WhyUnisphere';
 import { ImplementationJourney } from '../components/ImplementationJourney';
 import { FAQSection } from '../components/FAQSection';
 import { ScrollStatement } from '../components/ScrollStatement';
-import { Footer } from '../components/Footer';
 import { TextLoop } from '../components/TextLoop';
 import { Sparkles } from 'lucide-react';
 
@@ -140,11 +139,6 @@ export function LandingPage() {
         <ScrollStatement onBookDemoClick={handleOpenDemo} />
       </main>
 
-      {/* 15. Footer — flows naturally after scroll animation on blue background */}
-      <Footer
-        onBookDemoClick={handleOpenDemo}
-        onGetStartedClick={handleOpenDemo}
-      />
 
       {/* Mobile Sticky Conversion Bar */}
       {showMobileStickyBar && (

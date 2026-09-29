@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight, Calendar } from 'lucide-react';
+import { Play } from 'lucide-react';
+import { Footer } from './Footer';
 
 interface ScrollStatementProps {
   onBookDemoClick?: () => void;
@@ -8,35 +9,34 @@ interface ScrollStatementProps {
 
 export const ScrollStatement: React.FC<ScrollStatementProps> = ({ onBookDemoClick }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const logoRef = useRef<HTMLDivElement>(null);
+
+  const textSpanRef = useRef<HTMLSpanElement>(null);
 
   const [metrics, setMetrics] = useState(() => {
-    const vw = typeof window !== 'undefined' ? window.innerWidth : 1400;
+    const vw = typeof window !== 'undefined' ? window.innerWidth : 1440;
     const vh = typeof window !== 'undefined' ? window.innerHeight : 900;
-    return { vw, vh, startX: vw, finalX: 0 };
+    const isMob = vw < 640;
+    const logoHW = isMob ? 28 : 40;
+    const gap = isMob ? 32 : 56;
+    const estTextWidth = isMob ? 1100 : 3800;
+    const startX = Math.round((vw / 2) + logoHW + gap + estTextWidth + 150);
+    return { vw, vh, startX };
   });
 
   useEffect(() => {
     const updateMetrics = () => {
       const vw = window.innerWidth;
       const vh = window.innerHeight;
-
-      if (trackRef.current && logoRef.current) {
-        const logoCenterInTrack = logoRef.current.offsetLeft + (logoRef.current.offsetWidth / 2);
-        const finalX = Math.round((vw / 2) - logoCenterInTrack);
-        const startX = Math.round(vw);
-        setMetrics({ vw, vh, startX, finalX });
-      } else {
-        setMetrics({ vw, vh, startX: vw, finalX: -vw });
-      }
+      const isMob = vw < 640;
+      const logoHW = isMob ? 28 : 40;
+      const gap = isMob ? 32 : 56;
+      const textWidth = textSpanRef.current ? textSpanRef.current.offsetWidth : (isMob ? 1100 : 3800);
+      const startX = Math.round((vw / 2) + logoHW + gap + textWidth + 150);
+      setMetrics({ vw, vh, startX });
     };
 
-    requestAnimationFrame(updateMetrics);
+    updateMetrics();
     window.addEventListener('resize', updateMetrics);
-    if (document.fonts) {
-      document.fonts.ready.then(updateMetrics);
-    }
     return () => window.removeEventListener('resize', updateMetrics);
   }, []);
 
@@ -45,76 +45,86 @@ export const ScrollStatement: React.FC<ScrollStatementProps> = ({ onBookDemoClic
     offset: ['start start', 'end end'],
   });
 
-  // Track horizontal movement (0.00 -> 0.40 -> 0.55)
-  const trackX = useTransform(scrollYProgress, (val) => {
+  const isMobile = metrics.vw < 640;
+  const logoHalfWidth = isMobile ? 28 : 40;
+  const marqueeGap = isMobile ? 32 : 56;
+
+  // 1. Horizontal Marquee Text: enters in sync with logo (0.00 -> 0.40), exits left (0.40 -> 0.55)
+  const textX = useTransform(scrollYProgress, (val) => {
     if (val <= 0.40) {
       const t = val / 0.40;
-      return metrics.startX + (metrics.finalX - metrics.startX) * t;
+      return metrics.startX * (1 - t);
     }
     if (val <= 0.55) {
       const t = (val - 0.40) / (0.55 - 0.40);
-      const exitX = metrics.finalX - (metrics.vw * 0.8);
-      return metrics.finalX + (exitX - metrics.finalX) * t;
+      return - (metrics.vw * 0.85) * t;
     }
-    return metrics.finalX - (metrics.vw * 0.8);
+    return - (metrics.vw * 0.85);
+  });
+  const textOpacity = useTransform(scrollYProgress, [0.38, 0.48], [1, 0]);
+
+  // 2. THE SINGLE MASTER LOGO:
+  // Enters from right (0.00 -> 0.40) to exact center (0), stays locked to dead center (0.40 -> 1.00)
+  const logoX = useTransform(scrollYProgress, (val) => {
+    if (val <= 0.40) {
+      const t = val / 0.40;
+      return metrics.startX * (1 - t);
+    }
+    return 0;
   });
 
-  // Logo counter-transform to stay at center while track overshoots
-  const logoCompensateX = useTransform(scrollYProgress, (val) => {
-    if (val <= 0.40) return 0;
-    if (val <= 0.55) {
-      const t = (val - 0.40) / (0.55 - 0.40);
-      return (metrics.vw * 0.8) * t;
-    }
-    return metrics.vw * 0.8;
-  });
+  // 3. Blue Circle expands from behind centered logo (0.44 -> 0.62)
+  const circleScale = useTransform(scrollYProgress, [0.44, 0.50, 0.62, 1.0], [0, 1.5, 60, 60]);
+  const circleOpacity = useTransform(scrollYProgress, [0.42, 0.46, 1.0], [0, 1, 1]);
 
-  // Text fades as it exits left
-  const textOpacity = useTransform(scrollYProgress, [0.44, 0.52], [1, 0]);
+  // Solid blue base fills screen
+  const blueFillOpacity = useTransform(scrollYProgress, [0.54, 0.62], [0, 1]);
 
-  // Blue circle expands from behind centered logo
-  const circleScale = useTransform(scrollYProgress, [0.40, 0.44, 0.58, 1.0], [0, 1.2, 50, 50]);
-  const circleOpacity = useTransform(scrollYProgress, [0.39, 0.41, 1.0], [0, 1, 1]);
+  // 4. Logo Vertical Movement (0.60 -> 0.84):
+  // User sketch Frame 4: "same logo move up slitly and foodercard + text come"
+  // Dead center (0) until 0.60, then smoothly glides upward along vertical centerline to -dockedDistanceY
+  const dockedDistanceY = isMobile
+    ? Math.max(40, Math.round(456 - (metrics.vh / 2)))
+    : Math.round((metrics.vh / 2) - (metrics.vh < 850 ? 56 : 72));
 
-  // Solid blue base
-  const blueFillOpacity = useTransform(scrollYProgress, [0.55, 0.58], [0, 1]);
-
-  // LOGO moves up gracefully: from center (0) to -20vh
   const logoY = useTransform(scrollYProgress, (val) => {
-    if (val <= 0.58) return 0;
-    if (val <= 0.74) {
-      const t = (val - 0.58) / (0.74 - 0.58);
-      return -metrics.vh * 0.20 * t;
+    if (val <= 0.60) return 0;
+    if (val <= 0.84) {
+      const t = (val - 0.60) / (0.84 - 0.60);
+      const ease = 1 - Math.pow(1 - t, 3);
+      return -dockedDistanceY * ease;
     }
-    return -metrics.vh * 0.20;
+    return -dockedDistanceY;
   });
 
-  // Headline + buttons rise gently
-  const contentY = useTransform(scrollYProgress, (val) => {
-    if (val <= 0.58) return 0;
-    if (val <= 0.74) {
-      const t = (val - 0.58) / (0.74 - 0.58);
-      return -metrics.vh * 0.08 * t;
-    }
-    return -metrics.vh * 0.08;
-  });
+  // 5. Headline and buttons reveal directly below the logo as it glides up (0.65 -> 0.80)
+  const textRevealOpacity = useTransform(scrollYProgress, [0.65, 0.80], [0, 1]);
 
-  // Fade in headline + buttons once logo has already risen and cleared
-  const revealOpacity = useTransform(scrollYProgress, [0.70, 0.80], [0, 1]);
+  // 6. Footer card rises up smoothly from bottom and docks flush to bottom (0.65 -> 0.88)
+  const cardY = useTransform(scrollYProgress, (val) => {
+    if (val <= 0.65) return metrics.vh * 0.45;
+    if (val <= 0.88) {
+      const t = (val - 0.65) / (0.88 - 0.65);
+      const ease = 1 - Math.pow(1 - t, 3);
+      return (metrics.vh * 0.45) * (1 - ease);
+    }
+    return 0;
+  });
+  const cardOpacity = useTransform(scrollYProgress, [0.65, 0.78], [0, 1]);
 
   return (
-    <section className="w-full bg-[#050505] relative">
+    <section className="w-full bg-[#050505] relative z-[60]">
       {/* Solid blue behind everything once circle fills */}
       <motion.div
         style={{ opacity: blueFillOpacity }}
         className="absolute inset-0 bg-[#2563EB] pointer-events-none z-0"
       />
 
-      {/* Scroll runway */}
-      <div ref={containerRef} className="relative h-[560vh] z-10">
+      {/* Smooth scroll runway */}
+      <div ref={containerRef} className="relative h-[340vh] z-10">
         
         {/* Full-screen sticky viewport */}
-        <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden bg-[#050505] select-none">
+        <div className="sticky top-0 h-screen w-full flex flex-col justify-between items-center overflow-hidden bg-[#050505] select-none">
           
           {/* Ambient dot grid */}
           <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.06)_1px,transparent_1px)] [background-size:32px_32px] pointer-events-none z-0" />
@@ -125,88 +135,110 @@ export const ScrollStatement: React.FC<ScrollStatementProps> = ({ onBookDemoClic
             className="absolute inset-0 bg-[#2563EB] z-10 pointer-events-none"
           />
 
-          {/* HORIZONTAL TRACK: [ TEXT ··· gap ··· LOGO ] */}
+          {/* PHASE 1-2 MARQUEE TEXT: Moves in sync with logo, exits to left */}
           <motion.div
-            ref={trackRef}
-            style={{ x: trackX }}
-            className="absolute top-1/2 left-0 -translate-y-1/2 flex items-center whitespace-nowrap will-change-transform z-40 pointer-events-none"
+            style={{
+              right: `calc(50% + ${logoHalfWidth + marqueeGap}px)`,
+              x: textX,
+              opacity: textOpacity,
+            }}
+            className="absolute inset-y-0 whitespace-nowrap z-20 pointer-events-none flex items-center justify-end will-change-transform"
           >
-            {/* Statement text */}
-            <motion.span
-              style={{ opacity: textOpacity }}
+            <span
+              ref={textSpanRef}
               className="font-display font-extrabold tracking-tight text-white text-5xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] leading-none uppercase whitespace-nowrap drop-shadow-sm shrink-0"
             >
               One campus, one connected experience
-            </motion.span>
-
-            {/* Gap */}
-            <div className="w-10 sm:w-14 md:w-20 shrink-0" />
-
-            {/* LOGO — moves up gracefully once blue fills */}
-            <motion.div
-              ref={logoRef}
-              style={{
-                x: logoCompensateX,
-                y: logoY,
-              }}
-              className="shrink-0 flex items-center justify-center will-change-transform relative"
-            >
-              {/* Expanding blue circle from center of logo */}
-              <motion.div
-                style={{ scale: circleScale, opacity: circleOpacity }}
-                className="absolute w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 rounded-full bg-[#2563EB] shadow-[0_0_120px_rgba(37,99,235,0.95)] pointer-events-none"
-              />
-              {/* Logo icon (Official App Logo Squircle) */}
-              <img
-                src="/logo.png"
-                alt="UNISPHERE"
-                className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 object-contain filter drop-shadow-[0_16px_36px_rgba(0,0,0,0.45)] relative z-10 select-none"
-              />
-            </motion.div>
+            </span>
           </motion.div>
 
-          {/* HEADLINE + BUTTONS — positioned with comfortable, elegant clearance below logo */}
-          <motion.div
-            style={{ y: contentY }}
-            className="absolute inset-x-0 top-0 flex flex-col items-center will-change-transform z-50 pointer-events-auto pt-[calc(50vh+4.5rem)] sm:pt-[calc(50vh+5rem)] md:pt-[calc(50vh+5.5rem)]"
-          >
+          {/* THE SINGLE MASTER LOGO & CTA GROUP:
+              Positioned via full-screen flexbox centering!
+              When x=0 and y=0, it is 100.00% dead center in the viewport.
+              Zero transform conflicts, zero swaps, zero jumps, zero ghosting! */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-30">
             <motion.div
-              style={{ opacity: revealOpacity }}
-              className="flex flex-col items-center w-full px-4 sm:px-6"
+              style={{
+                x: logoX,
+                y: logoY,
+              }}
+              className="relative flex flex-col items-center text-center will-change-transform pointer-events-none"
             >
-              <h2 className="font-display font-extrabold text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-white tracking-tight leading-[1.08] max-w-4xl text-balance text-center">
-                One campus, one connected experience
-              </h2>
-
-              <div className="mt-6 sm:mt-8 flex items-center justify-center gap-3 sm:gap-4">
-                <button
-                  type="button"
-                  onClick={onBookDemoClick}
-                  className="px-6 sm:px-7 py-3 sm:py-3.5 rounded-full font-extrabold text-xs sm:text-sm bg-[#090d1a] hover:bg-black text-white shadow-xl flex items-center gap-2.5 transition-all active:scale-95 cursor-pointer group"
-                >
-                  <Calendar className="w-4 h-4 text-white/90" />
-                  <span>Start Now</span>
-                  <div className="w-5 h-5 rounded-full bg-[#2563EB] flex items-center justify-center text-white ml-0.5">
-                    <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
-                  </div>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={onBookDemoClick}
-                  className="px-6 sm:px-7 py-3 sm:py-3.5 rounded-full font-extrabold text-xs sm:text-sm bg-white hover:bg-slate-100 text-[#0F172A] shadow-xl transition-all active:scale-95 flex items-center gap-2 cursor-pointer"
-                >
-                  <span>Talk to sales</span>
-                </button>
+              {/* Logo Badge Container: normal flow defines element position at center */}
+              <div className="relative flex items-center justify-center shrink-0">
+                {/* Expanding blue circle from center of logo */}
+                <motion.div
+                  style={{ scale: circleScale, opacity: circleOpacity }}
+                  className="absolute w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full bg-[#2563EB] shadow-[0_0_120px_rgba(37,99,235,0.95)] pointer-events-none"
+                />
+                {/* The Logo Image directly without any outer background */}
+                <img
+                  src="/logo.png"
+                  alt="Unisphere SRM Logo"
+                  className="w-14 h-14 sm:w-18 sm:h-18 md:w-20 md:h-20 object-contain relative z-10 select-none drop-shadow-xl"
+                />
               </div>
+
+              {/* CTA Headline & Action Buttons:
+                  Positioned directly below the logo with explicit horizontal centering.
+                  Moves up in perfect harmony with the logo as it glides up. */}
+              <motion.div
+                style={{
+                  opacity: textRevealOpacity,
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                }}
+                className="absolute top-full w-[90vw] sm:w-[85vw] max-w-4xl flex flex-col items-center text-center pointer-events-auto"
+              >
+                {/* Headline: strictly 10-20px below logo */}
+                <h2 className="mt-2 sm:mt-3.5 font-display font-extrabold text-xl sm:text-3xl lg:text-4xl text-white tracking-tight leading-[1.12] max-w-3xl text-balance">
+                  One campus, one connected experience
+                </h2>
+
+                {/* Action Buttons: strictly 12-24px below headline */}
+                <div className="mt-2.5 sm:mt-4 flex items-center justify-center gap-2.5 sm:gap-4 flex-wrap">
+                  {/* Start Now Button: Curved rectangle with app blue badge (#2563EB) & white play icon */}
+                  <button
+                    type="button"
+                    onClick={onBookDemoClick}
+                    className="bg-[#0B0F19] hover:bg-black text-white pl-5 sm:pl-7 pr-2 sm:pr-2.5 py-1.5 sm:py-2.5 rounded-xl sm:rounded-2xl font-bold text-xs sm:text-base flex items-center gap-2 sm:gap-3 shadow-xl transition-all active:scale-95 cursor-pointer group"
+                  >
+                    <span>Start Now</span>
+                    <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-[#2563EB] flex items-center justify-center text-white shadow-xs shrink-0 group-hover:scale-105 transition-transform">
+                      <Play className="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-white text-white ml-0.5" />
+                    </div>
+                  </button>
+
+                  {/* Talk to sales Button: Curved rectangle in pure white */}
+                  <button
+                    type="button"
+                    onClick={onBookDemoClick}
+                    className="bg-white hover:bg-slate-50 text-[#0F172A] font-bold text-xs sm:text-base px-5 sm:px-7 py-2 sm:py-3.5 rounded-xl sm:rounded-2xl shadow-xl transition-all active:scale-95 flex items-center justify-center cursor-pointer"
+                  >
+                    <span>Talk to sales</span>
+                  </button>
+                </div>
+              </motion.div>
             </motion.div>
+          </div>
+
+          {/* BOTTOM FOOTER CARD: Sits flush to bottom edge, rises smoothly from 0.65 to 0.88 */}
+          <motion.div
+            style={{ y: cardY, opacity: cardOpacity }}
+            className="absolute bottom-0 inset-x-0 w-full pointer-events-auto z-40"
+          >
+            <Footer
+              variant="floating"
+              showCTA={false}
+              compact={true}
+              showWordmark={true}
+              onBookDemoClick={onBookDemoClick}
+              onGetStartedClick={onBookDemoClick}
+            />
           </motion.div>
 
         </div>
       </div>
-
-      {/* Seamless blue transition into Footer */}
-      <div className="w-full h-4 bg-[#2563EB] relative z-10" />
     </section>
   );
 };

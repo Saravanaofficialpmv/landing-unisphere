@@ -1,466 +1,401 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { 
-  ArrowLeft, 
-  Layers, 
-  ChevronRight,
-  Info,
-  Clock,
-  Scale
-} from 'lucide-react';
-import { Footer } from '../components/Footer';
+import { Scale, Ban } from 'lucide-react';
+import { LegalLayout, SectionItem } from '../components/LegalLayout';
 
 export const TermsOfService: React.FC = () => {
-  const [activeSection, setActiveSection] = useState<string>('acceptance');
-
-  const sections = [
+  const sections: SectionItem[] = [
     { id: 'acceptance-of-terms', title: '1. Acceptance of Terms' },
-    { id: 'about-unisphere', title: '2. About Unisphere' },
-    { id: 'eligibility-access', title: '3. Eligibility & Account Access' },
-    { id: 'acceptable-use', title: '4. Acceptable Use' },
-    { id: 'user-responsibilities', title: '5. User Responsibilities' },
-    { id: 'academic-information', title: '6. Academic & Institutional Information' },
-    { id: 'intellectual-property', title: '7. Intellectual Property' },
-    { id: 'third-party-services', title: '8. Third-Party Services' },
-    { id: 'service-availability', title: '9. Service Availability' },
-    { id: 'disclaimers', title: '10. Disclaimers' },
-    { id: 'limitation-of-liability', title: '11. Limitation of Liability' },
-    { id: 'suspension-termination', title: '12. Account Suspension or Termination' },
-    { id: 'changes-to-terms', title: '13. Changes to Terms' },
-    { id: 'contact-information', title: '14. Contact Information' },
+    { id: 'about-unisphere', title: '2. About UNISPHERE' },
+    { id: 'eligibility-authorized-users', title: '3. Eligibility & Authorized Users' },
+    { id: 'user-accounts', title: '4. User Accounts' },
+    { id: 'role-based-access', title: '5. Role-Based Access' },
+    { id: 'acceptable-use', title: '6. Acceptable Use' },
+    { id: 'academic-institutional-data', title: '7. Academic & Institutional Data' },
+    { id: 'user-responsibilities', title: '8. User Responsibilities' },
+    { id: 'intellectual-property', title: '9. Intellectual Property' },
+    { id: 'third-party-services', title: '10. Third-Party Services' },
+    { id: 'platform-availability', title: '11. Platform Availability' },
+    { id: 'notifications-communications', title: '12. Notifications & Communications' },
+    { id: 'suspension-termination', title: '13. Account Suspension / Termination' },
+    { id: 'disclaimers-limitations', title: '14. Disclaimers & Limitations' },
+    { id: 'changes-to-service', title: '15. Changes to the Service' },
+    { id: 'changes-to-terms', title: '16. Changes to These Terms' },
+    { id: 'governing-framework', title: '17. Governing Legal Framework' },
+    { id: 'contact-information', title: '18. Contact Information' },
   ];
 
-  useEffect(() => {
-    document.title = 'Terms of Service — Unisphere';
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY + 200;
-      for (const section of sections) {
-        const el = document.getElementById(section.id);
-        if (el) {
-          const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveSection(section.id);
-            break;
-          }
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-    e.preventDefault();
-    const el = document.getElementById(id);
-    if (el) {
-      const yOffset = -90;
-      const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
-      window.scrollTo({ top: y, behavior: 'smooth' });
-    }
-  };
+  const noticeContent = (
+    <div>
+      <span className="font-bold text-content-primary">Higher Education Platform Agreement: </span>
+      These Terms of Service govern access to and usage of the UNISPHERE platform for institutional partner organizations, enrolled students, faculty members, department heads, and parents. By accessing the platform, users agree to uphold academic integrity standards, maintain credential security, and comply with institutional university policies.
+    </div>
+  );
 
   return (
-    <div className="min-h-screen bg-white text-content-primary flex flex-col selection:bg-primary/15 selection:text-primary font-sans antialiased">
-      {/* Sticky Top Header */}
-      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-border/80 shadow-2xs">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Link 
-              to="/" 
-              className="flex items-center gap-2.5 group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg"
-            >
-              <img 
-                src="/logo.png" 
-                alt="Unisphere Logo" 
-                className="w-9 h-9 object-contain rounded-xl shadow-xs group-hover:scale-105 transition-transform duration-200" 
-              />
-              <span className="font-extrabold text-lg tracking-tight text-content-primary">
-                Unisphere
-              </span>
-            </Link>
+    <LegalLayout
+      title="Terms of Service"
+      subtitle="Standard operational conditions, institutional obligations, user responsibilities, and legal governance for UNISPHERE academic platform."
+      badgeText="Platform Terms & Governance"
+      badgeIcon={Scale}
+      effectiveDate="September 2026"
+      version="2.4"
+      sections={sections}
+      noticeContent={noticeContent}
+    >
+      {/* 1. Acceptance of Terms */}
+      <section id="acceptance-of-terms" className="scroll-mt-24 pt-4 border-t border-border/70">
+        <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
+          <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center shrink-0">1</span>
+          <span>Acceptance of Terms</span>
+        </h2>
+        <div className="space-y-3.5 text-content-secondary">
+          <p>
+            These Terms of Service ("Terms") constitute a legally binding agreement between you ("User", "you", or "your") and <strong className="text-content-primary font-bold">UNISPHERE</strong> ("UNISPHERE", "the Platform", "we", "our", or "us"). These Terms govern your access to and use of UNISPHERE web portals, mobile interfaces, and related software services.
+          </p>
+          <p>
+            By logging into the Platform via your institutional single sign-on, registering an account, or interacting with any UNISPHERE service, you affirm that you have read, understood, and agreed to be bound by these Terms, as well as the policies of your subscribing educational institution.
+          </p>
+          <p className="text-xs text-content-tertiary">
+            If you are accessing UNISPHERE on behalf of an educational institution, you represent and warrant that you possess the necessary administrative authority to bind that institution to these Terms.
+          </p>
+        </div>
+      </section>
 
-            <span className="text-border-dark">/</span>
-            <span className="text-sm font-semibold text-content-secondary hidden sm:inline">
-              Terms of Service
-            </span>
-          </div>
+      {/* 2. About UNISPHERE */}
+      <section id="about-unisphere" className="scroll-mt-24 pt-8 border-t border-border/70">
+        <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
+          <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center shrink-0">2</span>
+          <span>About UNISPHERE</span>
+        </h2>
+        <div className="space-y-3.5 text-content-secondary">
+          <p>
+            UNISPHERE is a unified academic operations platform engineered specifically for colleges, universities, and polytechnic institutes. The platform provides integrated tools for:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm">
+            <li>Automated attendance logging, timetable scheduling, and curriculum tracking.</li>
+            <li>Role-specific portal experiences for Students, Faculty, HODs, Parents, and Administrators.</li>
+            <li>Departmental workload management, elective allocation, and performance analytics.</li>
+            <li>Institutional notifications, circular distributions, and secure parent communication channels.</li>
+          </ul>
+        </div>
+      </section>
 
-          <div className="flex items-center gap-3">
-            <Link
-              to="/"
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-content-secondary hover:text-content-primary bg-surface-soft hover:bg-surface-muted border border-border rounded-xl transition-colors"
-            >
-              <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Back to Home</span>
-            </Link>
+      {/* 3. Eligibility and Authorized Users */}
+      <section id="eligibility-authorized-users" className="scroll-mt-24 pt-8 border-t border-border/70">
+        <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
+          <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center shrink-0">3</span>
+          <span>Eligibility and Authorized Users</span>
+        </h2>
+        <div className="space-y-3.5 text-content-secondary">
+          <p>
+            Access to UNISPHERE is restricted strictly to authorized individuals affiliated with an actively subscribing educational institution:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm">
+            <li><strong className="text-content-primary font-semibold">Active Students:</strong> Currently enrolled in an accredited program administered by the partner institution.</li>
+            <li><strong className="text-content-primary font-semibold">Faculty & Staff:</strong> Employed or officially contracted educators, professors, and teaching assistants.</li>
+            <li><strong className="text-content-primary font-semibold">Department Leadership:</strong> Appointed Heads of Departments (HODs), deans, and academic coordinators.</li>
+            <li><strong className="text-content-primary font-semibold">Parents / Legal Guardians:</strong> Authorized guardians officially listed on an enrolled student's university profile.</li>
+            <li><strong className="text-content-primary font-semibold">Administrative Personnel:</strong> University IT, registrar staff, and campus executive leadership.</li>
+          </ul>
+        </div>
+      </section>
+
+      {/* 4. User Accounts */}
+      <section id="user-accounts" className="scroll-mt-24 pt-8 border-t border-border/70">
+        <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
+          <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center shrink-0">4</span>
+          <span>User Accounts</span>
+        </h2>
+        <div className="space-y-3.5 text-content-secondary">
+          <p>
+            User accounts are provisioned either directly by your institution's central directory or through official enrollment workflows:
+          </p>
+          <div className="space-y-2.5 my-3 text-sm">
+            <div className="p-3.5 rounded-xl bg-surface-soft border border-border">
+              <strong className="text-content-primary block mb-1">Credential Confidentiality</strong>
+              You are solely responsible for maintaining the confidentiality of your credentials, password, and two-factor authentication tokens. Credential sharing is strictly prohibited.
+            </div>
+            <div className="p-3.5 rounded-xl bg-surface-soft border border-border">
+              <strong className="text-content-primary block mb-1">Prompt Notification of Breach</strong>
+              You must immediately report any suspected unauthorized access, compromised password, or security incident to your campus IT administrator or <a href="mailto:security@unisphere.edu" className="text-primary font-semibold hover:underline">security@unisphere.edu</a>.
+            </div>
+            <div className="p-3.5 rounded-xl bg-surface-soft border border-border">
+              <strong className="text-content-primary block mb-1">Accurate Information</strong>
+              Users must provide accurate, current, and verifiable contact details and keep contact information updated through official institutional channels.
+            </div>
           </div>
         </div>
-      </header>
+      </section>
 
-      {/* Main Container */}
-      <div className="max-w-[1000px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 flex-1">
-        {/* Page Hero Header */}
-        <div className="border-b border-border/80 pb-8 mb-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-subtle border border-primary/20 text-primary text-xs font-bold uppercase tracking-wider mb-4">
-            <Scale className="w-3.5 h-3.5" />
-            <span>Legal Documentation</span>
+      {/* 5. Role-Based Access */}
+      <section id="role-based-access" className="scroll-mt-24 pt-8 border-t border-border/70">
+        <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
+          <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center shrink-0">5</span>
+          <span>Role-Based Access</span>
+        </h2>
+        <div className="space-y-3.5 text-content-secondary">
+          <p>
+            UNISPHERE operates on a strict principle of role compartmentalization. Users are provisioned specific permission tiers based on their academic function:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm">
+            <li>Users may only access interfaces, datasets, and features explicitly authorized for their verified role.</li>
+            <li>Any attempt to circumvent role boundaries, impersonate another user persona, or perform unauthorized privilege escalation is a material violation of these Terms.</li>
+            <li>Role assignments are managed exclusively by designated institutional administrators; UNISPHERE support cannot manually elevate permissions without written administrative sign-off.</li>
+          </ul>
+        </div>
+      </section>
+
+      {/* 6. Acceptable Use */}
+      <section id="acceptable-use" className="scroll-mt-24 pt-8 border-t border-border/70">
+        <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
+          <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center shrink-0">6</span>
+          <span>Acceptable Use</span>
+        </h2>
+        <div className="space-y-3.5 text-content-secondary">
+          <p>
+            UNISPHERE is dedicated exclusively to academic and institutional management. Prohibited activities include:
+          </p>
+          <div className="p-4 rounded-2xl bg-rose-50/50 border border-rose-200/80 text-rose-950 text-xs sm:text-sm space-y-2">
+            <div className="flex items-center gap-2 font-bold text-rose-900">
+              <Ban className="w-4 h-4 text-rose-600" />
+              <span>Expressly Prohibited Conduct:</span>
+            </div>
+            <ul className="list-disc pl-5 space-y-1.5 text-rose-900">
+              <li>Tampering with attendance timestamps, grade matrices, or evaluation logs.</li>
+              <li>Scraping, automated harvesting, or bulk exporting of institutional student directories or faculty contact information.</li>
+              <li>Transmitting unsolicited commercial communications, defamatory remarks, harassment, or unlawful content through campus circular or messaging tools.</li>
+              <li>Injecting malicious software, scripts, ransomware, or exploits into uploaded course files or attachments.</li>
+              <li>Interfering with network infrastructure, conducting denial-of-service (DoS) attacks, or probing platform vulnerability without written authorization.</li>
+            </ul>
           </div>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-content-primary">
-            Terms of Service
-          </h1>
-          <p className="mt-3 text-base sm:text-lg text-content-secondary leading-relaxed">
-            Standard terms, acceptable use policies, and operational agreements governing access to the Unisphere platform.
+          <p className="text-xs text-content-tertiary">
+            Detailed conduct policies are outlined in our dedicated <a href="/acceptable-use" className="text-primary font-semibold hover:underline">Acceptable Use Policy</a>.
+          </p>
+        </div>
+      </section>
+
+      {/* 7. Academic and Institutional Data */}
+      <section id="academic-institutional-data" className="scroll-mt-24 pt-8 border-t border-border/70">
+        <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
+          <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center shrink-0">7</span>
+          <span>Academic and Institutional Data</span>
+        </h2>
+        <div className="space-y-3.5 text-content-secondary">
+          <p>
+            The educational institution retains sole ownership of all student academic records, grading data, attendance logs, and curriculum material uploaded to the Platform.
+          </p>
+          <p>
+            By submitting data to UNISPHERE, the institution grants UNISPHERE a limited, non-exclusive, non-transferable license to host, process, reproduce, and transmit such data solely as necessary to provide the platform services. UNISPHERE will never commercialize, resell, or publicly display institutional data.
+          </p>
+        </div>
+      </section>
+
+      {/* 8. User Responsibilities */}
+      <section id="user-responsibilities" className="scroll-mt-24 pt-8 border-t border-border/70">
+        <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
+          <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center shrink-0">8</span>
+          <span>User Responsibilities</span>
+        </h2>
+        <div className="space-y-3.5 text-content-secondary">
+          <p>
+            Users agree to:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm">
+            <li>Ensure that all submissions, leave justifications, assessment inputs, and feedback forms reflect accurate and honest information.</li>
+            <li>Log out of sessions when accessing UNISPHERE from shared public terminals, library computers, or departmental lab systems.</li>
+            <li>Adhere to the institutional code of conduct and honor pledge established by their educational organization.</li>
+          </ul>
+        </div>
+      </section>
+
+      {/* 9. Intellectual Property */}
+      <section id="intellectual-property" className="scroll-mt-24 pt-8 border-t border-border/70">
+        <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
+          <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center shrink-0">9</span>
+          <span>Intellectual Property</span>
+        </h2>
+        <div className="space-y-3.5 text-content-secondary">
+          <p>
+            The UNISPHERE platform, including all user interfaces, logos, graphics, design systems, algorithms, source code, and documentation, is the exclusive intellectual property of UNISPHERE and its licensors, protected by copyright, trademark, and trade secret laws.
+          </p>
+          <p>
+            Users are granted a personal, non-transferable, revocable license to access the Platform solely in connection with their authorized academic activities. Users may not reverse-engineer, decompile, duplicate, or create derivative works of any portion of UNISPHERE.
+          </p>
+        </div>
+      </section>
+
+      {/* 10. Third-Party Services */}
+      <section id="third-party-services" className="scroll-mt-24 pt-8 border-t border-border/70">
+        <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
+          <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center shrink-0">10</span>
+          <span>Third-Party Services</span>
+        </h2>
+        <div className="space-y-3.5 text-content-secondary">
+          <p>
+            UNISPHERE may interface with third-party software, including institutional single sign-on providers, university payment gateways, and learning management systems.
+          </p>
+          <p>
+            Your interactions with third-party services are governed by the respective terms and privacy policies of those third parties. UNISPHERE is not liable for service disruptions, security failures, or data handling practices originating within external third-party software.
+          </p>
+        </div>
+      </section>
+
+      {/* 11. Platform Availability */}
+      <section id="platform-availability" className="scroll-mt-24 pt-8 border-t border-border/70">
+        <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
+          <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center shrink-0">11</span>
+          <span>Platform Availability</span>
+        </h2>
+        <div className="space-y-3.5 text-content-secondary">
+          <p>
+            We strive to provide continuous, high-availability service with target uptime exceeding 99.5% during active academic semesters.
+          </p>
+          <p>
+            From time to time, scheduled maintenance, security patching, or database optimization may necessitate temporary downtime. Maintenance windows are typically scheduled during off-peak weekend hours with advance notice published via administrative feeds.
+          </p>
+        </div>
+      </section>
+
+      {/* 12. Notifications and Communications */}
+      <section id="notifications-communications" className="scroll-mt-24 pt-8 border-t border-border/70">
+        <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
+          <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center shrink-0">12</span>
+          <span>Notifications and Communications</span>
+        </h2>
+        <div className="space-y-3.5 text-content-secondary">
+          <p>
+            By using UNISPHERE, you consent to receive essential service-related communications, including:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm">
+            <li>Security alerts, password reset confirmation, and authentication verification codes.</li>
+            <li>Official institutional notices, emergency weather or campus closure circulars.</li>
+            <li>Attendance threshold alerts and published grade reports.</li>
+          </ul>
+          <p className="text-xs text-content-tertiary">
+            Essential operational and academic notifications cannot be disabled while maintaining an active student or employee profile.
+          </p>
+        </div>
+      </section>
+
+      {/* 13. Account Suspension or Termination */}
+      <section id="suspension-termination" className="scroll-mt-24 pt-8 border-t border-border/70">
+        <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
+          <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center shrink-0">13</span>
+          <span>Account Suspension or Termination</span>
+        </h2>
+        <div className="space-y-3.5 text-content-secondary">
+          <p>
+            An account may be suspended or deactivated under the following circumstances:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm">
+            <li><strong className="text-content-primary font-semibold">Institutional Status Change:</strong> Graduation, academic withdrawal, faculty resignation, or completion of contractual appointment.</li>
+            <li><strong className="text-content-primary font-semibold">Policy Violation:</strong> Material breach of these Terms, unauthorized data access, credential distribution, or violation of university disciplinary codes.</li>
+            <li><strong className="text-content-primary font-semibold">Security Precaution:</strong> Temporary suspension upon detection of active account compromise, anomalous session velocity, or brute-force authentication attacks.</li>
+          </ul>
+        </div>
+      </section>
+
+      {/* 14. Disclaimers and Limitations */}
+      <section id="disclaimers-limitations" className="scroll-mt-24 pt-8 border-t border-border/70">
+        <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
+          <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center shrink-0">14</span>
+          <span>Disclaimers and Limitations</span>
+        </h2>
+        <div className="space-y-3.5 text-content-secondary">
+          <p className="uppercase text-xs font-bold tracking-wider text-content-primary">
+            Service Disclaimer:
+          </p>
+          <p className="text-xs sm:text-sm">
+            EXCEPT AS EXPRESSLY SET FORTH IN WRITTEN INSTITUTIONAL SERVICE AGREEMENTS, UNISPHERE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR UNINTERRUPTED ERROR-FREE OPERATION.
+          </p>
+          <p className="uppercase text-xs font-bold tracking-wider text-content-primary pt-2">
+            Limitation of Liability:
+          </p>
+          <p className="text-xs sm:text-sm">
+            TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, UNISPHERE SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING LOSS OF DATA, LOSS OF GOODWILL, OR ACADEMIC DISRUPTION ARISING FROM OR RELATED TO YOUR USE OF THE PLATFORM.
+          </p>
+        </div>
+      </section>
+
+      {/* 15. Changes to the Service */}
+      <section id="changes-to-service" className="scroll-mt-24 pt-8 border-t border-border/70">
+        <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
+          <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center shrink-0">15</span>
+          <span>Changes to the Service</span>
+        </h2>
+        <div className="space-y-3.5 text-content-secondary">
+          <p>
+            We continuously refine, update, and improve UNISPHERE. We reserve the right to enhance, modify, or deprecate specific features, user interfaces, or functionality to improve performance, comply with education regulations, or address security needs.
+          </p>
+          <p>
+            Where a platform modification significantly alters core academic workflows, advance advisory notices will be communicated to institutional administrators.
+          </p>
+        </div>
+      </section>
+
+      {/* 16. Changes to These Terms */}
+      <section id="changes-to-terms" className="scroll-mt-24 pt-8 border-t border-border/70">
+        <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
+          <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center shrink-0">16</span>
+          <span>Changes to These Terms</span>
+        </h2>
+        <div className="space-y-3.5 text-content-secondary">
+          <p>
+            We may update these Terms periodically. Notice of material modifications will be provided at least thirty (30) days prior to the effective date via institutional administrator notification and banner announcements on the login portal.
+          </p>
+          <p>
+            Your continued access to the Platform after revisions become effective constitutes your binding acceptance of the updated Terms.
+          </p>
+        </div>
+      </section>
+
+      {/* 17. Governing / Applicable Legal Framework */}
+      <section id="governing-framework" className="scroll-mt-24 pt-8 border-t border-border/70">
+        <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
+          <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center shrink-0">17</span>
+          <span>Governing / Applicable Legal Framework</span>
+        </h2>
+        <div className="space-y-3.5 text-content-secondary">
+          <p>
+            These Terms are governed by and construed in accordance with the substantive laws applicable to higher education software contracts within the jurisdiction specified in the master institutional agreement between UNISPHERE and your subscribing institution.
+          </p>
+          <p>
+            Any disputes arising under these Terms shall be subject to the exclusive jurisdiction and dispute resolution mechanisms designated in your institution's institutional procurement contract.
+          </p>
+        </div>
+      </section>
+
+      {/* 18. Contact Information */}
+      <section id="contact-information" className="scroll-mt-24 pt-8 border-t border-border/70">
+        <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
+          <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center shrink-0">18</span>
+          <span>Contact Information</span>
+        </h2>
+        <div className="space-y-4 text-content-secondary">
+          <p>
+            For legal inquiries, compliance verifications, or contract questions regarding these Terms:
           </p>
 
-          <div className="mt-6 flex flex-wrap items-center gap-4 text-xs font-medium text-content-tertiary">
-            <div className="flex items-center gap-1.5">
-              <Clock className="w-4 h-4 text-content-secondary" />
-              <span>Effective Date: </span>
-              <span className="font-semibold text-content-secondary">
-                August 2026
-              </span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <Info className="w-4 h-4 text-content-secondary" />
-              <span>Version: </span>
-              <span className="font-semibold text-content-secondary">1.0</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Notice Box */}
-        <div className="mb-10 p-5 rounded-2xl bg-surface-soft border border-border/80 flex items-start gap-3.5 text-sm text-content-secondary leading-relaxed">
-          <Info className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-          <div>
-            <span className="font-bold text-content-primary">Institutional usage agreement: </span>
-            Access to Unisphere is authorized for academic, collegiate, and campus administrative purposes. Use of the platform signifies compliance with these terms and standard institutional guidelines.
-          </div>
-        </div>
-
-        {/* Quick Jump Navigation */}
-        <div className="mb-12 p-6 rounded-3xl bg-surface-soft border border-border">
-          <h2 className="text-xs font-extrabold uppercase tracking-wider text-content-primary mb-4 flex items-center gap-2">
-            <Layers className="w-4 h-4 text-primary" />
-            <span>Table of Contents</span>
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
-            {sections.map((sec) => (
-              <a
-                key={sec.id}
-                href={`#${sec.id}`}
-                onClick={(e) => scrollToSection(e, sec.id)}
-                className={`px-3 py-2 rounded-xl transition-all flex items-center justify-between text-xs font-semibold ${
-                  activeSection === sec.id
-                    ? 'bg-white text-primary shadow-xs border border-primary/20 font-bold'
-                    : 'text-content-secondary hover:text-content-primary hover:bg-white/60'
-                }`}
-              >
-                <span>{sec.title}</span>
-                <ChevronRight className={`w-3.5 h-3.5 ${activeSection === sec.id ? 'text-primary' : 'text-content-tertiary'}`} />
+          <div className="p-5 rounded-2xl bg-surface-soft border border-border space-y-3 text-xs sm:text-sm">
+            <div className="font-bold text-content-primary">UNISPHERE Legal & Compliance Division</div>
+            <div className="text-content-secondary">
+              Email:{' '}
+              <a href="mailto:legal@unisphere.edu" className="text-primary font-semibold hover:underline">
+                legal@unisphere.edu
               </a>
-            ))}
+            </div>
+            <div className="text-content-secondary">
+              Institutional Partnerships:{' '}
+              <a href="mailto:institutions@unisphere.edu" className="text-primary font-semibold hover:underline">
+                institutions@unisphere.edu
+              </a>
+            </div>
+            <div className="text-content-tertiary text-xs pt-2 border-t border-border/60">
+              For student-specific enrollment status, course add/drop disputes, or grading appeals, please contact your university department head or registrar's office.
+            </div>
           </div>
         </div>
-
-        {/* Document Content Sections */}
-        <div className="space-y-12 text-content-primary text-sm sm:text-base leading-relaxed">
-          {/* 1. Acceptance of Terms */}
-          <section id="acceptance-of-terms" className="scroll-mt-24 pt-4 border-t border-border/60">
-            <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
-              <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center">1</span>
-              <span>Acceptance of Terms</span>
-            </h2>
-            <div className="space-y-3 text-content-secondary">
-              <p>
-                These Terms of Service ("Terms") constitute a legally binding agreement between you ("User", "you", or "your") and <strong className="text-content-primary">Unisphere</strong> ("the Platform", "we", "us", or "our"), governing your access to and use of the Unisphere web application, mobile interfaces, and academic services.
-              </p>
-              <p>
-                By creating an account, logging in, or interacting with any portion of the Platform, you acknowledge that you have read, understood, and agreed to be bound by these Terms. If you do not agree to these Terms, you must not access or use Unisphere.
-              </p>
-            </div>
-          </section>
-
-          {/* 2. About Unisphere */}
-          <section id="about-unisphere" className="scroll-mt-24 pt-8 border-t border-border/60">
-            <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
-              <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center">2</span>
-              <span>About Unisphere</span>
-            </h2>
-            <div className="space-y-3 text-content-secondary">
-              <p>
-                Unisphere is a unified academic and campus operations platform engineered to centralize academic management across five key stakeholder portals:
-              </p>
-              <ul className="list-disc pl-5 space-y-1 mt-2">
-                <li><strong className="text-content-primary">Student Portal:</strong> Attendance monitoring, timetable schedule, assignment submissions, internal grades, digital fee receipts, and digital gate pass requests.</li>
-                <li><strong className="text-content-primary">Faculty Portal:</strong> Attendance logging, continuous assessment grading, course syllabus tracking, mentoring logs, and circulars.</li>
-                <li><strong className="text-content-primary">HOD Portal:</strong> Department-wide performance metrics, faculty workload distribution, subject allocation, and curriculum analytics.</li>
-                <li><strong className="text-content-primary">Parent Portal:</strong> Real-time student academic progress, verified attendance reports, institutional fee schedules, and direct mentor communication.</li>
-                <li><strong className="text-content-primary">Admin Portal:</strong> Campus-wide role configuration, audit logging, system security governance, and broadcast communications.</li>
-              </ul>
-            </div>
-          </section>
-
-          {/* 3. Eligibility & Account Access */}
-          <section id="eligibility-access" className="scroll-mt-24 pt-8 border-t border-border/60">
-            <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
-              <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center">3</span>
-              <span>Eligibility & Account Access</span>
-            </h2>
-            <div className="space-y-3 text-content-secondary">
-              <p>
-                Access to Unisphere is restricted to verified students, faculty members, parents/guardians, and authorized administrative staff.
-              </p>
-              <ul className="list-disc pl-5 space-y-2 mt-2">
-                <li><strong className="text-content-primary">Account Provisioning:</strong> Accounts are provisioned via institutional roster data or authenticated through Single Sign-On (SSO).</li>
-                <li><strong className="text-content-primary">Accurate Information:</strong> You agree to maintain accurate, current, and complete profile information at all times.</li>
-                <li><strong className="text-content-primary">Account Confidentiality:</strong> You are responsible for safeguarding your login credentials and for all activities occurring under your account. Sharing account credentials is strictly prohibited.</li>
-              </ul>
-            </div>
-          </section>
-
-          {/* 4. Acceptable Use */}
-          <section id="acceptable-use" className="scroll-mt-24 pt-8 border-t border-border/60">
-            <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
-              <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center">4</span>
-              <span>Acceptable Use</span>
-            </h2>
-            <div className="space-y-3 text-content-secondary">
-              <p>
-                You agree to use Unisphere solely for legitimate academic, educational, and authorized campus administrative purposes. You specifically agree NOT to:
-              </p>
-              <ul className="list-disc pl-5 space-y-2 mt-2">
-                <li>Attempt to bypass, alter, or compromise role-based permission boundaries or security mechanisms.</li>
-                <li>Upload, transmit, or distribute malicious code, automated scripts, worms, or denial-of-service payloads.</li>
-                <li>Impersonate another student, faculty member, administrator, or institutional official.</li>
-                <li>Scrape, extract, or harvest database records or personal information without explicit authorization.</li>
-                <li>Post defamatory, harassing, unlawful, or sexually explicit content within messaging channels, discussion boards, or assignment submissions.</li>
-                <li>Falsify attendance records, grades, digital gate passes, or audit trails.</li>
-              </ul>
-            </div>
-          </section>
-
-          {/* 5. User Responsibilities */}
-          <section id="user-responsibilities" className="scroll-mt-24 pt-8 border-t border-border/60">
-            <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
-              <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center">5</span>
-              <span>User Responsibilities</span>
-            </h2>
-            <div className="space-y-3 text-content-secondary">
-              <p>
-                Each user category carries distinct professional and ethical responsibilities:
-              </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
-                <div className="p-4 rounded-2xl bg-surface-soft border border-border">
-                  <h4 className="font-bold text-content-primary text-sm mb-1">Students</h4>
-                  <p className="text-xs text-content-secondary">Submit original academic work, adhere to digital academic integrity, review grade updates promptly, and follow campus gate pass protocols.</p>
-                </div>
-                <div className="p-4 rounded-2xl bg-surface-soft border border-border">
-                  <h4 className="font-bold text-content-primary text-sm mb-1">Faculty & Mentors</h4>
-                  <p className="text-xs text-content-secondary">Record attendance and grading timelines objectively and maintain confidential communication with students and parents.</p>
-                </div>
-                <div className="p-4 rounded-2xl bg-surface-soft border border-border">
-                  <h4 className="font-bold text-content-primary text-sm mb-1">Parents & Guardians</h4>
-                  <p className="text-xs text-content-secondary">Monitor academic updates, track ward progress constructively, and use official messaging for communication.</p>
-                </div>
-                <div className="p-4 rounded-2xl bg-surface-soft border border-border">
-                  <h4 className="font-bold text-content-primary text-sm mb-1">HODs & Administrators</h4>
-                  <p className="text-xs text-content-secondary">Enforce institutional compliance, uphold data privacy standards, and audit system permission delegations.</p>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* 6. Academic & Institutional Information */}
-          <section id="academic-information" className="scroll-mt-24 pt-8 border-t border-border/60">
-            <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
-              <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center">6</span>
-              <span>Academic & Institutional Information</span>
-            </h2>
-            <div className="space-y-3 text-content-secondary">
-              <p>
-                All academic records, curricular syllabi, examination schedules, fee structures, and attendance policies displayed on the Platform are governed by the respective educational institution.
-              </p>
-              <p>
-                While Unisphere facilitates automated aggregation, calculation, and reporting, final academic decisions regarding grade awards, attendance eligibility, and graduation clearance remain under the authority of the institution's Academic Council or designated authority.
-              </p>
-            </div>
-          </section>
-
-          {/* 7. Intellectual Property */}
-          <section id="intellectual-property" className="scroll-mt-24 pt-8 border-t border-border/60">
-            <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
-              <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center">7</span>
-              <span>Intellectual Property</span>
-            </h2>
-            <div className="space-y-3 text-content-secondary">
-              <p>
-                <strong className="text-content-primary">Platform IP:</strong> The Unisphere application software, interface design, brand identity, logos, algorithms, and source code are the proprietary intellectual property of Unisphere and its licensors.
-              </p>
-              <p>
-                <strong className="text-content-primary">Institutional Content:</strong> Course materials, lecture notes, institutional syllabi, and official assets uploaded by the institution remain the property of the respective educational organization or faculty author.
-              </p>
-              <p>
-                <strong className="text-content-primary">Student Submissions:</strong> Intellectual property in student projects, thesis submissions, and coursework is governed by standard institutional academic guidelines.
-              </p>
-            </div>
-          </section>
-
-          {/* 8. Third-Party Services */}
-          <section id="third-party-services" className="scroll-mt-24 pt-8 border-t border-border/60">
-            <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
-              <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center">8</span>
-              <span>Third-Party Services</span>
-            </h2>
-            <div className="space-y-3 text-content-secondary">
-              <p>
-                Unisphere may interface with third-party service providers (such as cloud hosting infrastructure, payment gateways for fee transactions, or SMS delivery networks).
-              </p>
-              <p>
-                Your interactions with third-party utilities are subject to the respective terms and conditions of those external vendors. Unisphere is not liable for service disruptions caused by external third-party integrations outside our reasonable control.
-              </p>
-            </div>
-          </section>
-
-          {/* 9. Service Availability */}
-          <section id="service-availability" className="scroll-mt-24 pt-8 border-t border-border/60">
-            <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
-              <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center">9</span>
-              <span>Service Availability</span>
-            </h2>
-            <div className="space-y-3 text-content-secondary">
-              <p>
-                We strive to maintain continuous platform uptime and reliability. However, Unisphere does not guarantee uninterrupted 100% service availability.
-              </p>
-              <p>
-                Routine maintenance, server upgrades, network outages, or unforeseen emergency incidents may result in temporary service interruptions. Scheduled maintenance windows will be announced in advance through the institutional portal feed whenever feasible.
-              </p>
-            </div>
-          </section>
-
-          {/* 10. Disclaimers */}
-          <section id="disclaimers" className="scroll-mt-24 pt-8 border-t border-border/60">
-            <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
-              <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center">10</span>
-              <span>Disclaimers</span>
-            </h2>
-            <div className="space-y-3 text-content-secondary">
-              <p>
-                THE PLATFORM IS PROVIDED ON AN "AS IS" AND "AS AVAILABLE" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT.
-              </p>
-              <p>
-                We do not warrant that the platform will be error-free, completely bug-free, or that any defects will be immediately resolved. Users are advised to maintain independent verification for mission-critical academic deliverables.
-              </p>
-            </div>
-          </section>
-
-          {/* 11. Limitation of Liability */}
-          <section id="limitation-of-liability" className="scroll-mt-24 pt-8 border-t border-border/60">
-            <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
-              <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center">11</span>
-              <span>Limitation of Liability</span>
-            </h2>
-            <div className="space-y-3 text-content-secondary">
-              <p>
-                To the maximum extent permitted by applicable law, in no event shall Unisphere or its developers be liable for any indirect, incidental, special, consequential, or punitive damages, including loss of data, loss of goodwill, system downtime, or failure to submit assignments due to network interruptions.
-              </p>
-            </div>
-          </section>
-
-          {/* 12. Account Suspension or Termination */}
-          <section id="suspension-termination" className="scroll-mt-24 pt-8 border-t border-border/60">
-            <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
-              <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center">12</span>
-              <span>Account Suspension or Termination</span>
-            </h2>
-            <div className="space-y-3 text-content-secondary">
-              <p>
-                Platform Administrators reserve the right to suspend or terminate user accounts:
-              </p>
-              <ul className="list-disc pl-5 space-y-1 mt-2">
-                <li>Upon violation of these Terms of Service or institutional codes of conduct.</li>
-                <li>In response to security incidents, suspected credential compromise, or malicious activity.</li>
-                <li>Upon formal graduation, academic withdrawal, resignation, or termination of enrollment/employment.</li>
-              </ul>
-            </div>
-          </section>
-
-          {/* 13. Changes to Terms */}
-          <section id="changes-to-terms" className="scroll-mt-24 pt-8 border-t border-border/60">
-            <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
-              <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center">13</span>
-              <span>Changes to Terms</span>
-            </h2>
-            <div className="space-y-3 text-content-secondary">
-              <p>
-                We reserve the right to revise or modify these Terms at any time. When updates occur, the updated terms will be posted on this page with an updated "Effective Date".
-              </p>
-              <p>
-                Continued use of Unisphere following the publication of changes signifies acceptance of the updated terms.
-              </p>
-            </div>
-          </section>
-
-          {/* 14. Contact Information */}
-          <section id="contact-information" className="scroll-mt-24 pt-8 border-t border-border/60">
-            <h2 className="text-xl sm:text-2xl font-bold text-content-primary mb-4 flex items-center gap-2.5">
-              <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary text-xs font-extrabold flex items-center justify-center">14</span>
-              <span>Contact Information</span>
-            </h2>
-            <div className="space-y-3 text-content-secondary">
-              <p>
-                For legal inquiries, terms clarification, or reporting violations of these Terms of Service, please reach out to:
-              </p>
-              <div className="mt-4 p-6 rounded-2xl bg-surface-soft border border-border space-y-3">
-                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 text-sm">
-                  <strong className="text-content-primary min-w-[140px]">Support & Legal Desk:</strong>
-                  <a href="mailto:heydigitals.care@gmail.com" className="text-primary hover:underline font-semibold">
-                    heydigitals.care@gmail.com
-                  </a>
-                </div>
-                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 text-sm">
-                  <strong className="text-content-primary min-w-[140px]">Phone Contact:</strong>
-                  <a href="tel:+919080407021" className="text-content-primary font-semibold hover:text-primary">
-                    +91 9080407021
-                  </a>
-                </div>
-                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 text-sm">
-                  <strong className="text-content-primary min-w-[140px]">Official Website:</strong>
-                  <a href="https://heydigital.work" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">
-                    heydigital.work
-                  </a>
-                </div>
-              </div>
-            </div>
-          </section>
-        </div>
-
-        {/* Bottom Back Button */}
-        <div className="mt-14 pt-8 border-t border-border/80 flex items-center justify-between">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-bold text-content-primary bg-surface-soft hover:bg-surface-muted border border-border rounded-xl transition-all"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            <span>Back to Application Home</span>
-          </Link>
-
-          <Link
-            to="/privacy-policy"
-            className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-bold text-primary hover:text-primary-dark bg-primary-subtle hover:bg-primary/10 border border-primary/20 rounded-xl transition-all"
-          >
-            <span>View Privacy Policy</span>
-            <ChevronRight className="w-4 h-4" />
-          </Link>
-        </div>
-      </div>
-
-      {/* Footer */}
-      <Footer 
-        onGetStartedClick={() => { window.location.href = 'https://www.heydigital.work/contact.html'; }} 
-      />
-    </div>
+      </section>
+    </LegalLayout>
   );
 };
 
